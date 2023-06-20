@@ -1,7 +1,7 @@
 'use strict'
 
 const {Router} = require("express");
-const { createUser, readUser, updateUser, deleteUser, loginUser } = require("../controllers/user.controller");
+const { createUser, readUser, updateUser, deleteUser, loginUser } = require("../controller/user.controller");
 const api = Router();
 
 api.post('/create-user', createUser);
