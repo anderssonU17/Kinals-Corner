@@ -45,8 +45,6 @@ const readHelpSocials = async (req, res) => {
 
 //------------------------------------------------------update help Social--------------------------------------------
 
-// ... (código anterior)
-
 const patchHelpSocial = async (req, res) => {
     try {
       const token = req.header('x-auth-token'); // Obtener el token del encabezado
@@ -72,14 +70,39 @@ const patchHelpSocial = async (req, res) => {
     }
   };
   
-  
-  // ... (código posterior)
-  
+//-------------------------------------------------------delete Help Social------------------------------------------------------
+
+const deleteHelpSocial = async(req, res) => {
+    try{
+
+        const token = req.header('x-auth-token');
+        const decoded = generateJWT(token);
+        const helpSocialD = req.body;
+
+        const deleteH = await HelpSocial.findOneAndDelete(helpSocialD);
+
+        if(!decoded){
+            res.status(404).send({
+                msg: "El token que ingresaste es invalido"
+            });
+        }
+
+        res.status(200).send({
+            msg: "La ayuda social se elimino de forma correcta",
+            eliminate: deleteH
+        })
+
+    }catch(err){
+        res.status(404).send({message: 'error en la peticion para eliminar la ayuda social'});
+        throw new Error('ocurrio un error al eliminar'); 
+    }
+}
 
   module.exports = {
     createHelpSocials,
     readHelpSocials,
-    patchHelpSocial
+    patchHelpSocial,
+    deleteHelpSocial
   }
 
 
