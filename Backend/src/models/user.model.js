@@ -21,7 +21,23 @@ const UserSchema = new Schema({
         type: String,
         enum: ['USER', 'ADMIN'],
         default: 'USER'
-    }
+    }, 
+    banned: { 
+        type: Boolean, 
+        default: false 
+    },
+    notificationsEnabled: { 
+        type: Boolean, 
+        default: true 
+    },
+    notifications: [
+    {
+        type: { type: String, required: true },
+        message: { type: String, required: true },
+        date: { type: Date, default: Date.now },
+        read: { type: Boolean, default: false },
+    },
+  ],
 })
 
 module.exports = mongoose.model('User', UserSchema);

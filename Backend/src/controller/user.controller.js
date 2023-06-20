@@ -4,6 +4,7 @@ const  {generateJWT} = require('../helpers/create-jwt');
 const User = require('../models/user.model');
 const bcrypt = require('bcrypt');
 
+/* Función para crear un usuario */
 const createUser = async (req, res) => {
     const {name, email, password } = req.body;
     try {
@@ -24,18 +25,22 @@ const createUser = async (req, res) => {
     }
 }
 
+/* Función para listar usuarios */
 const readUser = async (req, res) => {
     try {
-        const idUser = req.user._id;
-        const user = await User.findById(idUser);
-        if (!user) return res.status(400)({ message: "No se encontró el usuario" });
-        return res.status(200)({ message: "Usuario encontrado", user });
+        const user = await User.find();
+        if (!user) {
+            return res.status(400).json({ message: "No se encontró el usuario" });
+        } else {
+            return res.status(200).json({ message: "Usuario encontrado", user });
+        }
     } catch (error) {
         console.log(error)
         return res.status(500).json({ message: "No se ha podido listar correctamente" })
     }
 }
 
+/* Función para editar un usuario */
 const updateUser = async (req, res) => {
     try {
         const id = req.params.id;
@@ -57,6 +62,7 @@ const updateUser = async (req, res) => {
     }
 }
 
+/* Función para eliminar un usuario */
 const deleteUser = async (req, res) => {
     try {
         const id = req.params.id;
@@ -68,6 +74,7 @@ const deleteUser = async (req, res) => {
     }
 }
 
+/* Función para logearse en la página */
 const loginUser = async (req, res) => {
     const {email, password} = req.body;
     try {
@@ -78,7 +85,7 @@ const loginUser = async (req, res) => {
             if(error) return res.status(500).send({message: "Se ha producido un error"});
             if(result) {
                 const token = await generateJWT(user.id, user.email);
-                res.status(200).json({ok: true, uid: user.id, email: user.email, token});
+                res.status(200).json({ok: true, token: user.token, email: user.email, token});
             }
         })
     } catch (error) {
@@ -87,6 +94,7 @@ const loginUser = async (req, res) => {
     }
 }
 
+/* Función para crear un usuario por default */
 const userDefault = async(req, res) =>{
     const user = await User.find();
     try{
