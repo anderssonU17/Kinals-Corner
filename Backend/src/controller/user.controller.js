@@ -28,7 +28,9 @@ const createUser = async (req, res) => {
 /* Función para listar usuarios */
 const readUser = async (req, res) => {
     try {
-        const user = await User.find();
+
+        const idUser = req.user._id;
+        const user = await User.find(idUser);
         if (!user) {
             return res.status(400).json({ message: "No se encontró el usuario" });
         } else {
@@ -61,7 +63,7 @@ const readProfileUser = async (req, res) => {
 /* Función para editar un usuario */
 const updateUser = async (req, res) => {
     try {
-        const id = req.params.id;
+        const id = req.user._id;
         const user = { ...req.body }
 
         user.password = user.password
@@ -83,9 +85,9 @@ const updateUser = async (req, res) => {
 /* Función para eliminar un usuario */
 const deleteUser = async (req, res) => {
     try {
-        const id = req.params.id;
+        const id = req.user._id;
         const user = await User.findByIdAndDelete(id);
-        return res.status(200).json({ message: `${id} se elimino correctamente`, user });
+        return res.status(200).json({ message: `El usuario se elimino correctamente`, user });
     } catch (error) {
         console.log(error)
         return res.status(500).json({ message: "No se ha podido eliminar correctamente" });

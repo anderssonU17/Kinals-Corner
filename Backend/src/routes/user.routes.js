@@ -25,21 +25,19 @@ api.post('/create-user', [
 
 /* Ruta para listar los usuarios */
 api.get('/list-user', [
-    rolAdmin
+    /* rolAdmin */
 ], readUser);
 
 /* Ruta para ver el usuario propio */
 api.get('/search-user', [
     validateJWT,
-    check('token', "El parametro token es necesario para hacer la petición").not().isEmpty(),
-    check('idUser', "El parametro idUser es necesario para hacer la petición").not().isEmpty(),
     validateParams
 ], readProfileUser)
 
 /* Ruta para editar un usuario */
 api.put('/update-user/:id', [
     validateJWT,
-    rolAdmin
+    /* rolAdmin */
 ], updateUser);
 
 /* Ruta para editar el usuario logeado */
@@ -50,7 +48,7 @@ api.put('/update-user', [
 /* Ruta para eliminar un usuario */
 api.delete('/delete-user',[
     validateJWT,
-    rolAdmin
+/*     rolAdmin */
 ], deleteUser);
 
 /* Ruta para inciar sesión */
