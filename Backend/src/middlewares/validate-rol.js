@@ -12,3 +12,5 @@ const rolAdmin = (req = request, res = response, next) => {
 
     next();
 }
+
+module.exports = {rolAdmin}

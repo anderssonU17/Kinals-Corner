@@ -1,15 +1,15 @@
 'use strict'
 
-const  {generateJWT} = require('../helpers/create-jwt');
+const { generateJWT } = require('../helpers/create-jwt');
 const User = require('../models/user.model');
 const bcrypt = require('bcrypt');
 
 /* Función para crear un usuario */
 const createUser = async (req, res) => {
-    const {name, email, password } = req.body;
+    const { name, email, password } = req.body;
     try {
         let user = await User.findOne({ email });
-        if (user) return res.status(500).json({ message: "Un usuario ya esta registrado con este nombre", ok: false, user: user});
+        if (user) return res.status(500).json({ message: "Un usuario ya esta registrado con este nombre", ok: false, user: user });
         user = new User(req.body);
 
         const saltos = bcrypt.genSaltSync();
@@ -18,7 +18,7 @@ const createUser = async (req, res) => {
         user = await user.save();
 
         const token = await generateJWT(user.id, user.name, user.email, user.password);
-        return res.status(200).json({ message: `El usuario ${user} ha sido creado correctamente`, user, token: token});
+        return res.status(200).json({ message: `El usuario ${user} ha sido creado correctamente`, user, token: token });
     } catch (error) {
         console.log(error);
         return res.status(500).json({ message: "Hubo un error en la creación del usuario", });
@@ -39,6 +39,24 @@ const readUser = async (req, res) => {
         return res.status(500).json({ message: "No se ha podido listar correctamente" })
     }
 }
+
+/* Función para listar el usuario propio*/
+const readProfileUser = async (req, res) => {
+    try {
+        const idUser = req.user._id;
+
+        const searchUser = await User.findById(idUser);
+
+        if (!searchUser) return res.status(500).json({ message: "No se ha encontrado el usuario" });
+
+        return res.status(200).json({ message: "Usuario encontrado", searchUser });
+
+    } catch (error) {
+        console.log(error);
+        return res.status(500).json({ message: "No se pudo listar el perfil del usuario" });
+    }
+}
+
 
 /* Función para editar un usuario */
 const updateUser = async (req, res) => {
@@ -76,29 +94,35 @@ const deleteUser = async (req, res) => {
 
 /* Función para logearse en la página */
 const loginUser = async (req, res) => {
-    const {email, password} = req.body;
+    const { email, password } = req.body;
     try {
-        const user = await User.findOne({email});
-        if(!user) return res.status(500).json({message: "Para ingresar, primero debe registrarse"});
+        const user = await User.findOne({ email });
+        if (!user) return res.status(500).json({ message: "Para ingresar, primero debe registrarse" });
 
         bcrypt.compare(password, user.password, async (error, result) => {
-            if(error) return res.status(500).send({message: "Se ha producido un error"});
-            if(result) {
+            if (error) return res.status(500).send({ message: "Se ha producido un error" });
+            if (result) {
                 const token = await generateJWT(user.id, user.email);
-                res.status(200).json({ok: true, token: user.token, email: user.email, token});
+                res.status(200).json({
+                    ok: true,
+                    message: "Se ha iniciado sesión correctamente",
+                    token: user.token,
+                    email: user.email,
+                    token
+                });
             }
         })
     } catch (error) {
         console.log(error)
-        return res.status(500).json({message: "No se ha podido iniciar sesión correctamente"});
+        return res.status(500).json({ message: "No se ha podido iniciar sesión correctamente" });
     }
 }
 
 /* Función para crear un usuario por default */
-const userDefault = async(req, res) =>{
+const userDefault = async (req, res) => {
     const user = await User.find();
-    try{
-        if(user.length == 0){
+    try {
+        if (user.length == 0) {
             user = new User();
 
             user.name = "usuarioPrueba";
@@ -110,7 +134,7 @@ const userDefault = async(req, res) =>{
             user = await user.save();
             return console.log(`El usuario ${user} ha sido creado por defecto`);
         }
-    }catch(error){
+    } catch (error) {
         console.log(error)
     }
 }
@@ -121,5 +145,6 @@ module.exports = {
     updateUser,
     deleteUser,
     loginUser,
-    userDefault
+    userDefault,
+    readProfileUser
 }

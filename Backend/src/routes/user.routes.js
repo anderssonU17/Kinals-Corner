@@ -2,7 +2,7 @@
 
 const { Router } = require("express");
 const { check } = require("express-validator")
-const { createUser, readUser, updateUser, deleteUser, loginUser } = require("../controller/user.controller");
+const { createUser, readUser, updateUser, deleteUser, loginUser, readProfileUser } = require("../controller/user.controller");
 const { validateParams } = require("../middlewares/validate-params");
 const { validateJWT } = require("../middlewares/validate-jwt");
 const { rolAdmin } = require("../middlewares/validate-rol");
@@ -15,7 +15,7 @@ api.post('/create-user', [
     check('email', 'El parametro email es necesario para la creación del usuario').not().isEmpty(),
     check('email').custom(value => {
         if(!value.endsWith('@kinal.edu.gt') && !value.endsWith('@kinal.org.gt')){
-            return res.status(404).json({message: "El parametro email debe ser de un profesor o estudiante"});
+            throw new Error("El parametro email debe ser de un profesor o estudiante")
         }
         return true;
     }),
@@ -23,13 +23,37 @@ api.post('/create-user', [
     validateParams
 ], createUser);
 
+/* Ruta para listar los usuarios */
+api.get('/list-user', [
+    rolAdmin
+], readUser);
 
-api.get('/list-user', readUser);
+/* Ruta para ver el usuario propio */
+api.get('/search-user', [
+    validateJWT,
+    check('token', "El parametro token es necesario para hacer la petición").not().isEmpty(),
+    check('idUser', "El parametro idUser es necesario para hacer la petición").not().isEmpty(),
+    validateParams
+], readProfileUser)
 
-api.put('/update-user/:id', updateUser);
+/* Ruta para editar un usuario */
+api.put('/update-user/:id', [
+    validateJWT,
+    rolAdmin
+], updateUser);
 
-api.delete('/delete-user', deleteUser);
+/* Ruta para editar el usuario logeado */
+api.put('/update-user', [
+    validateJWT
+], updateUser)
 
+/* Ruta para eliminar un usuario */
+api.delete('/delete-user',[
+    validateJWT,
+    rolAdmin
+], deleteUser);
+
+/* Ruta para inciar sesión */
 api.post('/login', loginUser);
 
 module.exports = api;
