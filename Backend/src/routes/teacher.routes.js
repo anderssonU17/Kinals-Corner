@@ -11,14 +11,21 @@ const {check} = require('express-validator');
 const connetMultiparty = require('connect-multiparty')
 const updload = connetMultiparty({uploadDir: './uploads/teachers'})
 
-const {createTeacher, addImageTeacher} = require('../controller/teacher.controller');
+const {createTeacher, addImageTeacher, getImageTeacher} = require('../controller/teacher.controller');
 
 //********************* */ Endpoints
 // Crear profesor
 api.post('/addTeacher', createTeacher)
 
 //Actualizar y guardar imagen de un profesor CREADO
-api.put('/addImageTeacher', [updload], addImageTeacher)
+api.put('/addImageTeacher', [
+    updload
+], addImageTeacher)
+
+// Obtener imagen de un profesor
+api.get('/getImageTeacher', [
+    updload,
+], getImageTeacher)
 
 
 module.exports = api
