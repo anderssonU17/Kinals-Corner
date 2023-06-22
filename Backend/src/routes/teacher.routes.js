@@ -11,11 +11,42 @@ const {check} = require('express-validator');
 const connetMultiparty = require('connect-multiparty')
 const updload = connetMultiparty({uploadDir: './uploads/teachers'})
 
-const {createTeacher, addImageTeacher, getImageTeacher} = require('../controller/teacher.controller');
+const {createTeacher, addImageTeacher, getImageTeacher, readTeachers, updateTeacher, deleteTeacher} = require('../controller/teacher.controller');
 
-//********************* */ Endpoints
+//**************************** Endpoints ***********************************
 // Crear profesor
-api.post('/addTeacher', createTeacher)
+api.post('/addTeacher',[
+    
+    check('name', 'El parametro name es necesario para actualizar el profesor.').not().isEmpty(),
+    check('mail', 'El parametro mail es necesario para actualizar el profesor.').not().isEmpty(),
+    check('subject', 'El parametro subject es necesario para actualizar el profesor.').not().isEmpty(),
+    validateParams
+
+], createTeacher)
+
+// Ver todos los profesores
+api.get('/getAllTeachers', readTeachers)
+
+//Editar un profesor 
+api.put('/updateTeacher' , [
+    
+    check('teacherId', 'El parametro teacherId es necesario para actualizar el profesor.').not().isEmpty(),
+    check('name', 'El parametro name es necesario para actualizar el profesor.').not().isEmpty(),
+    check('mail', 'El parametro mail es necesario para actualizar el profesor.').not().isEmpty(),
+    check('subject', 'El parametro subject es necesario para actualizar el profesor.').not().isEmpty(),
+    validateParams
+
+],updateTeacher)
+
+//Eliminar profesor junto a su imagen
+api.delete('/deleteTeacher',[
+
+    check('teacherId', 'El parametro teacherId es necesario para actualizar el profesor.').not().isEmpty(),
+    validateParams
+
+], deleteTeacher)
+
+// ======================== Manejo de imagenes
 
 //Actualizar y guardar imagen de un profesor CREADO
 api.put('/addImageTeacher', [

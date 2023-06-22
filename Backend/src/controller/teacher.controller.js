@@ -13,7 +13,9 @@ const createTeacher = async(req, res) => {
     try {
         
         let newTeacher = new Teacher(req.body);
-        console.log(newTeacher);
+        
+        const mailExists = await Teacher.findOne({mail: newTeacher.mail})
+        if(mailExists) return res.status(400).send({message: 'El correo que tratas de registrar para el nuevo profesors ya esta en uso.'})
 
         newTeacher = await newTeacher.save();
 
@@ -30,6 +32,67 @@ const createTeacher = async(req, res) => {
 
 }
 
+const readTeachers = async(req, res) =>{
+    try {
+        
+        const teachers = await Teacher.find();
+        if(teachers.length == 0) return res.status(404).send({message: 'No se han agregado profesores'});
+
+        return res.status(200).send({message: 'Profesores encontrados', teachers});
+
+    } catch (error) {
+        console.error(error);
+        res.status(500).send({message: 'No se ha podido completar la tarea.', error})
+    }
+}
+
+//Actualizar un profesor
+const updateTeacher = async(req, res) =>{
+    try {
+        
+        let newTeacher = req.body
+
+        const mailExists = await Teacher.findOne({mail: newTeacher.mail})
+        if( mailExists && mailExists._id !== newTeacher.teacherId) return res.status(400).send({message: 'El correo que tratas de registrar para el nuevo profesors ya esta en uso.'})
+
+        if(newTeacher.photo) delete newTeacher.photo;
+
+        newTeacher = await Teacher.findOneAndUpdate({_id: req.body.teacherId}, {newTeacher}, {new: true});
+
+        if(!newTeacher) return res.status(404).send({message: 'No se encontro el profesor y no se actualizo'});
+
+        return res.status(200).send({message: 'El profesor fue actualizado correctamente.', newTeacher});
+
+    } catch (error) {
+        console.error(error);
+        res.status(500).send({message: 'No se ha podido completar la tarea.', error})
+    }
+}
+
+const deleteTeacher = async(req, res)=>{
+    try {
+        
+        const teacherId = req.body.teacherId;
+
+        let teacherDelete = await Teacher.findOneAndDelete({_id: teacherId});
+
+        if(!teacherDelete) return res.status(404).send({message: 'No se encontro el profesor a eliminar.' });
+
+        if(teacherDelete.photo){
+            let pathFile = './uploads/teachers/';
+            fs.unlinkSync(pathFile + teacherDelete.photo);
+        }
+
+        return res.status(200).send({message: 'Profesor eliminado correctamente. Datos del profesor eliminado:', teacherDelete});
+
+    } catch (error) {
+        console.error(error);
+        res.status(500).send({message: 'No se ha podido completar la tarea.', error});
+    }
+}
+
+// =============================== Manejo de imagenes ===================================
+
 //Agregar foto a un profesor
 const addImageTeacher = async(req, res) =>{
     try {
@@ -43,7 +106,7 @@ const addImageTeacher = async(req, res) =>{
         const alreadyImageTeacher = await Teacher.findOne({_id: teacherId})
         console.log('Usuario encontrado:');
         console.log(alreadyImageTeacher);
-        let pathFile = './uploads/teachers/' // Ruta donde se guardan las imagenes de los profesores
+        let pathFile = './uploads/teachers/'; // Ruta donde se guardan las imagenes de los profesores
 
         //Comprobar que si este mandado un archivo y que este tenga una extencion
         if( !req.files || !req.files.image || !req.files.image.type ) return res.status(400).send({message: 'No ha enviado una imagen'}) //Comprobar que se haya enviado alguna imagen en la peticion 
@@ -105,7 +168,8 @@ const getImageTeacher = async(req, res)=>{
 
     } catch (error) {
         console.error(error);
+        res.status(500).send({message: 'No se ha podido completar la tarea.', error})
     }
 }
 
-module.exports = {createTeacher, addImageTeacher, getImageTeacher}
+module.exports = {createTeacher, addImageTeacher, getImageTeacher, readTeachers, updateTeacher,deleteTeacher}
