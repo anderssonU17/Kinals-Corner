@@ -18,7 +18,7 @@ const {createTeacher, addImageTeacher, getImageTeacher, readTeachers, updateTeac
 api.post('/addTeacher',[
     
     check('name', 'El parametro name es necesario para actualizar el profesor.').not().isEmpty(),
-    check('mail', 'El parametro mail es necesario para actualizar el profesor.').not().isEmpty(),
+    check('email', 'El parametro email es necesario para actualizar el profesor.').not().isEmpty(),
     check('subject', 'El parametro subject es necesario para actualizar el profesor.').not().isEmpty(),
     validateParams
 
@@ -32,7 +32,7 @@ api.put('/updateTeacher' , [
     
     check('teacherId', 'El parametro teacherId es necesario para actualizar el profesor.').not().isEmpty(),
     check('name', 'El parametro name es necesario para actualizar el profesor.').not().isEmpty(),
-    check('mail', 'El parametro mail es necesario para actualizar el profesor.').not().isEmpty(),
+    check('email', 'El parametro mail es necesario para actualizar el profesor.').not().isEmpty(),
     check('subject', 'El parametro subject es necesario para actualizar el profesor.').not().isEmpty(),
     validateParams
 

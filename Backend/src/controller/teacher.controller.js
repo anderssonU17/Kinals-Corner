@@ -14,7 +14,7 @@ const createTeacher = async(req, res) => {
         
         let newTeacher = new Teacher(req.body);
         
-        const mailExists = await Teacher.findOne({mail: newTeacher.mail})
+        const mailExists = await Teacher.findOne({email: newTeacher.email})
         if(mailExists) return res.status(400).send({message: 'El correo que tratas de registrar para el nuevo profesors ya esta en uso.'})
 
         newTeacher = await newTeacher.save();
@@ -52,7 +52,7 @@ const updateTeacher = async(req, res) =>{
         
         let newTeacher = req.body
 
-        const mailExists = await Teacher.findOne({mail: newTeacher.mail})
+        const mailExists = await Teacher.findOne({email: newTeacher.email})
         if( mailExists && mailExists._id !== newTeacher.teacherId) return res.status(400).send({message: 'El correo que tratas de registrar para el nuevo profesors ya esta en uso.'})
 
         if(newTeacher.photo) delete newTeacher.photo;
@@ -157,6 +157,8 @@ const getImageTeacher = async(req, res)=>{
         const teacherId = req.body.teacherId;
         if(!teacherId || teacherId == '') return res.status(400).send({message: 'El parametro `teacherId` es obligatorio.' })
         const teacherFInd = await Teacher.findOne({_id: teacherId});
+
+        if(!teacherFInd) return res.status(404).send({message: 'No se encontro el profesor al que se le quiere agregar la imagen.'})
 
         const fileName = teacherFInd.photo;
         const pathFile = './uploads/teachers/' + fileName

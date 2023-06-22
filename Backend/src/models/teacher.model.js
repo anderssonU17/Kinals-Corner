@@ -8,16 +8,17 @@ const teacherSchema = new Schema({
         type: String,
         required: true 
     },
-    mail:{
-        type: String,
-        require: true
-    },
     photo: { 
         type: String 
     },
     subject: { 
         type: String,
         required: true
+    },
+    email: {
+        type: String,
+        required: true,
+        unique: true,
     }
   });
   
