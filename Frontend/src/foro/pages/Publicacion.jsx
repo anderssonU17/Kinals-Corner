@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"; // para descargar la libreria yarn add @fortawesome/fontawesome-svg-core @fortawesome/free-solid-svg-icons @fortawesome/react-fontawesome
 import { faFire } from "@fortawesome/free-solid-svg-icons";
-
+import '../css/Publicacion.css'
 
 export const Publicacion = () => {
 const [publicacion, setPublicacion] = useState([]);
@@ -25,7 +25,7 @@ const handleLikeClick = () => {
         <label htmlFor="">NOMBRE USER</label>
         <p>añldjsaldjsadklasjfakcnascslacaslkcnascaslcslakcasncsalcasklcnss</p>
         <button
-            
+                className={`like-button ${isLiked ? "liked" : ""}`}
             onClick={handleLikeClick}
         >
             <FontAwesomeIcon icon={faFire} />
