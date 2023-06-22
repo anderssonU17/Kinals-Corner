@@ -1,10 +1,11 @@
 import {useState} from 'react'
+import { Publicacion } from './Publicacion';
 
 export const Foro = () => {
   const [tasks, setTasks] = useState([]);
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
-  const [like, setlike] = useState(0);
+  
 
   
 
@@ -28,6 +29,7 @@ export const Foro = () => {
   
   return (
     <> 
+    
       <div className="mx-auto" >
       <h2>
         Foro</h2>
@@ -40,14 +42,12 @@ export const Foro = () => {
               {/* Titulo y descripcion del mensage */}
               <h3>{task.title}</h3>
               <p>{task.description}</p>
-              {/*boton de like: todos se cambian por ahora*/}
-              <button onClick={()=>setlike(()=> like+1)}>{like} </button>
             </li>
           ))}
         </ul>
     </div>
-    
     <hr />
+    <div>
       <div className="input-group ">
         <input
           type="text"
@@ -68,7 +68,10 @@ export const Foro = () => {
         <button onClick={addTask}>Publicar</button>
       </div>
     </div>
-  
+    </div>
+    <div>
+            <Publicacion></Publicacion>
+    </div>
     </>
   )
 }
