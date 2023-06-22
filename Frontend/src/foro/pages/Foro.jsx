@@ -28,7 +28,7 @@ export const Foro = () => {
   
   return (
     <> 
-       <div className="mx-auto" >
+      <div className="mx-auto" >
       <h2>
         Foro</h2>
     <hr />
