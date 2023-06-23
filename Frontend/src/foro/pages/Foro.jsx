@@ -1,10 +1,11 @@
 import {useState} from 'react'
-
+import { Publicacion } from "./Publicacion";
+import "../src/css/Foro.css"
 export const Foro = () => {
   const [tasks, setTasks] = useState([]);
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
-  const [like, setlike] = useState(0);
+  
 
   
 
@@ -28,27 +29,31 @@ export const Foro = () => {
   
   return (
     <> 
-       <div className="mx-auto" >
-      <h2>
+    
+      <div className="mx-auto" >
+      <h2 >
         Foro</h2>
     <hr />
-    <div>
-      <ul>
-          {tasks.map((task, index) => (
-            <li key={index}>
-              <label for="floatingTextarea2">Nombre Usuario</label>
-              {/* Titulo y descripcion del mensage */}
-              <h3>{task.title}</h3>
-              <p>{task.description}</p>
-              {/*boton de like: todos se cambian por ahora*/}
-              <button onClick={()=>setlike(()=> like+1)}>{like} </button>
-            </li>
-          ))}
-        </ul>
+    
+    <div className="mb-3">
+            <Publicacion></Publicacion>
     </div>
+     <div className="mensageSaliente">
+      <ul>
+            {tasks.map((task, index) => (
+              <li key={index}>
+                <label for="floatingTextarea2" className="mensage1">Nombre Usuario</label>
+                {/* Titulo y descripcion del mensage */}
+                <h3 className="titulo">{task.title}</h3>
+                <p className="descripcion">{task.description}</p>
+              </li>
+            ))}
+          </ul>
+     </div>
     
     <hr />
-      <div className="input-group ">
+    <div className="form">
+      <div className="input-group col-auto">
         <input
           type="text"
           name="title"
@@ -61,14 +66,17 @@ export const Foro = () => {
           type="text"
           name="description"
           placeholder="Descripción"
-          className="form-control"
+          className="form-control description"
           value={description}
           onChange={handleInputChange}
         />
         <button onClick={addTask}>Publicar</button>
       </div>
     </div>
-  
+    </div>
+    {/* <div>
+            <Publicacion></Publicacion>
+    </div> */}
     </>
   )
 }
