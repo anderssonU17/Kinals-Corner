@@ -20,7 +20,8 @@ const helpSocialSchema = new Schema({
         default: false 
     },
     claimDate: { 
-        type: Date 
+        type: Date,
+        default: Date.now
     },
     claimantName: { 
         type: String 
