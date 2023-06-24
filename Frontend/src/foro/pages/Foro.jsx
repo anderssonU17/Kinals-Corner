@@ -1,6 +1,6 @@
 import {useState} from 'react'
 import { Publicacion } from "./Publicacion";
-import "../src/css/Foro.css"
+import "/src/foro/css/Foro.css"
 export const Foro = () => {
   const [tasks, setTasks] = useState([]);
   const [title, setTitle] = useState('');
