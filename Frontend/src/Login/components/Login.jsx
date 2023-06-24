@@ -1,8 +1,7 @@
 import React, { useState } from 'react'
 import { login } from '../api/ApiLogin';
 import Swal from 'sweetalert2';
-import "./index.css"
-
+import "/src/index.css"
 
 export const Login = () => {
     const [email, setEmail] = useState("");
