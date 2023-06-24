@@ -1,6 +1,7 @@
 import { Navigate, Route, Routes } from "react-router-dom";
 import { Login } from "./Login/components/Login";
 import { isUserAuthenticated } from "./Login/helpers/LoginHelper";
+import { Register } from "./register/pages/Register";
 
 
 export const AppRouter = () => {
@@ -22,7 +23,7 @@ export const AppRouter = () => {
             <Route path="/login" 
             element={
                 !isUserAuthenticated() ? (
-                    <Login></Login>
+                    <Register></Register>
                     ) : (
                     <Navigate to="/"></Navigate>
                 )

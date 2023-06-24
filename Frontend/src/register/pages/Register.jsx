@@ -1,6 +1,5 @@
-import './register.css'
-import logo from "./assets/image/LogoHd.png"
-
+import "/src/register/assets/register.css"
+import logo from "/src/assets/image/LogoHd.png"
 export const  Register= () => {
 
   return (
