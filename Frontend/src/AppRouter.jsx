@@ -1,13 +1,10 @@
-import { Route, Routes } from "react-router"
-import { Register } from "./register/pages/Register"
+import "./styles.css"
 
 export const AppRouter = () => {
   return (
     <>
     <Routes>
-        <Route path="/"
-        element={<Register></Register>}
-        >
+        <Route>
             
         </Route>
     </Routes>

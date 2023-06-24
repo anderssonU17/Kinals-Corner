@@ -1,5 +1,5 @@
-import "/src/register/assets/register.css"
-import logo from "/src/assets/image/LogoHd.png"
+import '../assets/register.css'
+import logo from "../../assets/image/LogoHd.png"
 
 export const  Register= () => {
 
@@ -14,7 +14,7 @@ export const  Register= () => {
                 </h1>
             </div>
         </div>
-            <div className="container-center row">
+            <div className="container-center">
               <input className='input' type="text" placeholder='Nombres' /><br />
               
               <input className='input' type="text" placeholder='Apellidos' /><br />
@@ -23,7 +23,7 @@ export const  Register= () => {
               
               <input className='input' type="password" placeholder='Contraseña'/><br />
 
-              <div className='container-right row'>
+              <div className='container-right'>
                  <button className='btn'>Registrarse</button>
               </div>
             </div>
