@@ -1,9 +1,8 @@
 import { Navigate, Route, Routes } from "react-router-dom";
-import { Login } from "./Login/components/Login";
-import { isUserAuthenticated } from "./Login/helpers/LoginHelper";
+import { isUserAuthenticated } from "./auth/helpers/LoginHelper";
 import { Register } from "./register/pages/Register";
-import { Foro} from "./foro/pages/Foro";
-import { Publicacion } from "./foro/pages/Publicacion";
+import { Login } from "./auth/pages/Login";
+import { Foro } from "./foro/pages/Foro";
 
 export const AppRouter = () => {
     return(
@@ -24,7 +23,7 @@ export const AppRouter = () => {
             <Route path="/login" 
             element={
                 !isUserAuthenticated() ? (
-                    <Login></Login>
+                    <Register></Register>
                     ) : (
                     <Navigate to="/"></Navigate>
                 )
