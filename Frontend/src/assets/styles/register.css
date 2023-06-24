@@ -1,5 +1,5 @@
 body{
-  background-image: url(./assets/image/BlueGr.jpg);
+  background-image: url(../../assets/image/BlueGr.jpg);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -11,7 +11,7 @@ body{
 }
 
 .container{
-  background-image: url(./assets/image/FondoBlanco.jpg);
+  background-image: url(../../assets//image//FondoBlanco.jpg);
   box-sizing: border-box;
   border: 100% #00bd80 solid;
   margin-top: 5%;
