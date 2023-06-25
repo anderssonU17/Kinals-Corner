@@ -1,6 +1,6 @@
 import {useState} from 'react'
-import { Publicacion } from './Publicacion';
-
+import { Publicacion } from "./Publicacion";
+import "../../assets/styles/Foro.css"
 export const Foro = () => {
   const [tasks, setTasks] = useState([]);
   const [title, setTitle] = useState('');
@@ -31,24 +31,29 @@ export const Foro = () => {
     <> 
     
       <div className="mx-auto" >
-      <h2>
+      <h2 >
         Foro</h2>
     <hr />
-    <div>
-      <ul>
-          {tasks.map((task, index) => (
-            <li key={index}>
-              <label for="floatingTextarea2">Nombre Usuario</label>
-              {/* Titulo y descripcion del mensage */}
-              <h3>{task.title}</h3>
-              <p>{task.description}</p>
-            </li>
-          ))}
-        </ul>
+    
+    <div className="mb-3">
+            <Publicacion></Publicacion>
     </div>
+     <div className="mensageSaliente">
+      <ul>
+            {tasks.map((task, index) => (
+              <li key={index}>
+                <label for="floatingTextarea2" className="mensage1">Nombre Usuario</label>
+                {/* Titulo y descripcion del mensage */}
+                <h3 className="titulo">{task.title}</h3>
+                <p className="descripcion">{task.description}</p>
+              </li>
+            ))}
+          </ul>
+     </div>
+    
     <hr />
-    <div>
-      <div className="input-group ">
+    <div className="form">
+      <div className="input-group col-auto">
         <input
           type="text"
           name="title"
@@ -61,7 +66,7 @@ export const Foro = () => {
           type="text"
           name="description"
           placeholder="Descripción"
-          className="form-control"
+          className="form-control description"
           value={description}
           onChange={handleInputChange}
         />
@@ -69,9 +74,9 @@ export const Foro = () => {
       </div>
     </div>
     </div>
-    <div>
+    {/* <div>
             <Publicacion></Publicacion>
-    </div>
+    </div> */}
     </>
   )
 }

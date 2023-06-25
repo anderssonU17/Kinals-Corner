@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"; // para descargar la libreria yarn add @fortawesome/fontawesome-svg-core @fortawesome/free-solid-svg-icons @fortawesome/react-fontawesome
 import { faFire } from "@fortawesome/free-solid-svg-icons";
-import '../css/Publicacion.css'
+import '../../assets/styles/Publicacion.css'
 
 export const Publicacion = () => {
 const [publicacion, setPublicacion] = useState([]);
