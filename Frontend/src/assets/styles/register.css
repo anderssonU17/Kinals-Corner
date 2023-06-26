@@ -150,3 +150,12 @@ body{
   margin-right: 8%;
   }
 }
+
+.input-error { /*borde del campo con error*/
+  border: 1px solid #f6b802	;
+
+}
+
+.error-message{ /*color del mensaje de faltan campos*/
+  color: #C31800;
+}

@@ -31,26 +31,13 @@ export const Foro = () => {
     <> 
     
       <div className="mx-auto" >
-      <h2 >
-        Foro</h2>
+      <h2 > Foro</h2>
     <hr />
     
-    <div className="mb-3">
-            <Publicacion></Publicacion>
-    </div>
-     <div className="mensageSaliente">
-      <ul>
-            {tasks.map((task, index) => (
-              <li key={index}>
-                <label for="floatingTextarea2" className="mensage1">Nombre Usuario</label>
-                {/* Titulo y descripcion del mensage */}
-                <h3 className="titulo">{task.title}</h3>
-                <p className="descripcion">{task.description}</p>
-              </li>
-            ))}
-          </ul>
-     </div>
     
+    <div className="mensageSaliente">
+      
+    </div>
     <hr />
     <div className="form">
       <div className="input-group col-auto">
@@ -73,10 +60,11 @@ export const Foro = () => {
         <button onClick={addTask}>Publicar</button>
       </div>
     </div>
-    </div>
-    {/* <div>
+    <div className="mb-3">
             <Publicacion></Publicacion>
-    </div> */}
+    </div>
+    </div>
+    {/* se volvio a organizar los componentes y se elimino el ul*/}
     </>
   )
 }
