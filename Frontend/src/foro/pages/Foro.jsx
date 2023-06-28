@@ -1,29 +1,33 @@
 import {useState} from 'react'
+import axios from "axios"
+import PropTypes from "prop-types"
 import { Publicacion } from "./Publicacion";
 import "../src/css/Foro.css"
-export const Foro = () => {
-  const [tasks, setTasks] = useState([]);
-  const [title, setTitle] = useState('');
-  const [description, setDescription] = useState('');
-  
 
-  
 
+export const Foro = ({publicacion, setPublicacion}) => {
+  const [tasks, setTasks] = useState({});
+  
+  
+{/*cada vez que ocurra un cambio en los inputs los colocara*/}
   const handleInputChange = (event) => {
-    const { name, value } = event.target;
-    if (name === 'title') {
-      setTitle(value);
-    } else if (name === 'description') {
-      setDescription(value);
-    }
+    setTasks({
+      ...tasks,
+      [event.target.name]: event.target.value
+    })
   };
 
-  const addTask = () => {
-    if (title && description) {
-      const newTask = { title, description };
-      setTasks((prevTasks) => [...prevTasks, newTask]);
-      setTitle('');
-      setDescription('');
+
+  const addTask = async (e) => {
+   try {
+    e.preventDefault();
+    let {data} = await axios.post('http://localhost:3000/api/create-forum', tasks);
+    setPublicacion(
+      [...publicacion, tasks]
+    );
+    setTasks({});
+    } catch (error) {
+      console.log(error);
     }
   };
   
@@ -35,48 +39,38 @@ export const Foro = () => {
         Foro</h2>
     <hr />
     
-    <div className="mb-3">
-            <Publicacion></Publicacion>
-    </div>
-     <div className="mensageSaliente">
-      <ul>
-            {tasks.map((task, index) => (
-              <li key={index}>
-                <label for="floatingTextarea2" className="mensage1">Nombre Usuario</label>
-                {/* Titulo y descripcion del mensage */}
-                <h3 className="titulo">{task.title}</h3>
-                <p className="descripcion">{task.description}</p>
-              </li>
-            ))}
-          </ul>
-     </div>
-    
     <hr />
+
+    <form onSubmit={(e) => addTask(e)}>
+
     <div className="form">
       <div className="input-group col-auto">
         <input
           type="text"
+          id='title'
           name="title"
           placeholder="Título"
           className="form-control"
-          value={title}
           onChange={handleInputChange}
         />
         <input
           type="text"
-          name="description"
+          name="content"
           placeholder="Descripción"
           className="form-control description"
-          value={description}
           onChange={handleInputChange}
         />
-        <button onClick={addTask}>Publicar</button>
+        <button type='submit' onClick={addTask}>Publicar</button>
       </div>
     </div>
+    </form>
     </div>
-    {/* <div>
-            <Publicacion></Publicacion>
-    </div> */}
+
     </>
   )
+}
+
+Foro.propTypes = {
+  publicacion: PropTypes.array.isRequired,
+  setPublicacion: PropTypes.func.isRequired
 }
