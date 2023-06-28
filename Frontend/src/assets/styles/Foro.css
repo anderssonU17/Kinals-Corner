@@ -1,0 +1,119 @@
+body {
+    background-image: url(../image/DarkBlue.jpg);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+ }
+
+ .postDiv{
+  padding: 1em;
+ }
+
+ .MainDiv{
+    display: flex;
+    background-image: url(../image/LightGreen.jpg);
+    padding: 7em;
+    padding-left: 2em;
+    border-radius: 45px 45px 45px 45px;
+    border: 3px black solid;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+    flex-direction: column;
+ }
+
+.form {
+    display: block;
+    flex-direction: column;
+    background: #606c88;
+    background: linear-gradient(to right, #f6b802, #f6b802);
+    margin-left: 17%;
+    padding: 20px;
+    border-radius: 10px;
+    width: 37.5rem;
+  }
+
+.mensageSaliente{
+    margin-left: 70%;
+    list-style: none;
+}
+
+.input{
+    box-sizing: border-box;
+    margin-right: 1em;
+    margin-bottom: 1%;
+    padding: 1%;
+    width: 50%;
+    height: 32px;
+    border: none;
+    border-bottom: 1px solid #AAA;
+    font-weight: 400;
+    font-size: 110%;
+    border-radius: 0px 0px 0px 0px;
+    transition: 0.2s ease;
+    resize: horizontal;
+}
+
+.titulo{
+    font-size: 14px;
+}
+
+.descripcion{
+    font-size: 16px;
+}
+
+.button{
+    height: 2.6em;
+    width: 8em;
+    background: #4f120a;
+    border: none;
+    border-radius: 2%;
+    color: #FFF;
+    transition: 0.1s ease;
+    cursor: pointer;
+    border-radius: 10%;
+  }
+  
+  .button:hover{
+    opacity: 0.9;
+    box-shadow: 0 4px 6px #4f120a;
+    transition: 0.1s ease;
+  }
+  
+  .button:active{
+    opacity: 1;
+    box-shadow: 0 1px 2px #4f120a;
+    transition: 0.1s ease;
+  }
+
+.mensage1{
+    font-size: 14;
+}
+
+ li {
+    list-style: none;
+ }
+
+@media screen and (max-width: 600px) {
+  input[type=password], input[type=text] {
+    width: 80%;
+    margin-top: 0;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .form {
+  margin-top: 45%;
+  width: 100%;
+  vertical-align: middle;
+  font-size: small;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .MainDiv {
+  margin-top: 80%;
+  width: 150%;
+  margin-right: 15%;
+  vertical-align: middle;
+  }
+}
