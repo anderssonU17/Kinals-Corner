@@ -58,32 +58,39 @@ const addCommentToPost = async (req, res) => {
     }
 }
 
-const updateForumPostLikes = async(req, res) => {
-    try{
-        const {postId, likes} = req.body;
-
-        //obtener el usuario del token 
-        const user = req.user;
-
-        const post = await Forum.findByIdAndUpdate(
-            postId, 
-            {
-                $set: { likes },
-                $addToSet: {likedBy: user._id}, //Agregar el id del usuario a la lista de usuarios 
-            }, 
-            { new: true }
-        );
-
-        if (!post) {
-            return res.status(400).json({message: 'Likes del post actualizados', post});
-        }
-
-        return res.status(400).json({message: 'Likes del post actualizado', post});
-
-    }catch(error){
-        console.log(error);
-        return res.status(500).json({message: 'Error al actualizar los likes del post'})
+const addLikeToForumPost = async (req, res) => {
+    try {
+      const { postId } = req.body;
+  
+      // Obtener el usuario del token
+      const user = req.user;
+  
+      // Buscar el post por su ID y comprobar si existe
+      const post = await Forum.findById(postId);
+      if (!post) {
+        return res.status(404).json({ message: 'Post no encontrado' });
+      }
+  
+      // Verificar si el usuario ya ha dado like al post
+      if (post.likedBy.includes(user._id)) {
+        // Si ya ha dado like, eliminar el like
+        post.likes--;
+        post.likedBy.pull(user._id);
+      } else {
+        // Si no ha dado like, agregar el like
+        post.likes++;
+        post.likedBy.push(user._id);
+      }
+  
+      // Guardar los cambios en el post
+      const updatedPost = await post.save();
+  
+      return res.status(200).json({ message: 'Like agregado al post', post: updatedPost });
+    } catch (error) {
+      console.log(error);
+      return res.status(500).json({ message: 'Error al agregar el like al post' });
     }
-}
+  };
+  
 
-module.exports = {createForum, getForum, addCommentToPost, updateForumPostLikes};
+module.exports = {createForum, getForum, addCommentToPost, addLikeToForumPost};
