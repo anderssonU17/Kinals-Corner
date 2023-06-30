@@ -3,6 +3,7 @@ import { isUserAuthenticated } from "./auth/helpers/LoginHelper";
 import { Register } from "./register/pages/Register";
 import { Login } from "./auth/pages/Login";
 import { Foro } from "./foro/pages/Foro";
+import { CreateHelpSocial } from "./helpSocial/pages/helpSocial";
 
 export const AppRouter = () => {
     return(
@@ -10,7 +11,9 @@ export const AppRouter = () => {
         
         <Routes>
 
-            <Route  path="/" 
+            <Route path="/create-helpSocial" element={<CreateHelpSocial/>}/>
+
+            {/* <Route  path="/" 
             element={
                 isUserAuthenticated() ? (
                 <UserTable />
@@ -28,7 +31,7 @@ export const AppRouter = () => {
                     <Navigate to="/"></Navigate>
                 )
             }
-            ></Route>
+            ></Route> */}
 
         </Routes>
         </>
