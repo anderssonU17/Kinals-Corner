@@ -6,6 +6,7 @@ const Teacher = require('../models/teacher.model')
 const fs = require('fs')
 //Modulo nativo de node.js que permite trabajar con rutas de archivos y directorios
 const path = require('path')
+const { stringify } = require('querystring')
 
 //Crear profesor
 const createTeacher = async(req, res) => {
@@ -53,7 +54,8 @@ const updateTeacher = async(req, res) =>{
         let newTeacher = req.body
 
         const mailExists = await Teacher.findOne({email: newTeacher.email})
-        if( mailExists && mailExists._id !== newTeacher.teacherId) return res.status(400).send({message: 'El correo que tratas de registrar para el nuevo profesors ya esta en uso.'})
+
+        if( mailExists && JSON.stringify(mailExists._id) !== `"${newTeacher.teacherId}"`) return res.status(400).send({message: 'El correo que tratas de registrar para el nuevo profesors ya esta en uso.'})
 
         if(newTeacher.photo) delete newTeacher.photo;
 
