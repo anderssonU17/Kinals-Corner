@@ -1,76 +1,71 @@
-import {useState} from 'react'
-import axios from "axios"
-import PropTypes from "prop-types"
-import { Publicacion } from "./Publicacion";
-import "../src/css/Foro.css"
+import React, { useState, useEffect } from 'react';
+import { Publicacion } from './Publicacion';
+import '../../assets/styles/Foro.css';
+import { createForum } from '../api/ApiForo';
+import Swal from 'sweetalert2';
+import 'sweetalert2/dist/sweetalert2.css';
 
 
-export const Foro = ({publicacion, setPublicacion}) => {
-  const [tasks, setTasks] = useState({});
-  
-  
-{/*cada vez que ocurra un cambio en los inputs los colocara*/}
-  const handleInputChange = (event) => {
-    setTasks({
-      ...tasks,
-      [event.target.name]: event.target.value
-    })
-  };
+export const Foro = () => {
+  const [tasks, setTasks] = useState([]);
+  const [title, setTitle] = useState('');
+  const [content, setContent] = useState('');
 
-
-  const addTask = async (e) => {
-   try {
+  const publicar = async (e) => {
     e.preventDefault();
-    let {data} = await axios.post('http://localhost:3000/api/create-forum', tasks);
-    setPublicacion(
-      [...publicacion, tasks]
-    );
-    setTasks({});
+    if (title.trim() === "" || content.trim() === "") { {/* verifica si algun input esta vacio, para no permitir hacer la publicacion */}
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: 'Por favor, completa ambos campos antes de publicar',
+      });
+      return;
+    }
+    try {
+      const result = await createForum(title, content);
+      setTasks((prevTasks) => [...prevTasks, result]); // Agregar la nueva publicación al estado
+      setTitle('');
+      setContent('');
     } catch (error) {
-      console.log(error);
+      console.error('Error al publicar:', error);
     }
   };
-  
+
   return (
-    <> 
-    
-      <div className="mx-auto" >
-      <h2 >
-        Foro</h2>
-    <hr />
-    
-    <hr />
+    <>
+      <div className="mx-auto">
+        <h2>Foro</h2>
+        <hr />
 
-    <form onSubmit={(e) => addTask(e)}>
+        <div className="mensageSaliente"></div>
+        <hr />
 
-    <div className="form">
-      <div className="input-group col-auto">
-        <input
-          type="text"
-          id='title'
-          name="title"
-          placeholder="Título"
-          className="form-control"
-          onChange={handleInputChange}
-        />
-        <input
-          type="text"
-          name="content"
-          placeholder="Descripción"
-          className="form-control description"
-          onChange={handleInputChange}
-        />
-        <button type='submit' onClick={addTask}>Publicar</button>
+        <div className="form">
+          <div className="input-group col-auto">
+            <input
+              type="text"
+              name="title"
+              placeholder="Título"
+              className="form-control"
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+            />
+            <input
+              type="text"
+              name="description"
+              placeholder="Descripción"
+              className="form-control description"
+              value={content}
+              onChange={(e) => setContent(e.target.value)}
+            />
+            <button onClick={publicar}>Publicar</button>
+          </div>
+        </div>
+
+        <div className="mb-3">
+          <Publicacion tasks={tasks} /> {/* Pasar el estado tasks a Publicacion */}
+        </div>
       </div>
-    </div>
-    </form>
-    </div>
-
     </>
-  )
-}
-
-Foro.propTypes = {
-  publicacion: PropTypes.array.isRequired,
-  setPublicacion: PropTypes.func.isRequired
-}
+  );
+};
