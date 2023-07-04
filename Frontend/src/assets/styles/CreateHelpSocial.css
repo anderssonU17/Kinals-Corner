@@ -1,0 +1,82 @@
+.container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #c7d3d1;
+    border-radius: 5px;
+    background-color: #fbfbfa;
+  }
+  
+  .title {
+    font-size: 24px;
+    text-align: center;
+    color: #060625;
+    margin-bottom: 20px;
+  }
+  
+  .form {
+    display: grid;
+    grid-gap: 10px;
+  }
+  
+  .form-group {
+    display: grid;
+    grid-template-columns: 100px 1fr;
+    align-items: center;
+  }
+  
+  .label {
+    color: #92aea6;
+  }
+  
+  .input {
+    padding: 8px;
+    font-size: 16px;
+    border-radius: 4px;
+    border: 1px solid #c7d3d1;
+  }
+  
+  .input-file {
+    border: none;
+  }
+  
+  .submit-btn {
+    padding: 10px;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    background-color: #f21007;
+    color: #fbfbfa;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .submit-btn:hover {
+    background-color: #07a560;
+  }
+  
+  .error {
+    color: #f21007;
+    margin-top: 10px;
+  }
+  
+  .success {
+    color: #07a560;
+    margin-top: 10px;
+  }
+
+  :root {
+    --color-primary: #060625;
+    --color-secondary: #07a560;
+    --color-tertiary: #f9c109;
+    --color-error: #f21007;
+    --color-background: #fbfbfa;
+    --color-text: #92aea6;
+    --color-success: #fbe09a;
+    --color-gray: #c7d3d1;
+  }
+  
+  
+  

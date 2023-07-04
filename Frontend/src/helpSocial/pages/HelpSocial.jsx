@@ -1,29 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
+import { Card, CardContent, Container, Typography, TextField, Button, Grid, Box } from '@material-ui/core';
+import createHelp from '../../assets/image/921356.png';
 
 export const CreateHelpSocial = () => {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
-  const [image, setImage] = useState('');
-  const [claimed, setClaimed] = useState(false);
-  const [claimDate, setClaimDate] = useState('');
-  const [claimantName, setClaimantName] = useState('');
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
-  const [helpSocials, setHelpSocials] = useState([]);
-
-  useEffect(() => {
-    fetchHelpSocials();
-  }, []);
-
-  const fetchHelpSocials = async () => {
-    try {
-      const response = await axios.get('http://localhost:3002/api/read-helpSocial');
-      setHelpSocials(response.data);
-    } catch (error) {
-      console.log('Error al obtener las ayudas sociales', error);
-    }
-  };
 
   const handleTitleChange = (event) => {
     setTitle(event.target.value);
@@ -33,55 +17,33 @@ export const CreateHelpSocial = () => {
     setDescription(event.target.value);
   };
 
-  const handleImageChange = (event) => {
-    setImage(event.target.value);
-  };
-
-  const handleClaimedChange = (event) => {
-    const newClaimed = event.target.checked;
-    setClaimed(newClaimed);
-
-    if (newClaimed && claimantName) {
-      updateHelpSocial(newClaimed, claimantName);
-    }
-  };
-
-  const handleClaimDateChange = (event) => {
-    setClaimDate(event.target.value);
-  };
-
-  const handleClaimantNameChange = (event) => {
-    const newClaimantName = event.target.value;
-    setClaimantName(newClaimantName);
-
-    if (claimed) {
-      updateHelpSocial(claimed, newClaimantName);
-    }
-  };
-
   const handleSubmit = async (event) => {
     event.preventDefault();
 
+    if (!title || !description) {
+      setError('Por favor, ingresa el título y la descripción');
+      return;
+    }
+
     try {
-      const response = await axios.post('http://localhost:3002/api/create-helpSocial', {
-        title,
-        description,
-        image,
-        claimed,
-        claimDate,
-        claimantName,
-      });
+      const formData = new FormData();
+      formData.append('title', title);
+      formData.append('description', description);
+      if (event.target.image.files[0]) {
+        formData.append('image', event.target.image.files[0]);
+      }
 
-      setSuccess(response.data.title + ' ha sido creado exitosamente');
-      setError('');
-      setTitle('');
-      setDescription('');
-      setImage('');
-      setClaimed(false);
-      setClaimDate('');
-      setClaimantName('');
+      const response = await axios.post('http://localhost:3002/api/create-helpSocial', formData);
 
-      fetchHelpSocials();
+      if (response.data.message === 'Ayuda social creada exitosamente') {
+        setSuccess(response.data.message);
+        setError('');
+        setTitle('');
+        setDescription('');
+      } else {
+        setError('Error al crear la ayuda social');
+        setSuccess('');
+      }
     } catch (error) {
       setError('Error al crear la ayuda social');
       console.log(error);
@@ -89,98 +51,85 @@ export const CreateHelpSocial = () => {
     }
   };
 
-  const updateHelpSocial = async (newClaimed, newClaimantName) => {
-    try {
-      const response = await axios.patch('http://localhost:3002/api/patch-helpSocial', {
-        claimed: newClaimed,
-        claimantName: newClaimantName,
-      });
-
-      console.log(response.data.message);
-    } catch (error) {
-      console.log('Error al actualizar la ayuda social', error);
-    }
-  };
-
-  const handleClaimedToggle = async (currentClaimedStatus, index) => {
-    try {
-      const updatedHelpSocials = [...helpSocials];
-      updatedHelpSocials[index].claimed = !currentClaimedStatus;
-      setHelpSocials(updatedHelpSocials);
-
-      const response = await axios.patch(
-        `http://localhost:3002/api/update-helpSocial`,
-        {
-          claimed: !currentClaimedStatus,
-          claimantName: updatedHelpSocials[index].claimantName,
-        }
-      );
-
-      console.log(response.data.message);
-    } catch (error) {
-      console.log('Error al actualizar la ayuda social', error);
-    }
-  };
-
   return (
-    <div>
-      <h2>Crear nueva ayuda social</h2>
-      {error && <p>{error}</p>}
-      {success && <p>{success}</p>}
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label>Título:</label>
-          <input type="text" value={title} onChange={handleTitleChange} />
-        </div>
-        <div>
-          <label>Descripción:</label>
-          <input type="text" value={description} onChange={handleDescriptionChange} />
-        </div>
-        <div>
-          <label>Imagen:</label>
-          <input type="text" value={image} onChange={handleImageChange} />
-        </div>
-        <div>
-          <label>Reclamado:</label>
-          <input type="checkbox" checked={claimed} onChange={handleClaimedChange} />
-        </div>
-        <div>
-          <label>Fecha de reclamo:</label>
-          <input type="date" value={claimDate} onChange={handleClaimDateChange} />
-        </div>
-        {claimed && (
-          <div>
-            <label>Nombre del reclamante:</label>
-            <input type="text" value={claimantName} onChange={handleClaimantNameChange} />
-          </div>
-        )}
-        <button type="submit">Crear</button>
-      </form>
-      <h2>Ayudas Sociales</h2>
-      {helpSocials.length > 0 ? (
-        <ul>
-          {helpSocials.map((helpSocial, index) => (
-            <li key={index}>
-              <h3>{helpSocial.title}</h3>
-              <p>{helpSocial.description}</p>
-              <p>Imagen: {helpSocial.image}</p>
-              <p>
-                Reclamado:{' '}
-                <span
-                  className="claimed-toggle"
-                  onClick={() => handleClaimedToggle(helpSocial.claimed, index)}
-                >
-                  {helpSocial.claimed ? 'Sí' : 'No'}
-                </span>
-              </p>
-              <p>Fecha de reclamo: {helpSocial.claimDate}</p>
-              {helpSocial.claimantName && <p>Nombre del reclamante: {helpSocial.claimantName}</p>}
-            </li>
-          ))}
-        </ul>
-      ) : (
-        <p>No hay ayudas sociales disponibles</p>
-      )}
+    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+      <Container maxWidth="md" style={{ backgroundColor: ' #31344c ', paddingTop: '2rem', paddingBottom: '2rem' }}>
+        <Card style={{ backgroundColor: ' #c7d3d1 '}}>
+          <CardContent>
+            <Typography variant="h2" style={{ color: '#060625', marginBottom: '2rem' }}>
+              <img src={createHelp} width={120}  /> Crear nueva ayuda social
+            </Typography>
+            {error && (
+              <Typography variant="body1" style={{ color: '#f21007', marginBottom: '1rem' }}>
+                {error}
+              </Typography>
+            )}
+            {success && (
+              <Typography variant="body1" style={{ color: '#07a560', marginBottom: '1rem' }}>
+                {success}
+              </Typography>
+            )}
+            <form onSubmit={handleSubmit}>
+              <Grid container spacing={3}>
+                <Grid item xs={12} sm={4}>
+                  <TextField
+                    id="title"
+                    label="Título"
+                    variant="outlined"
+                    value={title}
+                    onChange={handleTitleChange}
+                    required
+                    fullWidth
+                    InputProps={{
+                      style: { backgroundColor: '#fbfbfa', color: '#060625' },
+                    }}
+                  />
+                </Grid>
+                <Grid item xs={12} sm={4}>
+                  <TextField
+                    id="description"
+                    label="Descripción"
+                    variant="outlined"
+                    value={description}
+                    onChange={handleDescriptionChange}
+                    required
+                    fullWidth
+                    multiline
+                    rows={4}
+                    InputProps={{
+                      style: { backgroundColor: '#fbfbfa', color: '#060625' },
+                    }}
+                  />
+                </Grid>
+                <Grid item xs={12} sm={4}>
+                  <Box display="flex" alignItems="center" justifyContent="center" marginBottom="1rem">
+                    <Button
+                      variant="contained"
+                      component="label"
+                      style={{ backgroundColor: '#f9c109', color: '#060625', textTransform: 'none' }}
+                    >
+                      Seleccionar archivo
+                      <input type="file" hidden />
+                    </Button>
+                  </Box>
+                  <Typography variant="body1" style={{ color: '#92aea6', textAlign: 'center' }}>
+                    No se ha seleccionado ningún archivo
+                  </Typography>
+                </Grid>
+                <Grid item xs={12}>
+                  <Button
+                    variant="contained"
+                    type="submit"
+                    style={{ backgroundColor: '#07a560', color: '#fbfbfa', textTransform: 'none' }}
+                  >
+                    Crear
+                  </Button>
+                </Grid>
+              </Grid>
+            </form>
+          </CardContent>
+        </Card>
+      </Container>
     </div>
   );
 };
@@ -190,6 +139,24 @@ export const CreateHelpSocial = () => {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// import '../../assets/styles/CreateHelpSocial.css'
 
 
 
