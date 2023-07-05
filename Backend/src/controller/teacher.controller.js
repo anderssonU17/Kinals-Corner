@@ -106,8 +106,6 @@ const addImageTeacher = async(req, res) =>{
 
         //Comprobar si el profesor ya tiene una imagen asignada
         const alreadyImageTeacher = await Teacher.findOne({_id: teacherId})
-        console.log('Usuario encontrado:');
-        console.log(alreadyImageTeacher);
         let pathFile = './uploads/teachers/'; // Ruta donde se guardan las imagenes de los profesores
 
         //Comprobar que si este mandado un archivo y que este tenga una extencion
@@ -121,8 +119,6 @@ const addImageTeacher = async(req, res) =>{
         //Validar la extension (el tipo de archivo) 
         const extension = fileName.split('\.'); // Volvemos a separar pero ahora cuando encuentre un '.'
         const fileExtension = extension[1];
-        console.log('Extension de la imagen');
-        console.log(fileExtension);
 
         if( 
             fileExtension == 'png' ||
@@ -156,7 +152,8 @@ const addImageTeacher = async(req, res) =>{
 //Obtener la foto de un profesor
 const getImageTeacher = async(req, res)=>{
     try {
-        const teacherId = req.body.teacherId;
+        const teacherId = req.params.teacherId;
+        
         if(!teacherId || teacherId == '') return res.status(400).send({message: 'El parametro `teacherId` es obligatorio.' })
         const teacherFInd = await Teacher.findOne({_id: teacherId});
 
