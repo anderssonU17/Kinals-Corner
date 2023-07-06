@@ -35,7 +35,7 @@ export const Teachers = () => {
       )}
 
       {/* Modal */}
-      <AddTeacher show={modalShow} onHide={() => setModalShow(false)} />
+      <AddTeacher show={modalShow} onHide={() => setModalShow(false)} setTeachers ={setTeachers} />
 
       <div className="row d-flex justify-content-center">
         {teachers && console.log(teachers)}

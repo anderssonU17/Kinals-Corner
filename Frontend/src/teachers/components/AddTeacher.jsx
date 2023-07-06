@@ -3,8 +3,7 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 
 import Swal from 'sweetalert2'
-import { createTeacher } from '../api/teachers';
-import { useNavigate } from 'react-router-dom';
+import { createTeacher, getTeachers } from '../api/teachers';
 
 export const AddTeacher = (props) => {
 
@@ -62,6 +61,8 @@ export const AddTeacher = (props) => {
       image.append('image', image)
 
       await createTeacher(nameTeacher, subject, email, imageTeacher)
+
+      getTeachers().then((teachers) => props.setTeachers(teachers));
 
       props.onHide()
 

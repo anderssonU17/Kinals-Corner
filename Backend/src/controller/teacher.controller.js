@@ -53,13 +53,13 @@ const updateTeacher = async(req, res) =>{
         
         let newTeacher = req.body
 
-        const mailExists = await Teacher.findOne({email: newTeacher.email})
+        const mailExists = await Teacher.findOne({email: req.body.email})
 
-        if( mailExists && JSON.stringify(mailExists._id) !== `"${newTeacher.teacherId}"`) return res.status(400).send({message: 'El correo que tratas de registrar para el nuevo profesors ya esta en uso.'})
+        if( mailExists && (mailExists._id != req.body.teacherId)) return res.status(400).send({message: 'El correo que tratas de registrar para el nuevo profesor ya esta en uso.'})
 
         if(newTeacher.photo) delete newTeacher.photo;
-
-        newTeacher = await Teacher.findOneAndUpdate({_id: req.body.teacherId}, {newTeacher}, {new: true});
+        
+        newTeacher = await Teacher.findOneAndUpdate({_id: req.body.teacherId}, {...newTeacher}, {new: true});
 
         if(!newTeacher) return res.status(404).send({message: 'No se encontro el profesor y no se actualizo'});
 
