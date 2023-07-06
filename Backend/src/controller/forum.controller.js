@@ -90,7 +90,7 @@ const addLikeToForumPost = async (req, res) => {
       console.log(error);
       return res.status(500).json({ message: 'Error al agregar el like al post' });
     }
-  };
+};
   
 
 module.exports = {createForum, getForum, addCommentToPost, addLikeToForumPost};
