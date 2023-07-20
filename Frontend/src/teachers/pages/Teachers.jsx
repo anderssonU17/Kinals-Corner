@@ -9,7 +9,7 @@ export const Teachers = () => {
   //Cambiar titulo de la pagina
   document.title = 'Profesores'
 
-  const [teachers, setTeachers] = useState([]);
+  const [teachers, setTeachers] = useState(null);
 
   const [administrador, setAdministrador] = useState(true);
 

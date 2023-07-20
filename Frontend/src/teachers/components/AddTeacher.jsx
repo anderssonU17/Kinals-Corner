@@ -63,7 +63,12 @@ export const AddTeacher = (props) => {
       await createTeacher(nameTeacher, subject, email, imageTeacher).then(
         () => {
 
-          getTeachers().then((teachers) => props.set_teachers(teachers));
+          setTimeout(
+            ()=> {
+              getTeachers().then((teachers) => props.set_teachers(teachers));
+            },
+            1000
+          )
         }
       )
 
