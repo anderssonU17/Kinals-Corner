@@ -63,7 +63,7 @@ export const AddTeacher = (props) => {
       await createTeacher(nameTeacher, subject, email, imageTeacher).then(
         () => {
 
-          getTeachers().then((teachers) => props.setTeachers(teachers));
+          getTeachers().then((teachers) => props.set_teachers(teachers));
         }
       )
 

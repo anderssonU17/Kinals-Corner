@@ -5,6 +5,10 @@ import axios from "axios";
 import { AddTeacher } from "../components/AddTeacher";
 
 export const Teachers = () => {
+
+  //Cambiar titulo de la pagina
+  document.title = 'Profesores'
+
   const [teachers, setTeachers] = useState([]);
 
   const [administrador, setAdministrador] = useState(true);
@@ -35,7 +39,10 @@ export const Teachers = () => {
       )}
 
       {/* Modal */}
-      <AddTeacher show={modalShow} onHide={() => setModalShow(false)} setTeachers ={setTeachers} />
+      <div>
+
+      <AddTeacher show={modalShow} onHide={() => setModalShow(false)} set_teachers ={setTeachers} />
+      </div>
 
       <div className="row d-flex justify-content-center">
         {teachers &&

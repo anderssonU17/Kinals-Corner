@@ -8,8 +8,10 @@ const port = process.env.PORT;
 const cors = require("cors");
 
 const routesUser = require('./src/routes/user.routes')
-const routesTeacher = require('./src/routes/teacher.routes')
+const routesTeacher = require('./src/routes/teacher.routes');
+const { userDefault } = require('./src/controller/user.controller');
 connection();
+userDefault()
 
 app.use(express.urlencoded({extended: false}));
 

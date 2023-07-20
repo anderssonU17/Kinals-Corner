@@ -2,7 +2,6 @@
 
 import axios from "axios";
 import Swal from "sweetalert2";
-import { Teacher } from "../components/teacher";
 
 const URL = "http://localhost:3002/api/";
 
