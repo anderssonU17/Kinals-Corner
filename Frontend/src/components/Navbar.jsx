@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBell, faUser } from '@fortawesome/free-solid-svg-icons';
-
+import { isUserAuthenticated } from '../auth/helpers/LoginHelper';
 import '../assets/styles/navbar.css';
 import logo from '../assets/image/LogoHd.png';
 
@@ -100,7 +100,7 @@ export const Navbar = () => {
                 }`}
                 aria-labelledby="notificationsDropdown"
               >
-                {/* Aquí puedes agregar la lista de notificaciones */}
+                {/* Lista de notificaciones*/}
               </ul>
             </li>
             <li className="nav-item dropdown">
