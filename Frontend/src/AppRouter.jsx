@@ -1,8 +1,6 @@
 import { Navigate, Route, Routes } from "react-router-dom";
 import { isUserAuthenticated } from "./auth/helpers/LoginHelper";
-import { Register } from "./register/pages/Register";
-import { Login } from "./auth/pages/Login";
-import { Foro } from "./foro/pages/Foro";
+import { Navbar } from "./components/Navbar";
 
 export const AppRouter = () => {
     return(
@@ -10,20 +8,10 @@ export const AppRouter = () => {
         
         <Routes>
 
-            <Route  path="/" 
-            element={
-                isUserAuthenticated() ? (
-                <UserTable />
-                ) : (
-                    <Navigate to="/login"></Navigate>
-                    )
-                }
-            ></Route>
-
-            <Route path="/login" 
+            <Route path="/" 
             element={
                 !isUserAuthenticated() ? (
-                    <Register></Register>
+                    <Navbar></Navbar>
                     ) : (
                     <Navigate to="/"></Navigate>
                 )
