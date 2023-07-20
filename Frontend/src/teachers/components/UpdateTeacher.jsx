@@ -72,6 +72,17 @@ export const UpdateTeacher = (props) => {
       props.urlImageTeacher(
         `http://localhost:3002/api/getImageTeacher/${props._idTeacher}?t=${timestamp}`
       );
+      
+      setTimeout(
+        ()=> {
+          getTeachers().then(
+            (teachers) => {
+              props.setTeachers(teachers)
+            },
+            1000
+          )
+        }
+      )
 
       props.onHide();
     } catch (error) {
