@@ -1,6 +1,7 @@
 import { Navigate, Route, Routes, useNavigate } from "react-router-dom";
 import { isUserAuthenticated } from "./auth/helpers/LoginHelper";
 import { Register } from "./register/pages/Register";
+import { Teachers } from "./teachers/pages/Teachers"
 import { Login } from "./auth/pages/Login";
 import { Foro } from "./foro/pages/Foro";
 import { useEffect } from "react";
@@ -18,6 +19,7 @@ export const AppRouter = () => {
         <Routes> 
             <Route path="/" element={<Navigate to="/login" />} />
             <Route path="/login" element={<Login />} />
+            <Route path="/teachers" element={<Teachers/>}/>
             <Route path="/register" element={<Register />} />
             <Route path="/foro" element={<Foro />} />
         </Routes>
