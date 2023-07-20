@@ -1,9 +1,9 @@
 
 import React, { useState } from "react";
 import { checkParameters } from "../api/apiLogin";
+import { Link } from "react-router-dom";
 
 import "../../assets/styles/login.css";
-import { Link } from "react-router-dom";
 
 import LogoHd from '../../assets/image/LogoHd.png'
 
@@ -53,13 +53,11 @@ export const Login = () => {
               Inicias Sesión
             </button>
           </div>
-          <Link>
             <div className="link-new-account">
               <center>
-                <p>¿No tienes una cuenta? Crea una dando clic aquí.</p>
+                <p>¿No tienes una cuenta? Crea una dando clic <Link to="/register">aquí.</Link></p>
               </center>
             </div>
-          </Link>
         </form>
       </div>
     </>
