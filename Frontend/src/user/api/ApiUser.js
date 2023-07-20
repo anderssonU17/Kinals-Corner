@@ -1,17 +1,8 @@
 import axios from 'axios';
 import Swal from 'sweetalert2';
 
-const URL = 'http://localhost:3005/api/';
+const URL = 'http://localhost:3002/api/';
 
-/* Buscar usuario por token */
-export const UserSearch = async () => {
-    try{
-        const response = await axios.get(`${URL}search-user`);
-        return response.data.User;
-    }catch(error){
-        console.error("Error al buscar el usuario", error);
-    }
-}
 
 /* Buscar usuarios */
 export const ListUser = async () =>{
