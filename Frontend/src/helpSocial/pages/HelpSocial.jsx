@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { Card, CardContent, Container, Typography, TextField, Button, Grid, Box } from '@material-ui/core';
-import createHelp from '../../assets/image/921356.png';
 
 export const CreateHelpSocial = () => {
   const [title, setTitle] = useState('');
@@ -29,8 +28,10 @@ export const CreateHelpSocial = () => {
       const formData = new FormData();
       formData.append('title', title);
       formData.append('description', description);
-      if (event.target.image.files[0]) {
-        formData.append('image', event.target.image.files[0]);
+
+      const imageFile = event.target.image.files[0];
+      if (imageFile) {
+        formData.append('image', imageFile);
       }
 
       const response = await axios.post('http://localhost:3002/api/create-helpSocial', formData);
@@ -40,6 +41,12 @@ export const CreateHelpSocial = () => {
         setError('');
         setTitle('');
         setDescription('');
+
+        // Almacenar el _id en el localStorage
+        const newHelpSocialId = response.data.id;
+        const existingHelpSocialIds = JSON.parse(localStorage.getItem('helpSocialIds')) || [newHelpSocialId];
+        existingHelpSocialIds.push(newHelpSocialId);
+        localStorage.setItem('helpSocialIds', JSON.stringify(existingHelpSocialIds));
       } else {
         setError('Error al crear la ayuda social');
         setSuccess('');
@@ -53,11 +60,11 @@ export const CreateHelpSocial = () => {
 
   return (
     <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
-      <Container maxWidth="md" style={{ backgroundColor: ' #31344c ', paddingTop: '2rem', paddingBottom: '2rem' }}>
-        <Card style={{ backgroundColor: ' #c7d3d1 '}}>
+      <Container maxWidth="md" style={{ backgroundColor: '#fbfbfa', paddingTop: '2rem', paddingBottom: '2rem' }}>
+        <Card>
           <CardContent>
             <Typography variant="h2" style={{ color: '#060625', marginBottom: '2rem' }}>
-              <img src={createHelp} width={120}  /> Crear nueva ayuda social
+              Crear nueva ayuda social
             </Typography>
             {error && (
               <Typography variant="body1" style={{ color: '#f21007', marginBottom: '1rem' }}>
@@ -95,28 +102,28 @@ export const CreateHelpSocial = () => {
                     required
                     fullWidth
                     multiline
-                    rows={4}
+                    minRows={4}
                     InputProps={{
                       style: { backgroundColor: '#fbfbfa', color: '#060625' },
                     }}
                   />
                 </Grid>
                 <Grid item xs={12} sm={4}>
-                  <Box display="flex" alignItems="center" justifyContent="center" marginBottom="1rem">
+                  <Box display="flex" alignItems="center">
                     <Button
                       variant="contained"
                       component="label"
                       style={{ backgroundColor: '#f9c109', color: '#060625', textTransform: 'none' }}
                     >
                       Seleccionar archivo
-                      <input type="file" hidden />
+                      <input type="file" name="image" hidden />
                     </Button>
                   </Box>
                   <Typography variant="body1" style={{ color: '#92aea6', textAlign: 'center' }}>
                     No se ha seleccionado ningún archivo
                   </Typography>
                 </Grid>
-                <Grid item xs={12}>
+                <Grid item xs={12} style={{ display: 'flex', justifyContent: 'center' }}>
                   <Button
                     variant="contained"
                     type="submit"
@@ -133,6 +140,9 @@ export const CreateHelpSocial = () => {
     </div>
   );
 };
+
+
+
 
 
 

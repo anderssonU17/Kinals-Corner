@@ -4,26 +4,19 @@
 const  {generateJWT} = require('../helpers/create-jwt');
 const HelpSocial = require('../models/helpSocial.model'); // Asegúrate de importar correctamente el modelo HelpSocial
 
-const fs = require('fs');
-const path = require('path');
-
 const createHelpSocials = async (req, res) => {
   const { title, description, claimDate, claimantName } = req.body;
 
   try {
-    // if (!req.files || !req.files.image) {
-    //   return res.status(400).json({ error: 'La imagen es requerida' });
-    // }
-
     const image = req.files.image; // Obtener el archivo adjunto de la solicitud
-    const imageName = image.name; // Obtener el nombre de la imagen
+    const iamgeBase64 = image.data.toString('base64');
 
     const claimed = claimantName ? true : false; // Verificar si se proporciona el nombre del reclamante
 
     const helpSocial = new HelpSocial({
       title,
       description,
-      image: imageName, // Guardar solo el nombre de la imagen
+      image: iamgeBase64, // Guardar solo el nombre de la imagen
       claimed,
       claimDate,
       claimantName

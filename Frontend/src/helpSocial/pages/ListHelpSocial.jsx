@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import '../../assets/styles/ListHelpSocial.css';
-import icono from '../../assets/image/AyudaSocial.png';
 
 export const ListHelpSocial = () => {
   const [helpSocials, setHelpSocials] = useState([]);
@@ -29,9 +28,9 @@ export const ListHelpSocial = () => {
   const handleSaveClaimantName = async (index) => {
     const helpSocial = helpSocials[index];
     try {
-      // Guardar el nombre del reclamante en el backend
-      await axios.put(`http://localhost:3002/api/helpSocial/${helpSocial.id}`, {
-        claimantName: helpSocial.claimantName
+      // Actualizar el nombre del reclamante en el backend utilizando Axios
+      await axios.patch(`http://localhost:3002/api/helpSocial/${helpSocial._id}`, {
+        claimantName: helpSocial.claimantName,
       });
       console.log(`Nombre del reclamante guardado para la ayuda social ${index}`);
     } catch (error) {
@@ -51,11 +50,19 @@ export const ListHelpSocial = () => {
   };
 
   const renderHelpSocials = () => {
+    if (!helpSocials) {
+      return null;
+    }
+
     return helpSocials.map((helpSocial, index) => (
       <div className='card' key={index}>
         {helpSocial.image && (
           <div className='card-image-container'>
-            <img src={convertImageToBase64(helpSocial.image)} className='card-image' alt='Ayuda social' />
+            <img
+              src={`data:image/png;base64,${helpSocial.image.toString('base64')}`} // Convert Buffer to base64
+              className='card-image'
+              alt='Ayuda social'
+            />
           </div>
         )}
         <div className='card-content'>
@@ -79,54 +86,54 @@ export const ListHelpSocial = () => {
               <div className='claimant-form'>
                 <input
                   type='text'
-                  placeholder='Ingrese el nombre del reclamante'
+                  placeholder='Ingrese su nombre'
                   value={helpSocial.claimantName || ''}
                   onChange={(event) => handleClaimantNameChange(index, event)}
                 />
-                <button onClick={() => handleShowForm(index)}>Guardar</button>
+                <button onClick={() => handleSaveClaimantName(index)}>
+                  Guardar
+                </button>
               </div>
             )}
-            {helpSocial.showForm && (
+            {/* {!helpSocial.claimed && !helpSocial.claimantName && helpSocial.showForm && (
               <div className='claimant-form'>
                 <input
                   type='text'
-                  placeholder='Ingrese el nombre del reclamante'
+                  placeholder='Ingrese su nombre'
                   value={helpSocial.claimantName || ''}
                   onChange={(event) => handleClaimantNameChange(index, event)}
                 />
-                <button onClick={() => handleSaveClaimantName(index)}>Guardar</button>
+                <button onClick={() => handleSaveClaimantName(index)}>
+                  Guardar
+                </button>
+              </div>
+            )} */}
+            {!helpSocial.claimed && helpSocial.claimantName && (
+              <div className='card-claimant-info'>
+                <p className='card-claimant-name'>
+                  Nombre del reclamante: {helpSocial.claimantName}
+                </p>
+                <button onClick={() => handleShowForm(index)}>
+                  Editar nombre
+                </button>
               </div>
             )}
           </div>
-          <p className='card-date'>Fecha actual: {currentDate}</p>
         </div>
       </div>
     ));
   };
 
-  const convertImageToBase64 = (imageData) => {
-    if (!imageData) {
-      return null;
-    }
-    const base64String = btoa(String.fromCharCode(...new Uint8Array(imageData.data)));
-    return `data:${imageData.type};base64,${base64String}`;
-  };
-
   return (
-    <div className='container'>
-      <h2 className='title'>
-        <img src={icono} width={150} alt='Icono' />
-        Ayudas Sociales
-      </h2>
-
-      {helpSocials.length > 0 ? (
-        <div className='card-container'>{renderHelpSocials()}</div>
-      ) : (
-        <p className='no-data'>No hay ayudas sociales disponibles</p>
-      )}
+    <div>
+      <h1>Ayudas Sociales</h1>
+      <p>Fecha actual: {currentDate}</p>
+      <div className='card-list'>{renderHelpSocials()}</div>
     </div>
   );
 };
+
+
 
 
 
