@@ -60,37 +60,22 @@ const addCommentToPost = async (req, res) => {
 
 const addLikeToForumPost = async (req, res) => {
     try {
-      const { postId } = req.body;
-  
-      // Obtener el usuario del token
-      const user = req.user;
-  
-      // Buscar el post por su ID y comprobar si existe
-      const post = await Forum.findById(postId);
-      if (!post) {
+      const postId  = req.params.id; // Ahora se recibe el número de likes desde el front-end
+        const {likes } = req.body;
+        const post = await Forum.findById(postId);
+        if (!post) {
         return res.status(404).json({ message: 'Post no encontrado' });
-      }
-  
-      // Verificar si el usuario ya ha dado like al post
-      if (post.likedBy.includes(user._id)) {
-        // Si ya ha dado like, eliminar el like
-        post.likes--;
-        post.likedBy.pull(user._id);
-      } else {
-        // Si no ha dado like, agregar el like
-        post.likes++;
-        post.likedBy.push(user._id);
-      }
-  
-      // Guardar los cambios en el post
-      const updatedPost = await post.save();
-  
-      return res.status(200).json({ message: 'Like agregado al post', post: updatedPost });
+        }
+      // Actualizamos los likes en el post
+        post.likes = likes;
+
+      // Guardamos los cambios en el post
+        const updatedPost = await post.save();
+        return res.status(200).json({ message: 'Likes actualizados en el post', post: updatedPost });
     } catch (error) {
-      console.log(error);
-      return res.status(500).json({ message: 'Error al agregar el like al post' });
+        console.log(error);
+        return res.status(500).json({ message: 'Error al actualizar los likes del post' });
     }
-  };
-  
+};
 
 module.exports = {createForum, getForum, addCommentToPost, addLikeToForumPost};

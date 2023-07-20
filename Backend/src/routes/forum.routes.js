@@ -12,9 +12,7 @@ const api = Router();
 api.post('/create-forum',createForum);
 api.get('/read-forum', getForum);
 api.get('/add-comments', addCommentToPost);
-api.put('/update-Forum',[
-    validateJWT
-], addLikeToForumPost);
+api.put('/update-Forum/:id', addLikeToForumPost);
 
 
 module.exports = api;
