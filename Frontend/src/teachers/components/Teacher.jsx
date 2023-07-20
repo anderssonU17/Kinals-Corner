@@ -3,26 +3,34 @@ import { confirmDeleteTeacher } from "../api/teachers";
 import { UpdateTeacher } from "./UpdateTeacher";
 import axios from "axios";
 
-export const Teacher = ({ _idTeacher, name, subject, email, setTeachers, teachers, administrador }) => {
-
+export const Teacher = ({
+  _idTeacher,
+  name,
+  subject,
+  email,
+  setTeachers,
+  teachers,
+  administrador,
+}) => {
   // Modal
   const [modalShow, setModalShow] = useState(false);
 
   //URL para peticon de la imagen
-  const [image, setImage] = useState(`http://localhost:3002/api/getImageTeacher/${_idTeacher}`)
-  
+  const [image, setImage] = useState(
+    `http://localhost:3002/api/getImageTeacher/${_idTeacher}`
+  );
+
   return (
     <>
       <div style={styles.containerTeacher}>
         <div className="d-flex flex-column justify-content-center">
-          <img
-            src={image}
-            alt="Imagen"
-            style={styles.image}
-          ></img>
-          <h6 className="mt-3" style={styles.nameTeacher}>
-            {name}
-          </h6>
+          <img src={image} alt="Imagen" style={styles.image}></img>
+          <div className="d-flex flex-column align-items-center justify-content-center mt-4" >
+            <p style={{marginBottom: '-10px'}}>Nombre:</p>
+            <h6 className="mt-3" style={styles.nameTeacher}>
+              {name}
+            </h6>
+          </div>
         </div>
 
         <div className="ms-4">
@@ -35,35 +43,39 @@ export const Teacher = ({ _idTeacher, name, subject, email, setTeachers, teacher
 
           {administrador && (
             <div style={styles.buttonsFooter}>
-              <button className="btn btn-danger" onClick={() => { confirmDeleteTeacher(_idTeacher, setTeachers, teachers) }}>Eliminar</button>
-              
-              <button 
-              className="btn btn-warning ms-4"
-              onClick={ () => setModalShow(true) }
+              <button
+                className="btn btn-danger"
+                onClick={() => {
+                  confirmDeleteTeacher(_idTeacher, setTeachers, teachers);
+                }}
               >
-              Editar
+                Eliminar
               </button>
 
+              <button
+                className="btn btn-warning ms-4"
+                onClick={() => setModalShow(true)}
+              >
+                Editar
+              </button>
             </div>
           )}
         </div>
       </div>
 
       {/* Modal */}
-      {
-        modalShow && 
-        <UpdateTeacher 
-        show={modalShow} 
-        onHide={() => setModalShow(false)} 
-        _idTeacher ={_idTeacher}
-        name ={name}
-        subject={subject}
-        email ={email}
-        setTeachers = {setTeachers}
-        urlImageTeacher = {setImage}
+      {modalShow && (
+        <UpdateTeacher
+          show={modalShow}
+          onHide={() => setModalShow(false)}
+          _idTeacher={_idTeacher}
+          name={name}
+          subject={subject}
+          email={email}
+          setTeachers={setTeachers}
+          urlImageTeacher={setImage}
         />
-      }
-
+      )}
     </>
   );
 };

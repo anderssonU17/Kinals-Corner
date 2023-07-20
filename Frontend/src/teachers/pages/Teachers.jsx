@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { Teacher } from "../components/teacher";
+import { Teacher } from "../components/Teacher";
 import { getTeachers } from "../api/teachers";
 import axios from "axios";
 import { AddTeacher } from "../components/AddTeacher";
 
 export const Teachers = () => {
-
   //Cambiar titulo de la pagina
-  document.title = 'Profesores'
+  document.title = "Profesores";
 
   const [teachers, setTeachers] = useState(null);
 
@@ -18,7 +17,6 @@ export const Teachers = () => {
   useEffect(() => {
     //Cuando se tenga la respuesta se cambiara el valor del estado teachers
     getTeachers().then((teachers) => setTeachers(teachers));
-
   }, []);
 
   // Modal
@@ -26,22 +24,28 @@ export const Teachers = () => {
 
   return (
     <>
-      <h1>Profesores</h1>
+      <div className="container d-flex flex-column mt-4" >
+        <h1>Profesores</h1>
+        <hr style={{marginTop: '-5px'}}/>
 
-      {/* ****Este componenete se debe mostrar solo si el usuario logueado es de tipo administrador ****/}
-      {administrador && (
-        <button
-          className="btn btn-primary ms-1"
-          onClick={() => setModalShow(true)}
-        >
-          Agregar profesor
-        </button>
-      )}
+        {/* ****Este componenete se debe mostrar solo si el usuario logueado es de tipo administrador ****/}
+        {administrador && (
+          <button
+            className="btn btn-primary ms-1 col-2"
+            onClick={() => setModalShow(true)}
+          >
+            Agregar profesor
+          </button>
+        )}
+      </div>
 
       {/* Modal */}
       <div>
-
-      <AddTeacher show={modalShow} onHide={() => setModalShow(false)} set_teachers ={setTeachers} />
+        <AddTeacher
+          show={modalShow}
+          onHide={() => setModalShow(false)}
+          set_teachers={setTeachers}
+        />
       </div>
 
       <div className="row d-flex justify-content-center">
@@ -57,11 +61,9 @@ export const Teachers = () => {
                 name={teacher.name}
                 subject={teacher.subject}
                 email={teacher.email}
-                
                 // Manejo del arrelgo de adminisatradores
                 setTeachers={setTeachers}
                 teachers={teachers}
-
                 //Manejo del rol del usuario
                 administrador={administrador}
               />
@@ -69,7 +71,7 @@ export const Teachers = () => {
           ))}
         {/* Mensaje para cuando no hayan profesores */}
         {teachers == null && (
-          <div className="container" style={{height: '80vh', width: '100vw'}}>
+          <div className="container" style={{ height: "80vh", width: "100vw" }}>
             <h2>No se han agregado profesores....</h2>
           </div>
         )}
