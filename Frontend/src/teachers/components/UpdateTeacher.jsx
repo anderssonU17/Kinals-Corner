@@ -10,16 +10,17 @@ export const UpdateTeacher = (props) => {
   const [subject, setSubject] = useState(props.subject);
   const [email, setEmail] = useState(props.email);
 
+  const [timestamp, setTimestamp] = useState(new Date().getTime());
+
   //Estado para la imagen
   const [imageTeacher, setImageTeacher] = useState(null);
 
   //Cambiar el valor por defecto de estados de cada input
   useEffect(() => {
-    setNameTeacher(props.name)
-    setSubject(props.subject)
-    setEmail(props.email)
-  }, [])
-  
+    setNameTeacher(props.name);
+    setSubject(props.subject);
+    setEmail(props.email);
+  }, []);
 
   // Funcion para comprobar los campos de envio
   const checkParameters = () => {
@@ -60,10 +61,19 @@ export const UpdateTeacher = (props) => {
       const image = new FormData();
       image.append("image", image);
 
-      await updateTeacher( props._idTeacher,nameTeacher, email,subject, imageTeacher)
+      await updateTeacher(
+        props._idTeacher,
+        nameTeacher,
+        email,
+        subject,
+        imageTeacher
+      );
+
+      props.urlImageTeacher(
+        `http://localhost:3002/api/getImageTeacher/${props._idTeacher}?t=${timestamp}`
+      );
 
       props.onHide();
-      
     } catch (error) {
       console.error(error);
     }

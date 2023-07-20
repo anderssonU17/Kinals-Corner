@@ -60,6 +60,7 @@ export const Teacher = ({ _idTeacher, name, subject, email, setTeachers, teacher
         subject={subject}
         email ={email}
         setTeachers = {setTeachers}
+        urlImageTeacher = {setImage}
         />
       }
 

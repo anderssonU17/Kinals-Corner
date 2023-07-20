@@ -60,9 +60,13 @@ export const AddTeacher = (props) => {
       const image = new FormData()
       image.append('image', image)
 
-      await createTeacher(nameTeacher, subject, email, imageTeacher)
+      await createTeacher(nameTeacher, subject, email, imageTeacher).then(
+        () => {
 
-      getTeachers().then((teachers) => props.setTeachers(teachers));
+          getTeachers().then((teachers) => props.setTeachers(teachers));
+        }
+      )
+
 
       props.onHide()
 

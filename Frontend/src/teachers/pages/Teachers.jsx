@@ -38,7 +38,6 @@ export const Teachers = () => {
       <AddTeacher show={modalShow} onHide={() => setModalShow(false)} setTeachers ={setTeachers} />
 
       <div className="row d-flex justify-content-center">
-        {teachers && console.log(teachers)}
         {teachers &&
           teachers.map((teacher) => (
             <div
@@ -61,9 +60,9 @@ export const Teachers = () => {
               />
             </div>
           ))}
-
-        {teachers.length == 0 && (
-          <div className="container">
+        {/* Mensaje para cuando no hayan profesores */}
+        {teachers == null && (
+          <div className="container" style={{height: '80vh', width: '100vw'}}>
             <h2>No se han agregado profesores....</h2>
           </div>
         )}

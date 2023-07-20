@@ -10,7 +10,6 @@ const URL = "http://localhost:3002/api/";
 export const getTeachers = async () => {
   try {
     const response = await axios.get(`${URL}getAllTeachers`);
-    // console.log(response.data.teachers);
     return response.data.teachers;
   } catch (error) {
     console.error(error);
@@ -57,7 +56,7 @@ export const addImageTeacher = async (teacherId, image, edit) => {
     if (response) {
       Swal.fire({
         icon: "success",
-        title: `${ edit ? 'Se edito correctamente al': 'Se agrego correctamente al' } profesor correctamente.`,
+        title: `${ edit ? 'Se edito correctamente al': 'Se agrego al' } profesor correctamente.`,
         showConfirmButton: true,
         confirmButtonColor: "#32FF00",
       })
