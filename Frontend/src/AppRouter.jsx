@@ -7,7 +7,7 @@ export const AppRouter = () => {
     <>
       <Routes>
         <Route
-          path="/create-helpSocial"
+          path="/"
           element={<CreateHelpSocial style={{ backgroundColor: "#92aea6" }} />}
         />
         <Route
