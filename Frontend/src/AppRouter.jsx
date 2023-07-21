@@ -23,6 +23,15 @@ export const AppRouter = () => {
                 )
             }
             ></Route>
+            <Route path="/teachers" 
+            element={
+                isUserAuthenticated() ? (
+                    <Teachers></Teachers>
+                    ) : (
+                    <Navigate to="/"></Navigate>
+                )
+            }
+            ></Route>
 
         </Routes>
         </>

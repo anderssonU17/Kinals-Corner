@@ -91,9 +91,9 @@ export const Navbar = () => {
                   </a>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link" href="/maestros">
+                  <Link to="/teachers" className="nav-link" href="/maestros">
                     Maestros
-                  </a>
+                  </Link>
                 </li>
                 <li className="nav-item">
                   <a className="nav-link" href="/foro">
