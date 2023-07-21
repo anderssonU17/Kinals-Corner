@@ -3,7 +3,7 @@ import logo from "../../assets/image/LogoHd.png";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import Swal from "sweetalert2";
-import { createUser } from "../api/ApiRegister";
+import { checkParametersRegister, createUser } from "../api/ApiRegister";
 
 export const Register = () => {
   const navigate = useNavigate();
@@ -49,6 +49,7 @@ export const Register = () => {
 
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);
+      checkParametersRegister(errors)
       return;
     }
 
@@ -71,13 +72,6 @@ export const Register = () => {
         } else {
           navigate('/');
         }
-      });
-    } else {
-      Swal.fire({
-        icon: "error",
-        title: "Error",
-        text: "No se pudo crear el usuario",
-        confirmButtonText: "Ok",
       });
     }
   };

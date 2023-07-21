@@ -20,12 +20,33 @@ export const createUser = async (name, email, password) => {
         });
         
     } catch (error) {
+        console.error(error);
+        console.error(error.response.data.message);
         Swal.fire({
             icon: "error",
             title: "Oops...",
-            text: "No se pudo guardar el usuario.",
+            text:  error.response.data.message || "No se pudo guardar el usuario.",
             showConfirmButton: true,
             confirmButtonText: "OK"
         });
     }
   };
+
+//   Alerta para errores
+export const checkParametersRegister = (errors) => {
+    try {
+
+        let values = null;
+        values = Object.values(errors)
+        
+        Swal.fire({
+            icon: "error",
+            title: "Campos invalidos.",
+            text: values.length ? `${Object.values(errors)}, `: 'Por favor llena los campos para crear tu usuario.',
+            showConfirmButton: true,
+            confirmButtonText: "OK"
+        });
+    } catch (error) {
+        
+    }
+}

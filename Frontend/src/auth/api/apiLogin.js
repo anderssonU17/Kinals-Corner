@@ -13,7 +13,8 @@ export const fetchLogin = async (email, password) => {
       password: password,
     };
 
-    const response = await axios.post(`${URL}login`, data);
+    const response = await axios.post(`http://localhost:3002/api/login`, data)
+    
     token = response.data.token
     Swal.fire({
       icon: 'success',
@@ -23,7 +24,8 @@ export const fetchLogin = async (email, password) => {
       confirmButtonText: "ok",
     }).then(
       () => {
-        localStorage.setItem('token', token)
+        localStorage.setItem('token', token);
+        window.location.href = '/teachers'
       }
     )
   } catch (error) {
@@ -41,7 +43,6 @@ export const fetchLogin = async (email, password) => {
 export const checkParameters = async(email, password) => {
 
   if (email.trim().length === 0 || password.trim().length === 0) {
-    console.log('Empezando el swal');
     Swal.fire({
       icon: "info",
       title: "Oops...",
