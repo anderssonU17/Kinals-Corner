@@ -21,3 +21,12 @@ export const createForum = async (title, content) =>{
         throw new Error(e)
     }
 }
+
+export const updateForumLikes = async (postId, likes) => {
+    try {
+        const response = await axios.put(`${URL}update-Forum/${postId}`, { likes });
+        return response.data.post;
+    } catch (e) {
+        throw new Error(e);
+    }
+};
