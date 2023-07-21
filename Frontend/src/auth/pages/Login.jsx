@@ -1,7 +1,16 @@
+
 import React, { useState } from "react";
+<<<<<<< HEAD
 import { checkParameters, fetchLogin } from "../api/apiLogin";
 import "../../assets/styles/login.css";
 import { Link } from "react-router-dom";
+=======
+
+import { Link } from "react-router-dom";
+
+import "../../assets/styles/login.css";
+
+>>>>>>> jherrera-2020327
 import LogoHd from '../../assets/image/LogoHd.png'
 import Swal from "sweetalert2";
 
@@ -78,13 +87,11 @@ export const Login = () => {
               Inicias Sesión
             </button>
           </div>
-          <Link>
             <div className="link-new-account">
               <center>
-                <p>¿No tienes una cuenta? Crea una dando clic aquí.</p>
+                <p>¿No tienes una cuenta? Crea una dando clic <Link to="/register">aquí.</Link></p>
               </center>
             </div>
-          </Link>
         </form>
       </div>
     </>
