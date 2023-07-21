@@ -96,9 +96,9 @@ export const Navbar = () => {
                   </Link>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link" href="/foro">
+                  <Link to="/foro" className="nav-link" href="/foro">
                     Foro
-                  </a>
+                  </Link>
                 </li>
                 <li className="nav-item">
                   <button className="nav-link btn btn-outline-primary rounded-pill create-forum-btn">
