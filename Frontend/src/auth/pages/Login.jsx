@@ -1,13 +1,12 @@
 import React, { useState } from "react";
-import { checkParameters } from "../api/apiLogin";
-
+import { checkParameters, fetchLogin } from "../api/apiLogin";
 import "../../assets/styles/login.css";
 import { Link } from "react-router-dom";
-
 import LogoHd from '../../assets/image/LogoHd.png'
+import Swal from "sweetalert2";
 
 export const Login = () => {
-    //Cambio de nombre de la pagian
+    //Cambio de nombre de la pagina
     document.title = 'Login'
 
   const [email, setEmail] = useState("");
@@ -16,12 +15,39 @@ export const Login = () => {
   const login = async (e) => {
     try {
       e.preventDefault();
-      checkParameters(email, password);
+      const areParametersValid = checkParameters(email, password);
+  
+      if (areParametersValid) {
+        const response = await fetchLogin(email, password);
+  
+        if (response.data && response.data.ok) {
+          // Si la propiedad 'ok' en la respuesta es true, entonces el inicio de sesión fue exitoso
+          Swal.fire({
+            icon: 'success',
+            title: 'Genial',
+            text: response.data.message,
+            confirmButtonText: 'Ok',
+          }).then((r) => {
+            if (r.isConfirmed) {
+              window.location.href = "/";
+            }
+          });
+        } else {
+          // Si la propiedad 'ok' en la respuesta es false, entonces el inicio de sesión fue incorrecto
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: response.data.message || 'Los datos ingresados son incorrectos.',
+            showConfirmButton: true,
+            confirmButtonText: 'OK',
+          });
+        }
+      }
     } catch (error) {
       console.error(error);
     }
   };
-
+  
   return (
     <>
       <div className="container-login">
