@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { confirmDeleteTeacher } from "../api/teachers";
 import { UpdateTeacher } from "./UpdateTeacher";
-import axios from "axios";
-
+import '../../assets/styles/cardTeacher.css'
 export const Teacher = ({
   _idTeacher,
   name,
@@ -22,11 +21,11 @@ export const Teacher = ({
 
   return (
     <>
-      <div style={styles.containerTeacher}>
+      <div style={styles.containerTeacher} className="card-teacher" >
         <div className="d-flex flex-column justify-content-center">
           <img src={image} alt="Imagen" style={styles.image}></img>
           <div className="d-flex flex-column align-items-center justify-content-center mt-4" >
-            <p style={{marginBottom: '-10px'}}>Nombre:</p>
+            <p style={{marginBottom: '-10px', color: 'rgb(66, 66, 66)'}}>Nombre:</p>
             <h6 className="mt-3" style={styles.nameTeacher}>
               {name}
             </h6>
@@ -100,7 +99,7 @@ const styles = {
     maxWidth: "150px",
   },
   subTitles: {
-    color: "gray",
+    color: "rgb(66, 66, 66)",
   },
   buttonsFooter: {
     marginTop: "20px",

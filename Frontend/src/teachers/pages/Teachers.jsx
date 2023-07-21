@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { Teacher } from "../components/Teacher";
 import { getTeachers } from "../api/teachers";
-import axios from "axios";
 import { AddTeacher } from "../components/AddTeacher";
+
+import "../../assets/styles/teacher.css";
 
 export const Teachers = () => {
   //Cambiar titulo de la pagina
@@ -24,18 +25,24 @@ export const Teachers = () => {
 
   return (
     <>
-      <div className="container d-flex flex-column mt-4" >
+      <div className="container d-flex flex-column mt-4">
         <h1>Profesores</h1>
-        <hr style={{marginTop: '-5px'}}/>
+        <hr style={{ marginTop: "-5px" }} />
 
         {/* ****Este componenete se debe mostrar solo si el usuario logueado es de tipo administrador ****/}
         {administrador && (
-          <button
-            className="btn btn-primary ms-1 col-2"
-            onClick={() => setModalShow(true)}
-          >
-            Agregar profesor
-          </button>
+          <div className="d-flex justify-content-end" >
+            <button
+              className="btn btn-primary ms-1 col-2 button-addTeacher"
+              onClick={() => setModalShow(true)}
+            >
+              Agregar profesor
+            </button>
+          </div>
+        )}
+        {/* Mensaje para cuando no hayan profesores */}
+        {teachers == null && (
+          <h2 className="mt-4"style={{color: 'gray'}}>No se han agregado profesores....</h2>
         )}
       </div>
 
@@ -69,12 +76,6 @@ export const Teachers = () => {
               />
             </div>
           ))}
-        {/* Mensaje para cuando no hayan profesores */}
-        {teachers == null && (
-          <div className="container" style={{ height: "80vh", width: "100vw" }}>
-            <h2>No se han agregado profesores....</h2>
-          </div>
-        )}
       </div>
     </>
   );

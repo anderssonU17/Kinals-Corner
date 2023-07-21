@@ -72,13 +72,21 @@ export const AddTeacher = (props) => {
         }
       )
 
-
+      clearStates()
       props.onHide()
 
 
     } catch (error) {
       console.error(error);
     }
+  }
+
+  //Limpiar los datos de los estados
+  const clearStates = () => {
+    setEmail('')
+    setImageTeacher('')
+    setNameTeacher('')
+    setSubject('')
   }
 
   return (

@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 
+import '../../assets/styles/teacher.css'
+
 import Swal from "sweetalert2";
 import { createTeacher, getTeachers, updateTeacher } from "../api/teachers";
 
@@ -97,9 +99,11 @@ export const UpdateTeacher = (props) => {
       aria-labelledby="contained-modal-title-vcenter"
       centered
     >
-      <Modal.Header closeButton>
-        <Modal.Title id="contained-modal-title-vcenter">
+      <Modal.Header closeButton  >
+        <Modal.Title id="contained-modal-title-vcenter" >
+          <div className="modal-teacher-header" >
           Editar Profesor
+          </div>
         </Modal.Title>
       </Modal.Header>
       <Modal.Body className="d-flex flex-column align-items-center justify-content-center">
