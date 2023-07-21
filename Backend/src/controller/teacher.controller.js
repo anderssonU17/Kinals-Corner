@@ -6,10 +6,7 @@ const Teacher = require('../models/teacher.model')
 const fs = require('fs')
 //Modulo nativo de node.js que permite trabajar con rutas de archivos y directorios
 const path = require('path')
-<<<<<<< HEAD
 const { stringify } = require('querystring')
-=======
->>>>>>> jcastro-2021416
 
 //Crear profesor
 const createTeacher = async(req, res) => {
@@ -56,7 +53,6 @@ const updateTeacher = async(req, res) =>{
         
         let newTeacher = req.body
 
-<<<<<<< HEAD
         const mailExists = await Teacher.findOne({email: req.body.email})
 
         if( mailExists && (mailExists._id != req.body.teacherId)) return res.status(400).send({message: 'El correo que tratas de registrar para el nuevo profesor ya esta en uso.'})
@@ -64,14 +60,6 @@ const updateTeacher = async(req, res) =>{
         if(newTeacher.photo) delete newTeacher.photo;
         
         newTeacher = await Teacher.findOneAndUpdate({_id: req.body.teacherId}, {...newTeacher}, {new: true});
-=======
-        const mailExists = await Teacher.findOne({email: newTeacher.email})
-        if( mailExists && mailExists._id !== newTeacher.teacherId) return res.status(400).send({message: 'El correo que tratas de registrar para el nuevo profesors ya esta en uso.'})
-
-        if(newTeacher.photo) delete newTeacher.photo;
-
-        newTeacher = await Teacher.findOneAndUpdate({_id: req.body.teacherId}, {newTeacher}, {new: true});
->>>>>>> jcastro-2021416
 
         if(!newTeacher) return res.status(404).send({message: 'No se encontro el profesor y no se actualizo'});
 
@@ -118,11 +106,6 @@ const addImageTeacher = async(req, res) =>{
 
         //Comprobar si el profesor ya tiene una imagen asignada
         const alreadyImageTeacher = await Teacher.findOne({_id: teacherId})
-<<<<<<< HEAD
-=======
-        console.log('Usuario encontrado:');
-        console.log(alreadyImageTeacher);
->>>>>>> jcastro-2021416
         let pathFile = './uploads/teachers/'; // Ruta donde se guardan las imagenes de los profesores
 
         //Comprobar que si este mandado un archivo y que este tenga una extencion
@@ -136,11 +119,6 @@ const addImageTeacher = async(req, res) =>{
         //Validar la extension (el tipo de archivo) 
         const extension = fileName.split('\.'); // Volvemos a separar pero ahora cuando encuentre un '.'
         const fileExtension = extension[1];
-<<<<<<< HEAD
-=======
-        console.log('Extension de la imagen');
-        console.log(fileExtension);
->>>>>>> jcastro-2021416
 
         if( 
             fileExtension == 'png' ||
@@ -174,12 +152,8 @@ const addImageTeacher = async(req, res) =>{
 //Obtener la foto de un profesor
 const getImageTeacher = async(req, res)=>{
     try {
-<<<<<<< HEAD
         const teacherId = req.params.teacherId;
         
-=======
-        const teacherId = req.body.teacherId;
->>>>>>> jcastro-2021416
         if(!teacherId || teacherId == '') return res.status(400).send({message: 'El parametro `teacherId` es obligatorio.' })
         const teacherFInd = await Teacher.findOne({_id: teacherId});
 

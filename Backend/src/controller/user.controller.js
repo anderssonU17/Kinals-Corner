@@ -122,11 +122,7 @@ const loginUser = async (req, res) => {
 
 /* Función para crear un usuario por default */
 const userDefault = async (req, res) => {
-<<<<<<< HEAD
     let user = await User.find();
-=======
-    const user = await User.find();
->>>>>>> jcastro-2021416
     try {
         if (user.length == 0) {
             user = new User();

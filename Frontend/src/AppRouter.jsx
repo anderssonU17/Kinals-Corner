@@ -1,5 +1,4 @@
 import { Navigate, Route, Routes } from "react-router-dom";
-<<<<<<< HEAD
 import { isUserAuthenticated } from "./auth/helpers/LoginHelper";
 import { Navbar } from "./components/Navbar";
 import { Login } from "./auth/pages/Login";
@@ -36,24 +35,4 @@ export const AppRouter = () => {
         </Routes>
         </>
     );
-=======
-import { CreateHelpSocial } from "./helpSocial/pages/HelpSocial";
-import { ListHelpSocial } from "./helpSocial/pages/ListHelpSocial";
-
-export const AppRouter = () => {
-  return (
-    <>
-      <Routes>
-        <Route
-          path="/"
-          element={<CreateHelpSocial style={{ backgroundColor: "#92aea6" }} />}
-        />
-        <Route
-          path="/list-helpSocial"
-          element={<ListHelpSocial style={{ backgroundColor: "#92aea6" }} />}
-        />
-      </Routes>
-    </>
-  );
->>>>>>> jcastro-2021416
 };

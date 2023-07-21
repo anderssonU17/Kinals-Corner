@@ -54,11 +54,7 @@ api.put('/addImageTeacher', [
 ], addImageTeacher)
 
 // Obtener imagen de un profesor
-<<<<<<< HEAD
 api.get('/getImageTeacher/:teacherId', [
-=======
-api.get('/getImageTeacher', [
->>>>>>> jcastro-2021416
     updload,
 ], getImageTeacher)
 
