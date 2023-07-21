@@ -1,18 +1,19 @@
-body{
-    margin: 0px;
+body {
+    margin: 0;
     background-image: url(../image/HomeBG.png);
-    padding: 0px;
+    padding: 0;
     display: flex;
-}
-
-.container-home{
+    justify-content: center; /* Centrar horizontalmente */
+    align-items: center; /* Centrar verticalmente */
+    height: 100vh; /* Establecer el 100% del alto de la ventana */
+  }
+  
+  .container-home {
     background-color: rgba(113, 113, 113, 0.347);
-    border-top: 1px black groove;
-    border-left: 1px black groove;
-    border-right: 3px black outset;
-    border-bottom: 3px black outset;
+    border: 1px black groove;
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
-}
+    padding: 20px; /* Ajustar el espaciado del contenedor */
+  }
 
 .container-home-img{
     display: inline-block;
