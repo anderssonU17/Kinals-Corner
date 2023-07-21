@@ -1,7 +1,44 @@
+<<<<<<< HEAD
 .form {
     display: block;
     flex-direction: column;
     background: #606c88;
+=======
+body {
+    background-image: url(../image/DarkBlue.jpg);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+ }
+
+ .postDiv{
+  padding: 1em;
+ }
+
+ .main-container{
+    display: inline-block;
+ }
+
+ .MainDiv{
+    background-image: url(../image/LightGreen.jpg);
+    background-color: #343a5fa1;
+    display: inline-block;
+    height: 100vh;
+    padding-top: 2em;
+    padding-right: 7em;
+    padding-left: 2em;
+    border: 3px black solid;
+    width: 50em;
+    border-width: 0px 2px 0px 2px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+ }
+
+.form {
+    display: block;
+    flex-direction: column;
+    background: #515f7e;
+>>>>>>> jflores-2019424
     background: linear-gradient(to right, #f6b802, #f6b802);
     margin-left: 17%;
     padding: 20px;
@@ -9,11 +46,42 @@
     width: 37.5rem;
   }
 
+<<<<<<< HEAD
+=======
+.mapa-div{
+    display: inline-block;
+    vertical-align: top;
+    background-color: #00bd81a4;
+    width: 15em;
+    border: 3px solid black;
+    border-radius: 15px 15px 15px 15px;
+    margin-left: 2em;
+    margin-right: 2em;
+    margin-top: 2em;
+    height: 30vh;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+}
+
+>>>>>>> jflores-2019424
 .mensageSaliente{
     margin-left: 70%;
     list-style: none;
 }
 
+<<<<<<< HEAD
+=======
+.input{
+    box-sizing: border-box;    
+    border: none;
+    border-bottom: 1px solid #AAA;
+    font-weight: 400;
+    height: 2.3em;
+    font-size: 110%;
+    border-radius: 15px 15px 15px 15px;
+    transition: 0.2s ease;
+}
+
+>>>>>>> jflores-2019424
 .titulo{
     font-size: 14px;
 }
@@ -22,6 +90,7 @@
     font-size: 16px;
 }
 
+<<<<<<< HEAD
 .mensage1{
     font-size: 14;
 }
@@ -33,3 +102,88 @@
  li {
     list-style: none;
  }
+=======
+
+.button{
+    height: 2.6em;
+    width: 8em;
+    background: #4f120a;
+    border: none;
+    border-radius: 2%;
+    color: #FFF;
+    transition: 0.1s ease;
+    cursor: pointer;
+    border-radius: 10%;
+  }
+  
+  .button:hover{
+    opacity: 0.9;
+    box-shadow: 0 4px 6px #4f120a;
+    transition: 0.1s ease;
+  }
+  
+  .button:active{
+    opacity: 1;
+    box-shadow: 0 1px 2px #4f120a;
+    transition: 0.1s ease;
+  }
+
+.mensage1{
+    font-size: 14;
+}
+
+ li {
+    list-style: none;
+ }
+
+@media screen and (max-width: 600px) {
+  input[type=text] {
+    width: 80%;
+    margin-top: 0;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .form {
+  width: 100%;
+  vertical-align: middle;
+  font-size: small;
+  margin: 0px;
+  }
+}
+
+@media screen and (max-width: 600px) {
+    .button{
+        width: 30%;
+    }
+}
+
+@media screen and (max-width: 600px) {
+  .MainDiv {
+  flex-direction: column;
+  position: absolute;
+  height: 100%;
+  padding: 0.54em;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+  width: 109%;
+  margin: 0px;
+  vertical-align: middle;
+  }
+}
+
+@media screen and (max-width: 600px){
+    .mapa-div{
+        visibility: hidden;
+    }
+}
+
+@media screen and (max-width: 1000px){
+    .mapa-div{
+        visibility: hidden;
+        position: absolute;
+    }
+}
+>>>>>>> jflores-2019424
