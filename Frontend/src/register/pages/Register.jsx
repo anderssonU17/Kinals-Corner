@@ -67,9 +67,9 @@ export const Register = () => {
         confirmButtonText: "Ok",
       }).then((r) => {
         if (r.isConfirmed) {
-          navigate("/");
+          navigate('/');
         } else {
-          navigate("/");
+          navigate('/');
         }
       });
     } else {
@@ -85,11 +85,10 @@ export const Register = () => {
   return (
     <>
       <div className="container-register">
-        <form onSubmit={imprimir}>
           <div className="card-register">
             <div className="card-register-title">
               <center>
-                <h2>Bienvenido al registro de usuarios</h2>
+                <h2>Registro de Usuarios</h2>
               </center>
               <center>
                 <img src={logo} alt="logo" />
@@ -98,25 +97,48 @@ export const Register = () => {
             <p>Ingrese los datos para crear una cuenta</p>
             <div className="content-register">
               <label>Nombres</label>
-              <input type="text" className="form-control" value={name} onChange={(e) => setName(e.target.value)} />
+              <input
+                type="name"
+                id="name"
+                className="form-control"
+                value={name}
+                onChange={({ target: { value } }) => setName(value)}
+                placeholder="Ingrese su nombre"
+                required
+              />
             </div>
             <div className="content-register">
               <label>Email</label>
-              <input type="text" className="form-control" value={name} onChange={(e) => setEmail(e.target.value)} />
+              <input
+                type="email"
+                id="email"
+                className="form-control"
+                value={email}
+                onChange={({ target: { value } }) => setEmail(value)}
+                placeholder="Ingrese su correo"
+                required
+              />
             </div>
             <div className="content-register">
               <label>Contraseña</label>
-              <input type="text" className="form-control" value={name} onChange={(e) => setPassword(e.target.value)} />
+              <input
+                type="password"
+                id="password"
+                className="form-control"
+                value={password}
+                onChange={({ target: { value } }) => setPassword(value)}
+                placeholder="Ingrese su contraseña"
+                required
+              />
             </div>
-            <Link>
-            <div className="link-new-account">
-              <center>
-                <button onClick={(e) => imprimir(e)} type="submit" className="button"></button>
-              </center>
-            </div>
-            </Link>
+              <button
+              type="submit" 
+              onClick={(e) => imprimir(e)} 
+              className="btn btn-success btn-submit-register"
+              >
+                Crear Cuenta
+              </button>
           </div>
-        </form>
       </div>
     </>
   );
