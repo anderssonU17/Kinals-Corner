@@ -8,7 +8,7 @@ export const Teacher = ({ _idTeacher, name, subject, email, setTeachers, teacher
   // Modal
   const [modalShow, setModalShow] = useState(false);
 
-  //URL para peticon de la imagen
+  //URL para peticon de la imagenA
   const [image, setImage] = useState(`http://localhost:3002/api/getImageTeacher/${_idTeacher}`)
   
   return (
