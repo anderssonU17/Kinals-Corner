@@ -25,9 +25,7 @@ export const Teachers = () => {
 
   return (
     <>
-      <div className="container d-flex flex-column mt-4">
-        <h1>Profesores</h1>
-        <hr style={{ marginTop: "-5px" }} />
+      <div className="container d-flex flex-column mt-4">        
 
         {/* ****Este componenete se debe mostrar solo si el usuario logueado es de tipo administrador ****/}
         {administrador && (
