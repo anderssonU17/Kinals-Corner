@@ -3,25 +3,37 @@ import { isUserAuthenticated } from "./auth/helpers/LoginHelper";
 import { Login } from "./auth/pages/Login";
 import { Teachers } from "./teachers/pages/Teachers";
 import { HomePage } from "./home/pages/HomePage";
+import { Register } from "./register/pages/Register";
+import { Navbar } from "./components/Navbar";
 
 export const AppRouter = () => {
     return(
         <>
+        {isUserAuthenticated() && <Navbar/>}
         <Routes>
         <Route path="/" 
-            element={isUserAuthenticated() ? <HomePage/> : <HomePage/>}
+            element={isUserAuthenticated() ? <Teachers/> : <HomePage/>}
         />
 
 
             <Route path="/login" 
             element={
                 !isUserAuthenticated() ? (
-                    <Login></Login>
+                    <Login/>
                     ) : (
                     <Navigate to="/"></Navigate>
                 )
             }
-            ></Route>
+            />
+            <Route path="/register" 
+            element={
+                !isUserAuthenticated() ? (
+                    <Register/>
+                    ) : (
+                    <Navigate to="/"></Navigate>
+                )
+            }
+            />
             <Route path="/teachers" 
             element={
                 isUserAuthenticated() ? (
@@ -30,7 +42,7 @@ export const AppRouter = () => {
                     <Navigate to="/"></Navigate>
                 )
             }
-            ></Route>
+            />
 
         </Routes>
         </>

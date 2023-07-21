@@ -19,7 +19,8 @@ export const HomePage = () => {
     }
   return (
     <>
-        <div className='container-home'>
+    <div className="home-page-content">
+    <div className='container-home'>
             <div className='container-home-center'>
                     <div className='container-home-item'>
                             <label className='label-home'>Bienvenido a Kinal's Corner</label>          
@@ -44,6 +45,7 @@ export const HomePage = () => {
                     </div>
             </div>
         </div>
+    </div>
     </>
   )
 }

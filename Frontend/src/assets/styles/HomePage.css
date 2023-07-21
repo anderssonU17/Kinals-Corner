@@ -1,14 +1,17 @@
 body {
-    margin: 0;
-    background-image: url(../image/HomeBG.png);
-    padding: 0;
-    display: flex;
     justify-content: center; /* Centrar horizontalmente */
-    align-items: center; /* Centrar verticalmente */
-    height: 100vh; /* Establecer el 100% del alto de la ventana */
   }
   
-  .container-home {
+/* Estilos específicos para el HomePage */
+.home-page-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-image: url(../image/HomeBG.png);
+  }
+  
+.container-home {
     background-color: rgba(113, 113, 113, 0.347);
     border: 1px black groove;
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
