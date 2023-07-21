@@ -1,0 +1,11 @@
+.baneo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 25em;
+    height: 100vh; /* Ajusta la altura según tus necesidades */
+    background: url(../images/Baneo.gif) no-repeat center center;
+    background-size: contain;
+    width: 60%;
+    max-width: 100%;
+}
