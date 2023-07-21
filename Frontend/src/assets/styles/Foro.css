@@ -10,21 +10,28 @@ body {
   padding: 1em;
  }
 
+ .main-container{
+    display: inline-block;
+ }
+
  .MainDiv{
-    display: flex;
     background-image: url(../image/LightGreen.jpg);
-    padding: 7em;
+    background-color: #343a5fa1;
+    display: inline-block;
+    height: 100vh;
+    padding-top: 2em;
+    padding-right: 7em;
     padding-left: 2em;
-    border-radius: 45px 45px 45px 45px;
     border: 3px black solid;
+    width: 50em;
+    border-width: 0px 2px 0px 2px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
-    flex-direction: column;
  }
 
 .form {
     display: block;
     flex-direction: column;
-    background: #606c88;
+    background: #515f7e;
     background: linear-gradient(to right, #f6b802, #f6b802);
     margin-left: 17%;
     padding: 20px;
@@ -32,25 +39,34 @@ body {
     width: 37.5rem;
   }
 
+.mapa-div{
+    display: inline-block;
+    vertical-align: top;
+    background-color: #00bd81a4;
+    width: 15em;
+    border: 3px solid black;
+    border-radius: 15px 15px 15px 15px;
+    margin-left: 2em;
+    margin-right: 2em;
+    margin-top: 2em;
+    height: 30vh;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+}
+
 .mensageSaliente{
     margin-left: 70%;
     list-style: none;
 }
 
 .input{
-    box-sizing: border-box;
-    margin-right: 1em;
-    margin-bottom: 1%;
-    padding: 1%;
-    width: 50%;
-    height: 32px;
+    box-sizing: border-box;    
     border: none;
     border-bottom: 1px solid #AAA;
     font-weight: 400;
+    height: 2.3em;
     font-size: 110%;
-    border-radius: 0px 0px 0px 0px;
+    border-radius: 15px 15px 15px 15px;
     transition: 0.2s ease;
-    resize: horizontal;
 }
 
 .titulo{
@@ -60,6 +76,7 @@ body {
 .descripcion{
     font-size: 16px;
 }
+
 
 .button{
     height: 2.6em;
@@ -94,7 +111,7 @@ body {
  }
 
 @media screen and (max-width: 600px) {
-  input[type=password], input[type=text] {
+  input[type=text] {
     width: 80%;
     margin-top: 0;
   }
@@ -102,18 +119,44 @@ body {
 
 @media screen and (max-width: 600px) {
   .form {
-  margin-top: 45%;
   width: 100%;
   vertical-align: middle;
   font-size: small;
+  margin: 0px;
   }
 }
 
 @media screen and (max-width: 600px) {
+    .button{
+        width: 30%;
+    }
+}
+
+@media screen and (max-width: 600px) {
   .MainDiv {
-  margin-top: 80%;
-  width: 150%;
-  margin-right: 15%;
+  flex-direction: column;
+  position: absolute;
+  height: 100%;
+  padding: 0.54em;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+  width: 109%;
+  margin: 0px;
   vertical-align: middle;
   }
+}
+
+@media screen and (max-width: 600px){
+    .mapa-div{
+        visibility: hidden;
+    }
+}
+
+@media screen and (max-width: 1000px){
+    .mapa-div{
+        visibility: hidden;
+        position: absolute;
+    }
 }

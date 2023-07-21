@@ -11,7 +11,7 @@ body{
 }
 
 .container{
-  background-image: url(../../assets/image//FondoBlanco.jpg);
+  background-image: url(../../assets//image//FondoBlanco.jpg);
   box-sizing: border-box;
   border: 100% #00bd80 solid;
   margin-top: 5%;
@@ -149,4 +149,13 @@ body{
   .btn {
   margin-right: 8%;
   }
+}
+
+.input-error { /*borde del campo con error*/
+  border: 1px solid #f6b802	;
+
+}
+
+.error-message{ /*color del mensaje de faltan campos*/
+  color: #C31800;
 }
