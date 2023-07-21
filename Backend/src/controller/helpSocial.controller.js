@@ -2,28 +2,36 @@
 
 // const express = require('express');
 const  {generateJWT} = require('../helpers/create-jwt');
-const HelpSocial = require('../models/helpSocial.model');
+const HelpSocial = require('../models/helpSocial.model'); // Asegúrate de importar correctamente el modelo HelpSocial
 
-//-------------------------------------create help Social----------------------------------------------------
+const createHelpSocials = async (req, res) => {
+  const { title, description, claimDate, claimantName } = req.body;
 
-const createHelpSocials = async(req, res) => {
-try{
+  try {
+    const image = req.files.image; // Obtener el archivo adjunto de la solicitud
+    const iamgeBase64 = image.data.toString('base64');
 
-    const { title, description, image } = req.body;
+    const claimed = claimantName ? true : false; // Verificar si se proporciona el nombre del reclamante
 
-    if (!title || !description) {
-        return res.status(400).json({ error: 'El título y la descripción son obligatorios' });
-    }
+    const helpSocial = new HelpSocial({
+      title,
+      description,
+      image: iamgeBase64, // Guardar solo el nombre de la imagen
+      claimed,
+      claimDate,
+      claimantName
+    });
 
-    const newHelpSocial = new HelpSocial(req.body);
-    const helpSocial = await newHelpSocial.save();
-    res.status(201).json(helpSocial);
+    await helpSocial.save();
 
-}catch(err){
-    res.status(500).json({ error: 'Error al agregar la ayuda social' });
-    console.log(err)
-    }   
-}
+    res.status(201).json({ message: 'Ayuda social creada exitosamente', helpSocial });
+  } catch (error) {
+    res.status(500).json({ error: 'Ha ocurrido un error al crear la ayuda social' });
+    console.log(error);
+  }
+};
+
+
 
 //------------------------------------------------------read help Social----------------------------------------------
 
@@ -44,32 +52,32 @@ const readHelpSocials = async (req, res) => {
   };
 
 //------------------------------------------------------update help Social--------------------------------------------
-
 const patchHelpSocial = async (req, res) => {
-    try {
-      const token = req.header('x-auth-token'); // Obtener el token del encabezado
-      const decoded = generateJWT(token); // Verificar y decodificar el token
-      
-      const { claimed, claimantName } = req.body;
-      
-      // Realizar la actualización en la base de datos
-      const helpSocial = await HelpSocial.findOneAndUpdate(
-        { claimantName: decoded.name }, // Filtrar por claimantName
-        { claimed, claimantName },
-        { new: true }
-      );
-      
-      if (!helpSocial) {
-        return res.status(404).json({ message: "No se encontró la ayuda social para el usuario" });
-      }
-      
-      return res.status(200).json({ message: "Ayuda social actualizada correctamente", helpSocial });
-    } catch (error) {
-      console.log(error);
-      return res.status(500).json({ message: "Error en la actualización de la ayuda social" });
+  const helpSocialId = req.params.id;
+  const { claimantName } = req.body;
+
+  try {
+    // Buscar la ayuda social por ID en la base de datos
+    const helpSocial = await HelpSocial.findById(helpSocialId);
+
+    // Verificar si la ayuda social existe
+    if (!helpSocial) {
+      return res.status(404).json({ error: 'Ayuda social no encontrada' });
     }
-  };
-  
+
+    // Actualizar el nombre del reclamante
+    helpSocial.claimantName = claimantName;
+
+    // Guardar los cambios en la base de datos
+    await helpSocial.save();
+
+    // Enviar la respuesta con éxito
+    res.json({ message: 'Nombre del reclamante actualizado correctamente' });
+  } catch (error) {
+    console.log('Error al actualizar el nombre del reclamante', error);
+    res.status(500).json({ error: 'Ocurrió un error al actualizar el nombre del reclamante' });
+  }
+};
 //-------------------------------------------------------delete Help Social------------------------------------------------------
 
 const deleteHelpSocial = async(req, res) => {
