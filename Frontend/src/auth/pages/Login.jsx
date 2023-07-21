@@ -6,7 +6,6 @@ import { Link } from "react-router-dom";
 import "../../assets/styles/login.css";
 
 import LogoHd from '../../assets/image/LogoHd.png'
-import { checkParameters } from "../api/ApiLogin";
 
 export const Login = () => {
     //Cambio de nombre de la pagian
