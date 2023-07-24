@@ -43,13 +43,14 @@ export const Publicacion = ({ tasks }) => {
 
     //función para agregar los comentarios
     const agregarComentario = async(index) =>{
-        if (comentario.trim() !=='') {
-            const dataComent = await addComment(index, comentario);
-            setPublicacion((prevPublicacion) => 
-             [...prevPublicacion, dataComent]
-            );
-            setComentario('')
-        }
+        try {
+            const post = publicacion[index];
+            const nuevoComentario = comentario;
+            const newComment = await addComment(post._id, nuevoComentario);
+            setComentario('');
+          } catch (error) {
+           console.error('Error al agregar el comentario:', error.message)
+          }
     }
 
     return (
@@ -57,42 +58,33 @@ export const Publicacion = ({ tasks }) => {
             <div>
             {publicacion?.map((publicacionActual, index) => (
                 <div key={publicacionActual._id}>
-                <h5>{publicacionActual.title}</h5>
-                <p>{publicacionActual.content}</p>
-                <button
-                    className={`like-button ${
-                    publicacionActual.isLiked ? "liked" : ""
-                    }`}
-                    onClick={() => handleLikeClick(index)}
-                >
-                    <FontAwesomeIcon icon={faFire} />
-                </button>
-                <span className="likes-count">{publicacionActual.likesCount}</span>
-                <button onClick={()=> toggleComments(publicacionActual._id)}>
-                    {mostrarComentario[publicacionActual._id] ? 'Comentarios' : 'Comentarios'}
-                </button>
+                    <h5>{publicacionActual.title}</h5>
+                    <p>{publicacionActual.content}</p>
+                    <button
+                        className={`like-button ${
+                        publicacionActual.isLiked ? "liked" : ""
+                        }`}
+                        onClick={() => handleLikeClick(index)}
+                    >
+                        <FontAwesomeIcon icon={faFire} />
+                    </button>
+                    <span className="likes-count">{publicacionActual.likesCount}</span>
+                    <button onClick={()=> toggleComments(publicacionActual._id)}>
+                        {mostrarComentario[publicacionActual._id] ? 'Comentarios' : 'Comentarios'}
+                    </button>
                     {mostrarComentario[publicacionActual._id] && (
-                        <div>
-                            {publicacionActual.comments.map(({comment, id}) => (
-                                <p key={id}>{comment}</p>
-                            ))}
-                            <input 
-                                type="text"
-                                placeholder="Escribe un comentario"
-                                value={comentario}
-                                onChange={(e) => setComentario(e.target.value)}
-                            />
-                            <button onClick={() => agregarComentario(index)}>Agregar Comentario</button>
-                            <button
-                                className={`like-button ${
-                                publicacionActual.isLiked ? "liked" : ""
-                                }`}
-                                onClick={() => handleLikeClick(index)}
-                            >
-                                <FontAwesomeIcon icon={faFire} />
-                            </button>
-                            
-                            </div>
+                         <div>
+                         {publicacionActual.comments.map(comentarios => (
+                             <p key={comentarios.id}>{comentarios.comment}</p>
+                         ))};
+                         <input 
+                             type="text"
+                             placeholder="Escribe un comentario"
+                             value={comentario}
+                             onChange={(e) => setComentario(e.target.value)}
+                         />
+                         <button onClick={() => agregarComentario(publicacionActual.id)}>Agregar Comentario</button>
+                    </div>
                     )}
 
                 </div>

@@ -11,7 +11,7 @@ const api = Router();
 
 api.post('/create-forum',createForum);
 api.get('/read-forum', getForum);
-api.get('/add-comments', addCommentToPost);
+api.put('/add-comments/:id', addCommentToPost);
 api.put('/update-Forum',[
     validateJWT
 ], addLikeToForumPost);
