@@ -9,7 +9,7 @@ export const Teacher = ({ _idTeacher, name, subject, email, setTeachers, teacher
   const [modalShow, setModalShow] = useState(false);
 
   //URL para peticon de la imagen
-  const [image, setImage] = useState(`http://localhost:3002/api/getImageTeacher/${_idTeacher}`)
+  const [image, setImage] = useState(`https://kinals-corner-humbertolopez2020327.vercel.app/api/getImageTeacher/${_idTeacher}`)
   
   return (
     <>
