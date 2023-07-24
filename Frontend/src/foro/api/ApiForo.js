@@ -1,6 +1,6 @@
 import axios from "axios";
 /* const URL = "http://localhost:3002/api/"; */
-const URL = "https://kinals-corner-humbertolopez2020327.vercel.app/v1/post/"
+const URL = "https://kinals-corner-humbertolopez2020327.vercel.app/api/"
 
 export const readForum = async () => {  // funcion que conecta el back con front para mostrar publciaciones
     try {
