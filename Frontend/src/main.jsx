@@ -1,6 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import { AppRouter } from './AppRouter.jsx'
+import { AppRouter } from './AppRouter'
+import { Register } from './register/pages/Register';
 import { BrowserRouter } from 'react-router-dom';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
@@ -8,5 +9,5 @@ ReactDOM.createRoot(document.getElementById('root')).render(
     <BrowserRouter>
     <AppRouter />
     </BrowserRouter>
-  </React.StrictMode>,
-)
+  </React.StrictMode>
+);
