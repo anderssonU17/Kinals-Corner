@@ -3,7 +3,8 @@
 import axios from "axios";
 import Swal from "sweetalert2";
 
-const URL = "http://localhost:3002/api/";
+/* const URL = "http://localhost:3002/api/"; */
+const URL = "https://kinals-corner-humbertolopez2020327.vercel.app/v1/post/"
 
 //Obtener el listado de todos los profesores
 export const getTeachers = async () => {
