@@ -2,8 +2,15 @@ import React, { useEffect, useState } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 
+import '../../assets/styles/teacher.css'
+
 import Swal from "sweetalert2";
 import { createTeacher, getTeachers, updateTeacher } from "../api/teachers";
+import { URL_GLOBAL } from "../../constant";
+import axios from "axios";
+import { getFile } from "../../firebase/config";
+
+const URL = URL_GLOBAL;
 
 export const UpdateTeacher = (props) => {
   const [nameTeacher, setNameTeacher] = useState(props.name);
@@ -70,18 +77,17 @@ export const UpdateTeacher = (props) => {
       );
 
       props.urlImageTeacher(
-        `http://localhost:3002/api/getImageTeacher/${props._idTeacher}?t=${timestamp}`
+        `${await getNewURL()}t=${timestamp}`
       );
       
       setTimeout(
-        ()=> {
-          getTeachers().then(
+        getTeachers().then(
             (teachers) => {
               props.setTeachers(teachers)
-            },
-            1000
+            }
           )
-        }
+          ,
+          1000
       )
 
       props.onHide();
@@ -90,6 +96,16 @@ export const UpdateTeacher = (props) => {
     }
   };
 
+  //Funcion para volver a hacer la peticion de la url
+  const getNewURL = async()=> {
+    try {
+      const newURL = await getFile(props._idTeacher)
+      return newURL
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
   return (
     <Modal
       {...props}
@@ -97,9 +113,11 @@ export const UpdateTeacher = (props) => {
       aria-labelledby="contained-modal-title-vcenter"
       centered
     >
-      <Modal.Header closeButton>
-        <Modal.Title id="contained-modal-title-vcenter">
+      <Modal.Header closeButton  >
+        <Modal.Title id="contained-modal-title-vcenter" >
+          <div className="modal-teacher-header" >
           Editar Profesor
+          </div>
         </Modal.Title>
       </Modal.Header>
       <Modal.Body className="d-flex flex-column align-items-center justify-content-center">
@@ -144,7 +162,7 @@ export const UpdateTeacher = (props) => {
             <p>Foto que ya se tenia:</p>
             <img
               className="ms-4"
-              src={`http://localhost:3002/api/getImageTeacher/${props._idTeacher}`}
+              src={`${props.oldImage}t=${timestamp}`}
               alt="Imagen"
               width={"50px"}
             ></img>
