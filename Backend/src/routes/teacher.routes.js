@@ -9,7 +9,6 @@ const {check} = require('express-validator');
 
 //Importar connect-multiparty, luego hacer una instancia y enviarle el directorio donde se guardaran los archivos
 const connetMultiparty = require('connect-multiparty')
-const updload = connetMultiparty({uploadDir: './uploads/teachers'})
 
 const {createTeacher, addImageTeacher, getImageTeacher, readTeachers, updateTeacher, deleteTeacher} = require('../controller/teacher.controller');
 
@@ -50,13 +49,8 @@ api.delete('/deleteTeacher',[
 
 //Actualizar y guardar imagen de un profesor CREADO
 api.put('/addImageTeacher', [
-    updload
+    check('teacherId', 'El parametro "teacherId" es obligatorio para la creacion de un profesor.').not().isEmpty(),
+    validateParams
 ], addImageTeacher)
-
-// Obtener imagen de un profesor
-api.get('/getImageTeacher/:teacherId', [
-    updload,
-], getImageTeacher)
-
 
 module.exports = api
