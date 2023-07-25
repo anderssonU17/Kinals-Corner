@@ -6,6 +6,10 @@ import '../../assets/styles/teacher.css'
 
 import Swal from "sweetalert2";
 import { createTeacher, getTeachers, updateTeacher } from "../api/teachers";
+import { URL_GLOBAL } from "../../constant";
+import axios from "axios";
+
+const URL = URL_GLOBAL;
 
 export const UpdateTeacher = (props) => {
   const [nameTeacher, setNameTeacher] = useState(props.name);
@@ -72,7 +76,7 @@ export const UpdateTeacher = (props) => {
       );
 
       props.urlImageTeacher(
-        `http://localhost:3002/api/getImageTeacher/${props._idTeacher}?t=${timestamp}`
+        `${URL}getImageTeacher/${props._idTeacher}?t=${timestamp}`
       );
       
       setTimeout(
@@ -148,7 +152,7 @@ export const UpdateTeacher = (props) => {
             <p>Foto que ya se tenia:</p>
             <img
               className="ms-4"
-              src={`http://localhost:3002/api/getImageTeacher/${props._idTeacher}`}
+              src={`${URL}getImageTeacher/${props._idTeacher}`}
               alt="Imagen"
               width={"50px"}
             ></img>

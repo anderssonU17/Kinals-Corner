@@ -2,6 +2,10 @@ import React, { useEffect, useState } from "react";
 import { confirmDeleteTeacher } from "../api/teachers";
 import { UpdateTeacher } from "./UpdateTeacher";
 import '../../assets/styles/cardTeacher.css'
+import { URL_GLOBAL } from "../../constant";
+
+const URL = URL_GLOBAL
+
 export const Teacher = ({
   _idTeacher,
   name,
@@ -16,7 +20,7 @@ export const Teacher = ({
 
   //URL para peticon de la imagen
   const [image, setImage] = useState(
-    `http://localhost:3002/api/getImageTeacher/${_idTeacher}`
+    `${URL}getImageTeacher/${_idTeacher}`
   );
 
   return (
@@ -73,6 +77,7 @@ export const Teacher = ({
           email={email}
           setTeachers={setTeachers}
           urlImageTeacher={setImage}
+          oldImage ={image}
         />
       )}
     </>

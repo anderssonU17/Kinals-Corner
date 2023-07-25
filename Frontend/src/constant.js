@@ -1,0 +1,1 @@
+export const URL_GLOBAL = 'https://backend-prueba-blue.vercel.app/api/'

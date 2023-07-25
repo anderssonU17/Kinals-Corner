@@ -2,9 +2,9 @@
 
 import axios from "axios";
 import Swal from "sweetalert2";
+import { URL_GLOBAL } from "../../constant";
 
-/* const URL = "http://localhost:3002/api/"; */
-const URL = "https://kinals-corner-humbertolopez2020327.vercel.app/api/"
+const URL = URL_GLOBAL;
 
 //Obtener el listado de todos los profesores
 export const getTeachers = async () => {
@@ -131,8 +131,11 @@ export const confirmDeleteTeacher = (teacherId, setTeachers, teachers) => {
 //Actualizar profesor
 export const updateTeacher = async (teacherId, name, email, subject, image) => {
   try {
-    let fileExtension = image.type + "";
-    fileExtension = fileExtension.split("/").pop();
+
+    let fileExtension
+    image ? fileExtension = image.type + "" : fileExtension = 'png';
+    image ? fileExtension = fileExtension.split("/").pop() : null;
+    
 
     if (
       fileExtension == "png" ||

@@ -59,6 +59,8 @@ export const AddTeacher = (props) => {
       //Guardar la imagen en un formulario
       const image = new FormData()
       image.append('image', image)
+      console.log('Desde el agregar, la imagen es:');
+      console.log(image);
 
       await createTeacher(nameTeacher, subject, email, imageTeacher).then(
         () => {
