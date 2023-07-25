@@ -3,6 +3,7 @@ import { confirmDeleteTeacher } from "../api/teachers";
 import { UpdateTeacher } from "./UpdateTeacher";
 import '../../assets/styles/cardTeacher.css'
 import { URL_GLOBAL } from "../../constant";
+import { getFile } from "../../firebase/config";
 
 const URL = URL_GLOBAL
 
@@ -19,9 +20,19 @@ export const Teacher = ({
   const [modalShow, setModalShow] = useState(false);
 
   //URL para peticon de la imagen
-  const [image, setImage] = useState(
-    `${URL}getImageTeacher/${_idTeacher}`
-  );
+  const [image, setImage] = useState();
+
+  useEffect(() => {
+    const getURLImage = async() => {
+      await getFile(_idTeacher).then(
+        (response) => {
+          setImage(response + "")
+        }
+      )
+    }
+    getURLImage()
+  }, [])
+  
 
   return (
     <>

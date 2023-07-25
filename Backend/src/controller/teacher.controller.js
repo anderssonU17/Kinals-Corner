@@ -137,6 +137,7 @@ const addImageTeacher = async (req, res) => {
   try {
     //Obtener el id del profesor al que se le va agregar la imagen
     const teacherId = req.body.teacherId;
+    const photo = req.body.photo
 
     if (!teacherId)
       return res
@@ -145,7 +146,7 @@ const addImageTeacher = async (req, res) => {
     //Actualizar el profesor
     const teacherUpdate = await Teacher.findOneAndUpdate(
       { _id: teacherId },
-      { photo: fileName },
+      { photo: photo },
       { new: true }
     );
 

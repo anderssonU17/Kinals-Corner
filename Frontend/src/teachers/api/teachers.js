@@ -3,6 +3,7 @@
 import axios from "axios";
 import Swal from "sweetalert2";
 import { URL_GLOBAL } from "../../constant";
+import { deleteFile, uploadFile } from "../../firebase/config";
 
 const URL = URL_GLOBAL;
 
@@ -62,14 +63,15 @@ export const createTeacher = async (name, subject, email, image) => {
 //Agregar imagen al profesor
 export const addImageTeacher = async (teacherId, image, edit) => {
   try {
+
+    await uploadFile(image, teacherId);
+
     const data = {
       teacherId: teacherId,
-      image: image,
+      photo: teacherId,
     };
 
-    const response = await axios.put(`${URL}addImageTeacher`, data, {
-      headers: { "Content-Type": "multipart/form-data" },
-    });
+    const response = await axios.put(`${URL}addImageTeacher`, data);
 
     if (response) {
       Swal.fire({
@@ -97,6 +99,9 @@ export const addImageTeacher = async (teacherId, image, edit) => {
 //Eliminar profesor
 export const deleteTeacher = async (teacherId) => {
   try {
+
+    await deleteFile(teacherId)
+
     const response = await axios.delete(`${URL}deleteTeacher`, {
       data: {
         teacherId: teacherId,
@@ -133,11 +138,12 @@ export const updateTeacher = async (teacherId, name, email, subject, image) => {
   try {
 
     let fileExtension
-    image ? fileExtension = image.type + "" : fileExtension = 'png';
+    image ? fileExtension = image.type + "" : fileExtension = 'noImage';
     image ? fileExtension = fileExtension.split("/").pop() : null;
     
 
     if (
+      fileExtension == "noImage" ||
       fileExtension == "png" ||
       fileExtension == "jpg" ||
       fileExtension == "jpeg" ||

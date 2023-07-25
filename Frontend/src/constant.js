@@ -1,1 +1,1 @@
-export const URL_GLOBAL = 'https://backend-prueba-blue.vercel.app/api/'
+export const URL_GLOBAL = 'http://localhost:3002/api/'

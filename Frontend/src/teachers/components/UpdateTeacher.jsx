@@ -8,6 +8,7 @@ import Swal from "sweetalert2";
 import { createTeacher, getTeachers, updateTeacher } from "../api/teachers";
 import { URL_GLOBAL } from "../../constant";
 import axios from "axios";
+import { getFile } from "../../firebase/config";
 
 const URL = URL_GLOBAL;
 
@@ -76,18 +77,17 @@ export const UpdateTeacher = (props) => {
       );
 
       props.urlImageTeacher(
-        `${URL}getImageTeacher/${props._idTeacher}?t=${timestamp}`
+        `${await getNewURL()}t=${timestamp}`
       );
       
       setTimeout(
-        ()=> {
-          getTeachers().then(
+        getTeachers().then(
             (teachers) => {
               props.setTeachers(teachers)
-            },
-            1000
+            }
           )
-        }
+          ,
+          1000
       )
 
       props.onHide();
@@ -95,6 +95,16 @@ export const UpdateTeacher = (props) => {
       console.error(error);
     }
   };
+
+  //Funcion para volver a hacer la peticion de la url
+  const getNewURL = async()=> {
+    try {
+      const newURL = await getFile(props._idTeacher)
+      return newURL
+    } catch (error) {
+      console.error(error);
+    }
+  }
 
   return (
     <Modal
@@ -152,7 +162,7 @@ export const UpdateTeacher = (props) => {
             <p>Foto que ya se tenia:</p>
             <img
               className="ms-4"
-              src={`${URL}getImageTeacher/${props._idTeacher}`}
+              src={`${props.oldImage}t=${timestamp}`}
               alt="Imagen"
               width={"50px"}
             ></img>

@@ -39,9 +39,10 @@ export const Teachers = () => {
           </div>
         )}
         {/* Mensaje para cuando no hayan profesores */}
-        {teachers == null && (
+        {teachers == null || teachers.length == 0 ? (
           <h2 className="mt-4"style={{color: 'gray'}}>No se han agregado profesores....</h2>
-        )}
+        ):
+        null}
       </div>
 
       {/* Modal */}

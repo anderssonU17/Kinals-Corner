@@ -50,6 +50,7 @@ api.delete('/deleteTeacher',[
 //Actualizar y guardar imagen de un profesor CREADO
 api.put('/addImageTeacher', [
     check('teacherId', 'El parametro "teacherId" es obligatorio para la creacion de un profesor.').not().isEmpty(),
+    check('photo', 'El parametro "photo" es obligatorio para la creacion de un profesor.').not().isEmpty(),
     validateParams
 ], addImageTeacher)
 
