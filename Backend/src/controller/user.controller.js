@@ -28,17 +28,18 @@ const createUser = async (req, res) => {
 /* Función para listar usuarios */
 const readUser = async (req, res) => {
     try {
+        const usuarios = await User.find(); // Consultar todos los documentos en la colección "users"
 
-        const idUser = req.user._id;
-        const user = await User.find(idUser);
-        if (!user) {
-            return res.status(400).json({ message: "No se encontró el usuario" });
-        } else {
-            return res.status(200).json({ message: "Usuario encontrado", user });
+        if(!usuarios){
+            return res.status(404).json({
+                msg: "No se encontraron usuarios"
+            });
+        }else{
+            return res.status(400).json({usuarios: usuarios}) 
         }
-    } catch (error) {
-        console.log(error)
-        return res.status(500).json({ message: "No se ha podido listar correctamente" })
+
+      } catch (error) {
+        console.error("Error al obtener la lista de usuarios:", error);
     }
 }
 

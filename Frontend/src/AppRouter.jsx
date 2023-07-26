@@ -1,20 +1,16 @@
 import { Navigate, Route, Routes } from "react-router-dom";
-import { CreateHelpSocial } from "./helpSocial/pages/HelpSocial";
-import { ListHelpSocial } from "./helpSocial/pages/ListHelpSocial";
+import React from "react";
+import { HelpSocials } from "./helpSocial/pages/HelpSocial";
 
 export const AppRouter = () => {
-  return (
-    <>
-      <Routes>
+    return (
+      <>
+        <Routes>
         <Route
-          path="/create-helpSocial"
-          element={<CreateHelpSocial style={{ backgroundColor: "#92aea6" }} />}
-        />
-        <Route
-          path="/list-helpSocial"
-          element={<ListHelpSocial style={{ backgroundColor: "#92aea6" }} />}
-        />
-      </Routes>
-    </>
-  );
-};
+            path="/create-helpSocial"
+            element={<HelpSocials/>}
+          />
+        </Routes>
+      </>
+    );
+  };

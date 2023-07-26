@@ -38,7 +38,7 @@ body {
 .card {
   width: 300px;
   height: 500px;
-  background-color: #c7d3d1;
+  background-color: #ffffff;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   overflow: hidden;
@@ -115,7 +115,7 @@ body {
 
 .claimant-form input[type="text"] {
   padding: 8px;
-  border: 1px solid #ccc;
+  border: 1px solid #731010;
   border-radius: 4px;
   font-size: 14px;
   width: 100%;
@@ -124,7 +124,7 @@ body {
 
 .claimant-form button {
   background-color: #4CAF50;
-  color: white;
+  color: rgb(177, 27, 27);
   padding: 8px 16px;
   border: none;
   border-radius: 4px;
@@ -136,7 +136,20 @@ body {
   background-color: #45a049;
 }
 
+.claim-button {
+  background-color: #07a560;
+  color: #fbfbfa;
+  text-transform: none;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
 
+.claim-button:hover {
+  background-color: #05a250;
+}
 
 
 

@@ -12,8 +12,7 @@ const helpSocialSchema = new Schema({
     required: true
   },
   image: {
-    type: Buffer, // Utiliza el tipo de datos Buffer para almacenar los datos binarios de la imagen
-    // required: false
+    type: String, 
   },
   claimed: {
     type: Boolean,
@@ -29,11 +28,3 @@ const helpSocialSchema = new Schema({
 });
 
 module.exports = mongoose.model('HelpSocial', helpSocialSchema);
-
-
-{/* <p>title: {helpSocial.title}</p>
-        <p>descripción: {helpSocial.description}</p>
-        <p>image: {helpSocial.image}</p>
-        <p>claimed: {helpSocial.claimDate}</p>
-        <p>claimDate: {helpSocial.claimantName}</p> */}
-
