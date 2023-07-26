@@ -1,0 +1,13 @@
+.button-addTeacher{
+    background-color: #19bb8b;
+    transition: ease-in-out 0.4s;
+    border: 0;
+}
+.button-addTeacher:hover{
+    background-color: #19bb8b;
+    transform: scale(1.05);
+}
+.modal-header{
+    background-color: #19bb8b;
+    color: white;
+}
