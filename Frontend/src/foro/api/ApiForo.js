@@ -1,6 +1,6 @@
 import axios from "axios";
-const URL = "http://localhost:3002/api/";
-
+/* const URL = "http://localhost:3002/api/"; */
+const URL = "https://kinals-corner-humbertolopez2020327.vercel.app/api/"
 
 export const readForum = async () => {  // funcion que conecta el back con front para mostrar publciaciones
     try {
@@ -21,3 +21,12 @@ export const createForum = async (title, content) =>{
         throw new Error(e)
     }
 }
+
+export const updateForumLikes = async (postId, likes) => {
+    try {
+        const response = await axios.put(`${URL}update-Forum/${postId}`, { likes });
+        return response.data.post;
+    } catch (e) {
+        throw new Error(e);
+    }
+};

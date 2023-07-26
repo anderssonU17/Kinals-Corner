@@ -2,8 +2,10 @@
 
 import axios from "axios";
 import Swal from "sweetalert2";
+import { URL_GLOBAL } from "../../constant";
+import { deleteFile, uploadFile } from "../../firebase/config";
 
-const URL = "http://localhost:3002/api/";
+const URL = URL_GLOBAL;
 
 //Obtener el listado de todos los profesores
 export const getTeachers = async () => {
@@ -18,16 +20,34 @@ export const getTeachers = async () => {
 //Agregar el profesor
 export const createTeacher = async (name, subject, email, image) => {
   try {
-    const data = {
-      name: name,
-      subject: subject,
-      email: email,
-    };
+    let fileExtension = image.type + "";
+    fileExtension = fileExtension.split("/").pop();
 
-    const response = await axios.post(`${URL}addTeacher`, data);
-    const newTeacher = response.data.newTeacher;
+    if (
+      fileExtension == "png" ||
+      fileExtension == "jpg" ||
+      fileExtension == "jpeg" ||
+      fileExtension == "gif"
+    ) {
+      const data = {
+        name: name,
+        subject: subject,
+        email: email,
+      };
 
-    addImageTeacher(newTeacher._id, image);
+      const response = await axios.post(`${URL}addTeacher`, data);
+      const newTeacher = response.data.newTeacher;
+
+      addImageTeacher(newTeacher._id, image);
+    } else {
+      Swal.fire({
+        icon: "info",
+        title: "El tipo del archivo no es admitido",
+        showConfirmButton: true,
+        confirmButtonColor: "tomato",
+      });
+      return;
+    }
   } catch (error) {
     console.error(error);
     Swal.fire({
@@ -43,22 +63,25 @@ export const createTeacher = async (name, subject, email, image) => {
 //Agregar imagen al profesor
 export const addImageTeacher = async (teacherId, image, edit) => {
   try {
+
+    await uploadFile(image, teacherId);
+
     const data = {
       teacherId: teacherId,
-      image: image,
+      photo: teacherId,
     };
 
-    const response = await axios.put(`${URL}addImageTeacher`, data, {
-      headers: { "Content-Type": "multipart/form-data" },
-    });
+    const response = await axios.put(`${URL}addImageTeacher`, data);
 
     if (response) {
       Swal.fire({
         icon: "success",
-        title: `${ edit ? 'Se edito correctamente al': 'Se agrego al' } profesor correctamente.`,
+        title: `${
+          edit ? "Se edito correctamente al" : "Se agrego al"
+        } profesor correctamente.`,
         showConfirmButton: true,
         confirmButtonColor: "#32FF00",
-      })
+      });
     }
     // return response;
   } catch (error) {
@@ -76,6 +99,9 @@ export const addImageTeacher = async (teacherId, image, edit) => {
 //Eliminar profesor
 export const deleteTeacher = async (teacherId) => {
   try {
+
+    await deleteFile(teacherId)
+
     const response = await axios.delete(`${URL}deleteTeacher`, {
       data: {
         teacherId: teacherId,
@@ -110,25 +136,47 @@ export const confirmDeleteTeacher = (teacherId, setTeachers, teachers) => {
 //Actualizar profesor
 export const updateTeacher = async (teacherId, name, email, subject, image) => {
   try {
-    const data = {
-      teacherId: teacherId,
-      name: name,
-      email: email,
-      subject: subject,
-    };
 
-    const response = await axios.put(`${URL}updateTeacher`, data);
+    let fileExtension
+    image ? fileExtension = image.type + "" : fileExtension = 'noImage';
+    image ? fileExtension = fileExtension.split("/").pop() : null;
+    
 
-    if (image) {
-      await addImageTeacher(teacherId, image , true)
+    if (
+      fileExtension == "noImage" ||
+      fileExtension == "png" ||
+      fileExtension == "jpg" ||
+      fileExtension == "jpeg" ||
+      fileExtension == "gif"
+    ) {
+      const data = {
+        teacherId: teacherId,
+        name: name,
+        email: email,
+        subject: subject,
+      };
+
+      const response = await axios.put(`${URL}updateTeacher`, data);
+
+      if (image) {
+        await addImageTeacher(teacherId, image, true);
+      } else {
+        response &&
+          Swal.fire({
+            icon: "success",
+            title: "Se edito el profesor correctamente.",
+            showConfirmButton: true,
+            confirmButtonColor: "#32FF00",
+          });
+      }
     } else {
-      response &&
-        Swal.fire({
-          icon: "success",
-          title: "Se edito el profesor correctamente.",
-          showConfirmButton: true,
-          confirmButtonColor: "#32FF00",
-        });
+      Swal.fire({
+        icon: "info",
+        title: "El tipo del archivo no es admitido",
+        showConfirmButton: true,
+        confirmButtonColor: "tomato",
+      });
+      return;
     }
   } catch (error) {
     console.error(error.response.data.message);
