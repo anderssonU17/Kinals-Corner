@@ -31,3 +31,8 @@ export async function deleteFile(id){
     const desertRef = ref(storage, `teachers/${id}`)
     return await deleteObject(desertRef)
 }
+
+export async function uploadFileHS(file, id) {
+    const storageRef = ref(storage, 'helpSocials/' + id);
+    await uploadBytes(storageRef, file);
+}

@@ -6,6 +6,7 @@ import { HomePage } from "./home/pages/HomePage";
 import { Register } from "./register/pages/Register";
 import { Navbar } from "./components/Navbar";
 import { Foro } from "./foro/pages/Foro";
+import SocialHelpList from "./helpSocial/pages/HelpSocials";
 
 export const AppRouter = () => {
     return(
@@ -49,6 +50,15 @@ export const AppRouter = () => {
                 isUserAuthenticated() ? (
                     <Foro/>
                     ) : (
+                    <Navigate to="/"></Navigate>
+                )
+            }
+            />
+            <Route path="/helpSocials"
+            element={
+                isUserAuthenticated() ? (
+                    <SocialHelpList />
+                ) : (
                     <Navigate to="/"></Navigate>
                 )
             }
