@@ -1,8 +1,7 @@
 import { useEffect, useState } from 'react'
-import axios from 'axios';
 import '../styles/UserStyle.css'
+import jwt_decode from 'jwt-decode'
 
-const URL = "https://kinals-corner-humbertolopez2020327.vercel.app/api/";
 
 export const Perfil = () => {
   const [token, setToken] = useState("");
@@ -10,14 +9,33 @@ export const Perfil = () => {
 
 
   useEffect(() => {
-    const retrievedToken = localStorage.getItem("token");
+    const retrievedToken = localStorage.getItem('token');
     setToken(retrievedToken);
+
+    // Decodificar el token para obtener los datos del usuario
+    if (retrievedToken) {
+      const decodedToken = jwt_decode(retrievedToken);
+      setUser(decodedToken);
+      console.log(decodedToken)
+    }
   }, []);
 
 
 
   return (
     <>
+      <div>
+        {token ? (
+          <div>
+            <h2>Bienvenido, </h2>
+            <p>Correo electrónico: {user.name}</p>
+            <p>ID de usuario: {user.uId}</p>
+            {/* te queda de tarea mostrar otros detalles por token :) */}
+          </div>
+        ) : (
+          <p>No se ha iniciado sesión.</p>
+        )}
+      </div>
     </>
   )
 }
