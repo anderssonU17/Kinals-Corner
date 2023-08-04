@@ -4,6 +4,7 @@ import { UpdateTeacher } from "./UpdateTeacher";
 import '../../assets/styles/cardTeacher.css'
 import { URL_GLOBAL } from "../../constant";
 import { getFile } from "../../firebase/config";
+import { Link } from "react-router-dom";
 
 const URL = URL_GLOBAL
 
@@ -53,7 +54,9 @@ export const Teacher = ({
           <h6 style={styles.subTitles}>Materia:</h6>
           <h6>{"" + subject}</h6>
           <h6 style={styles.subTitles}>Contacto:</h6>
-          <h6>{"" + email}</h6>
+          <Link className = 'link-outlook' to={`https://outlook.live.com/mail/deeplink/compose?to=${email}`}>
+          <h6 >{"" + email}</h6>
+          </Link>
 
           {administrador && (
             <div style={styles.buttonsFooter}>
