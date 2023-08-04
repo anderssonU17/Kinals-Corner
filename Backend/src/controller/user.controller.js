@@ -96,22 +96,22 @@ const deleteUser = async (req, res) => {
 
 /* Función para logearse en la página */
 const loginUser = async (req, res) => {
-    const { email, password } = req.body;
+    const { email, password, name} = req.body;
     console.log('empeznado login');
     console.log(req.body);
     try {
-        const user = await User.findOne({ email });
+        const user = await User.findOne({ email, name });
         if (!user) return res.status(500).json({ message: "Para ingresar, primero debe registrarse" });
-        
         bcrypt.compare(password, user.password, async (error, result) => {
             if (error) return res.status(500).send({ message: "Se ha producido un error" });
             if (result) {
                 console.log('exito');
-                const token = await generateJWT(user.id, user.email);
+                const token = await generateJWT(user.id, user.email, user.name);
                 res.status(200).json({
                     ok: true,
                     message: "Se ha iniciado sesión correctamente",
                     token: user.token,
+                    name: user.name,
                     email: user.email,
                     token
                 });
