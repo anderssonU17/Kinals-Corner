@@ -53,14 +53,18 @@ const readHelpSocials = async (req, res) => {
 
 const patchHelpSocial = async (req, res) => {
   try {
-    const { claimed, claimantName } = req.body;
+    const { id, claimantName } = req.body; // Cambiamos declaimantName a id
 
     // Realizar la actualización en la base de datos
-    const helpSocial = await HelpSocial.findOneAndUpdate(
-      { claimantName }, // Filtrar por claimantName
-      { claimed: true, claimantName }, // Set claimed to true and add claimantName to the document
-      { new: true, upsert: true } // Use upsert to insert the document if it doesn't exist
+    const helpSocial = await HelpSocial.findByIdAndUpdate(
+      id, // Usar el ID para buscar el documento
+      { claimed: true, claimantName }, // Establecer claimed en true y actualizar claimantName
+      { new: true, upsert: false } // No es necesario upsert si estamos usando el ID existente
     );
+
+    if (!helpSocial) {
+      return res.status(404).json({ message: "Ayuda social no encontrada" });
+    }
 
     return res.status(200).json({ message: "Ayuda social actualizada correctamente", helpSocial });
   } catch (error) {

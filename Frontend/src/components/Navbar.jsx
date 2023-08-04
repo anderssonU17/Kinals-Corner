@@ -96,9 +96,9 @@ export const Navbar = () => {
                   </Link>
                 </li>
                 <li className="nav-item">
-                  <button className="nav-link btn btn-outline-primary rounded-pill create-forum-btn">
+                <Link to="/helpSocials" className="nav-link" href="/foro">
                     Crear foro
-                  </button>
+                  </Link>
                 </li>
                 <li className="nav-item dropdown">
                   <a

@@ -114,7 +114,7 @@ export const AddHelpSocial = (props) => {
             cancelAddhelpSocial()
                 }
             }>Cancelar</Button>
-      </Modal.Footer>
+    </Modal.Footer>
         </Modal>
     )
 

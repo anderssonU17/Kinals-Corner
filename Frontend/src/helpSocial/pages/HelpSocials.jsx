@@ -1,129 +1,3 @@
-// import React, { useEffect, useState } from "react";
-// import { AddHelpSocial } from "../components/AddHelpSocial";
-// import { getHelpSocials } from "../api/helpSocials";
-// import { HelpSocial } from "../components/HelpSocial";
-
-// export const HelpSocials = () => {
-//     document.title = "Ayuda Social";
-    
-//     const [helpSocials, setHelpSocials] = useState(null);
-//     const [adminsitrador, setAdministrador] = useState(true);
-
-//     useEffect(() => {
-//         getHelpSocials().then((helpSocials) => setHelpSocials(helpSocials));
-//     }, []);
-
-//     const [modalShow, setModalShow] = useState(false);
-
-//     return(
-//         <>
-//         <div className="container d-flex flex-column mt-4">
-//         {adminsitrador && (
-//             <div className="d-flex justify-content-end" >
-//                 <button
-//                 className="btn btn-primary ms-1 col-2 button-addTeacher"
-//                 onClick={() => setModalShow(true)}
-//                 >
-//                     Agregar Ayuda Social
-//                 </button>
-//             </div>
-//         )}
-//         {helpSocials == null || helpSocials.length == 0 ?(
-//             <h2 className="mt-4"style={{color: 'gray'}}>No se han agregado ayudas sociales...</h2>
-//         ):
-//         null}
-//         </div>
-//         <div>
-//             <AddHelpSocial
-//             show={modalShow}
-//             onHide={() => setModalShow(false)}
-//             set_helpSocials={setHelpSocials}
-//             />
-//         </div>
-
-//         <div className="row d-flex justify-content-center">
-//                 {helpSocials &&
-//                     helpSocials.map((helpSocial) => (
-//                         <div key={helpSocial._id}>
-//                             <HelpSocial // Correct the component name here
-//                                 key={helpSocial._id}
-//                                 _idHelpSocial={helpSocial._id}
-//                                 title={helpSocial.title}
-//                                 description={helpSocial.description}
-//                                 setHelpSocials={setHelpSocials}
-//                                 helpSocials={helpSocials}
-//                                 adminsitrador={adminsitrador}
-//                             />
-//                         </div>
-//                     ))}
-//             </div>
-//         </>
-//     );
-// };
-
-// import React, { useEffect, useState } from "react";
-// import { AddHelpSocial } from "../components/AddHelpSocial";
-// import { getHelpSocials } from "../api/helpSocials";
-// import { HelpSocial } from "../components/HelpSocial"; // Correct the component name here
-
-// export const HelpSocials = () => {
-//   document.title = "Ayuda Social";
-
-//   const [helpSocials, setHelpSocials] = useState(null);
-//   const [adminsitrador, setAdministrador] = useState(true);
-
-//   useEffect(() => {
-//     getHelpSocials().then((helpSocials) => setHelpSocials(helpSocials));
-//   }, []);
-
-//   const [modalShow, setModalShow] = useState(false);
-
-//   return (
-//     <>
-//       <div className="container d-flex flex-column mt-4">
-//       {adminsitrador && (
-//              <div className="d-flex justify-content-end" >
-//                  <button
-//                  className="btn btn-primary ms-1 col-2 button-addTeacher"
-//                  onClick={() => setModalShow(true)}
-//                  >
-//                      Agregar Ayuda Social
-//                  </button>
-//              </div>
-//          )}
-//          {helpSocials == null || helpSocials.length == 0 ?(
-//              <h2 className="mt-4"style={{color: 'gray'}}>No se han agregado ayudas sociales...</h2>
-//          ):
-//          null}
-//          </div>
-//          <div>
-//         <AddHelpSocial
-//           show={modalShow}
-//           onHide={() => setModalShow(false)}
-//           set_helpSocials={setHelpSocials}
-//         />
-//       </div>
-
-//       <div className="row d-flex justify-content-center">
-//         {helpSocials &&
-//           helpSocials.map((helpSocial) => (
-//             <div key={helpSocial._id}>
-//               <HelpSocial
-//                 _idHelpSocial={helpSocial._id}
-//                 title={helpSocial.title}
-//                 description={helpSocial.description}
-//                 image={helpSocial.image} // Pass the image prop here
-//                 setHelpSocials={setHelpSocials}
-//                 helpSocials={helpSocials}
-//                 adminsitrador={adminsitrador}
-//               />
-//             </div>
-//           ))}
-//       </div>
-//     </>
-//   );
-// };
-
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { AddHelpSocial } from '../components/AddHelpSocial';
@@ -140,36 +14,7 @@ const SocialHelpList = () => {
   const fetchHelpSocials = async () => {
     try {
       const response = await axios.get('http://localhost:3002/api/read-helpSocial');
-      const claimedHelpsData = localStorage.getItem('claimedHelps');
-      const claimedHelps = claimedHelpsData ? JSON.parse(claimedHelpsData) : {};
-      const updatedHelpSocials = response.data.map((helpSocial, index) => {
-        if (claimedHelps[index]) {
-          helpSocial.claimed = true;
-        }
-        return helpSocial;
-      });
-      setHelpSocials(updatedHelpSocials);
-    } catch (error) {
-      console.log('Error al obtener las ayudas sociales', error);
-    }
-  };
-
-  const saveClaimedHelps = (claimedHelps) => {
-    localStorage.setItem('claimedHelps', JSON.stringify(claimedHelps));
-  };
-
-  const refreshData = async () => {
-    try {
-      const response = await axios.get('http://localhost:3002/api/read-helpSocial');
-      const claimedHelpsData = localStorage.getItem('claimedHelps');
-      const claimedHelps = claimedHelpsData ? JSON.parse(claimedHelpsData) : {};
-      const updatedHelpSocials = response.data.map((helpSocial, index) => {
-        if (claimedHelps[index]) {
-          helpSocial.claimed = true;
-        }
-        return helpSocial;
-      });
-      setHelpSocials(updatedHelpSocials);
+      setHelpSocials(response.data);
     } catch (error) {
       console.log('Error al obtener las ayudas sociales', error);
     }
@@ -183,29 +28,21 @@ const SocialHelpList = () => {
 
   const handleSaveClaimantName = async (index) => {
     const helpSocial = helpSocials[index];
-    try {
-      // Guardar el nombre del reclamante en el backend
-      await axios.patch(`http://localhost:3002/api/update-helpSocial/${helpSocial.id}`, {
-        claimantName: helpSocial.claimantName,
-        claimDate: new Date().toISOString()
-      });
-      console.log(`Nombre del reclamante y fecha de reclamo guardados para la ayuda social ${index}`);
-      const updatedHelpSocials = [...helpSocials];
-      updatedHelpSocials[index].claimed = true;
-      updatedHelpSocials[index].showForm = false; // Ocultar el formulario
-      setHelpSocials(updatedHelpSocials);
-      saveClaimedHelps({ ...claimedHelps, [index]: true }); // Guardar las ayudas sociales reclamadas en localStorage
-      refreshData(); // Obtener datos actualizados después de reclamar
-    } catch (error) {
-      console.log('Error al guardar el nombre del reclamante y la fecha de reclamo', error);
-    }
-  };
 
-  const handleShowForm = (index) => {
-    if (!helpSocials[index].claimed) {
-      const updatedHelpSocials = [...helpSocials];
-      updatedHelpSocials[index].showForm = true;
-      setHelpSocials(updatedHelpSocials);
+    try {
+      const response = await axios.patch('http://localhost:3002/api/update-helpSocial', {
+        id: helpSocial._id,
+        claimantName: helpSocial.claimantName,
+      });
+
+      if (response.status === 200) {
+        console.log(`Nombre del reclamante actualizado para la ayuda social ${index}`);
+        const updatedHelpSocials = [...helpSocials];
+        updatedHelpSocials[index].claimed = true;
+        setHelpSocials(updatedHelpSocials);
+      }
+    } catch (error) {
+      console.log('Error al guardar el nombre del reclamante', error);
     }
   };
 
@@ -256,6 +93,14 @@ const SocialHelpList = () => {
     ));
   };
 
+  const handleShowForm = (index) => {
+    if (!helpSocials[index].claimed) {
+      const updatedHelpSocials = [...helpSocials];
+      updatedHelpSocials[index].showForm = true;
+      setHelpSocials(updatedHelpSocials);
+    }
+  };
+
   return (
     <div className='container'>
       <h2 className='title'>Ayudas Sociales</h2>
@@ -275,7 +120,6 @@ const SocialHelpList = () => {
         onHide={() => setModalShow(false)}
         set_helpSocial={setHelpSocials}
       />
-
       {helpSocials.length > 0 ? (
         <div>
           <Grid container spacing={3}>

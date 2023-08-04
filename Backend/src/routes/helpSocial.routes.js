@@ -5,7 +5,7 @@ const { createHelpSocials, updateHelpSocial, patchHelpSocial, readHelpSocials, d
 const api = Router();
 
 api.post('/create-helpSocial', createHelpSocials);
-api.patch('/update-helpSocial/:id', patchHelpSocial);
+api.patch('/update-helpSocial', patchHelpSocial);
 api.get('/read-helpSocial', readHelpSocials);
 api.delete('/delete-helpSocial', deleteHelpSocial);
 api.put('addImageHelpSocial', addImageHelpSocial)
