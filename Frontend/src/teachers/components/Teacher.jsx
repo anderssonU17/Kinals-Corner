@@ -41,7 +41,7 @@ export const Teacher = ({
         <div className="d-flex flex-column justify-content-center">
           <img src={image} alt="Imagen" style={styles.image}></img>
           <div className="d-flex flex-column align-items-center justify-content-center mt-4" >
-            <p style={{marginBottom: '-10px', color: 'rgb(66, 66, 66)'}}>Nombre:</p>
+            <p style={{marginBottom: '-10px', color: '#9BA399'}}>Nombre:</p>
             <h6 className="mt-3" style={styles.nameTeacher}>
               {name}
             </h6>
@@ -61,7 +61,7 @@ export const Teacher = ({
           {administrador && (
             <div style={styles.buttonsFooter}>
               <button
-                className="btn btn-danger"
+                className="btn btn-secondary"
                 onClick={() => {
                   confirmDeleteTeacher(_idTeacher, setTeachers, teachers);
                 }}
@@ -70,7 +70,7 @@ export const Teacher = ({
               </button>
 
               <button
-                className="btn btn-warning ms-4"
+                className="btn btn-secondary ms-4"
                 onClick={() => setModalShow(true)}
               >
                 Editar
@@ -118,7 +118,7 @@ const styles = {
     maxWidth: "150px",
   },
   subTitles: {
-    color: "rgb(66, 66, 66)",
+    color: "#9BA399",
   },
   buttonsFooter: {
     marginTop: "20px",
