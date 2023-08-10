@@ -3,6 +3,8 @@
 const { generateJWT } = require('../helpers/create-jwt');
 const User = require('../models/user.model');
 const bcrypt = require('bcrypt');
+const HelpSocial = require('../models/helpSocial.model')
+const jwt = require('jsonwebtoken');
 
 /* Función para crear un usuario */
 const createUser = async (req, res) => {
@@ -17,8 +19,8 @@ const createUser = async (req, res) => {
 
         user = await user.save();
 
-        const token = await generateJWT(user.id, user.name, user.email, user.password);
-        return res.status(200).json({ message: `El usuario ${user} ha sido creado correctamente`, user, token: token });
+        // const token = await generateJWT(user.id, user.name, user.email, user.password);
+        return res.status(200).json({ message: `El usuario ${user} ha sido creado correctamente`, user, /*token: token*/ });
     } catch (error) {
         console.log(error);
         return res.status(500).json({ message: "Hubo un error en la creación del usuario", });
@@ -95,33 +97,72 @@ const deleteUser = async (req, res) => {
 }
 
 /* Función para logearse en la página */
+// const loginUser = async (req, res) => {
+//     const { email, password } = req.body;
+//     console.log('empeznado login');
+//     console.log(req.body);
+//     try {
+//         const user = await User.findOne({ email });
+//         if (!user) return res.status(500).json({ message: "Para ingresar, primero debe registrarse" });
+        
+//         bcrypt.compare(password, user.password, async (error, result) => {
+//             if (error) return res.status(500).send({ message: "Se ha producido un error" });
+//             if (result) {
+//                 console.log('exito');
+//                 const token = await generateJWT(user.id, user.email);
+//                 res.status(200).json({
+//                     ok: true,
+//                     message: "Se ha iniciado sesión correctamente",
+//                     token: user.token,
+//                     email: user.email,
+//                     token
+//                 });
+//             }
+//         })
+//     } catch (error) {
+//         console.log(error)
+//         return res.status(500).json({ message: "No se ha podido iniciar sesión correctamente" });
+//     }
+// }
+
 const loginUser = async (req, res) => {
     const { email, password } = req.body;
-    console.log('empeznado login');
-    console.log(req.body);
+  
     try {
-        const user = await User.findOne({ email });
-        if (!user) return res.status(500).json({ message: "Para ingresar, primero debe registrarse" });
-        
-        bcrypt.compare(password, user.password, async (error, result) => {
-            if (error) return res.status(500).send({ message: "Se ha producido un error" });
-            if (result) {
-                console.log('exito');
-                const token = await generateJWT(user.id, user.email);
-                res.status(200).json({
-                    ok: true,
-                    message: "Se ha iniciado sesión correctamente",
-                    token: user.token,
-                    email: user.email,
-                    token
-                });
-            }
-        })
+      // Buscar al usuario por el nombre de usuario
+      const user = await User.findOne({ email });
+  
+      // Verificar si el usuario existe
+      if (!user) {
+        return res.status(401).json({ error: 'Credenciales inválidas' });
+      }
+  
+      // Verificar la contraseña
+      const isPasswordValid = await bcrypt.compare(password, user.password);
+  
+      if (!isPasswordValid) {
+        return res.status(401).json({ error: 'Credenciales inválidas' });
+      }
+  
+      // Generar el token de autenticación
+      const token = jwt.sign({ userId: user._id }, 'mi_secreto', {
+        expiresIn: '10h',
+      });
+
+      user.token = token;
+      await user.save();
+  
+      res.json({
+        message: "Usuario autenticado correctamente",
+        token,
+      });
     } catch (error) {
-        console.log(error)
-        return res.status(500).json({ message: "No se ha podido iniciar sesión correctamente" });
+      console.log(error);
+      res.status(500).json({ error: 'Error al realizar el login' });
     }
-}
+  };
+
+
 
 /* Función para crear un usuario por default */
 const userDefault = async (req, res) => {
@@ -144,6 +185,24 @@ const userDefault = async (req, res) => {
     }
 }
 
+/*Funcion para obtener las ayudas sociales por usuario segun su token*/
+const getSocialHelpsByUser = async (req, res) => {
+    const { token } = req.headers; // Access token from headers
+  
+    try {
+      const user = await User.findOne({ token }).populate('socialHelp');
+      if (!user) {
+        return res.status(404).json({ message: 'Usuario no encontrado' });
+      }
+  
+      return res.status(200).json({ socialHelps: user.socialHelp });
+    } catch (error) {
+      console.log(error);
+      return res.status(500).json({ error: 'Error del servidor' });
+    }
+  };
+  
+
 module.exports = {
     createUser,
     readUser,
@@ -151,5 +210,6 @@ module.exports = {
     deleteUser,
     loginUser,
     userDefault,
-    readProfileUser
+    readProfileUser,
+    getSocialHelpsByUser
 }

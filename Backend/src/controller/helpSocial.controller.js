@@ -3,33 +3,47 @@
 // const express = require('express');
 const  {generateJWT} = require('../helpers/create-jwt');
 const HelpSocial = require('../models/helpSocial.model'); // Asegúrate de importar correctamente el modelo HelpSocial
+const User = require('../models/user.model')
 //Modulo nativo de node.js que permite interactuar con archivos del sistema.
 const fs = require('fs')
 //Modulo nativo de node.js que permite trabajar con rutas de archivos y directorios
 const path = require('path')
 const Stringify = require('querystring')
 
-const createHelpSocials = async(req, res) => {
+//Crear ayuda social
+const createHelpSocials = async (req, res) => {
   try {
-      const { title, description, claimantName, claimed } = req.body;
+    const { token, title, description, claimantName, claimed } = req.body;
 
-      if (!title || !description) {
-          return res.status(400).json({ error: 'El título y la descripción son obligatorios' });
-      }
+    if (!token || !title || !description) {
+      return res.status(400).json({ error: 'El token, título y descripción son obligatorios' });
+    }
 
-      // Check if claimantName is present, and set 'claimed' accordingly
-      const isClaimed = !!claimantName;
-      const newHelpSocial = new HelpSocial({ ...req.body, claimed: isClaimed });
-      
-      const helpSocial = await newHelpSocial.save();
-      return res.status(201).json(helpSocial);
+    // Find the user based on the provided token
+    const user = await User.findOne({ token });
+    if (!user) {
+      return res.status(404).json({ error: 'Usuario no encontrado' });
+    }
 
-  } catch(err) {
-      res.status(500).json({ error: 'Error al agregar la ayuda social' });
-      console.log(err);
-  }   
+    // Check if claimantName is present, and set 'claimed' accordingly
+    const isClaimed = !!claimantName;
+
+    const newHelpSocial = new HelpSocial({ ...req.body, claimed: isClaimed });
+
+    // Save the help social to the user's socialHelp array
+    user.socialHelp.push(newHelpSocial);
+    await user.save();
+
+    // Save the help social to the HelpSocial model
+    await newHelpSocial.save();
+
+    return res.status(201).json(newHelpSocial);
+
+  } catch (err) {
+    res.status(500).json({ error: 'Error al agregar la ayuda social' });
+    console.log(err);
+  }
 }
-
 
 //------------------------------------------------------read help Social----------------------------------------------
 

@@ -42,6 +42,15 @@ const UserSchema = new Schema({
         type: Boolean,
         default: false
     },
+    socialHelp: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "HelpSocial"
+        }
+    ],
+    token: {
+        type: String
+    }
 })
 
 module.exports = mongoose.model('User', UserSchema);

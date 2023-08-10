@@ -97,7 +97,12 @@ export const Navbar = () => {
                 </li>
                 <li className="nav-item">
                 <Link to="/helpSocials" className="nav-link" href="/foro">
-                    Crear foro
+                    Crear ayuda social
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/listUserHelp" className="nav-link" href="/foro">
+                    Mis ayudas sociales
                   </Link>
                 </li>
                 <li className="nav-item dropdown">
