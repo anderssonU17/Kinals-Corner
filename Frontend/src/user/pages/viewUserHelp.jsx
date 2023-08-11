@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import logo from "../../assets/image/ayudaSocial.png";
+import '../../assets/styles/helpSocial.css';
 
 function SocialHelpsByUser() {
   const [socialHelps, setSocialHelps] = useState([]);
@@ -65,14 +67,20 @@ function SocialHelpsByUser() {
 
   return (
     <div>
-      <h1>Social Helps By User</h1>
+      <h1 style={{marginLeft: '70px', marginTop: '50px'}}>Mis ayudas sociales</h1>
       {error && <p>{error}</p>}
       <ul>
+        
+        <div className='wrapper' style={{marginTop: '25px'}}>
         {socialHelps.map((socialHelp) => (
-          <li key={socialHelp._id}>
-            <h2>{socialHelp.title}</h2>
+          
+          <li key={socialHelp._id} className='card' style={{marginTop: '20px', padding: '10px'}}>
+            <center>
+            <div className='card-img'>
+            <img src={logo} style={{width: '400px'}}/>
+          </div>
+            <h2><span>{socialHelp.title}</span></h2>
             <p>{socialHelp.description}</p>
-            <p>Image: {socialHelp.image}</p>
             <p>Claimed: {socialHelp.claimed ? 'Yes' : 'No'}</p>
             {socialHelp.claimed && <p>Claimant Name: {socialHelp.claimantName}</p>}
             <p>Claim Date: {new Date(socialHelp.claimDate).toLocaleString()}</p>
@@ -93,8 +101,11 @@ function SocialHelpsByUser() {
                 )}
               </>
             ) : null}
+            </center>
           </li>
+          
         ))}
+        </div>
       </ul>
     </div>
   );
