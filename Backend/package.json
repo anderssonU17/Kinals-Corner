@@ -4,7 +4,7 @@
   "description": "Project Kinal",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1", 
+    "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon index.js"
   },
   "author": "Expo-IN6CV",
@@ -20,6 +20,7 @@
     "jsonwebtoken": "^9.0.0",
     "jwt-simple": "^0.5.6",
     "moment": "^2.29.4",
+    "mongodb": "^5.7.0",
     "mongoose": "^7.3.0",
     "nodemon": "^2.0.22"
   }

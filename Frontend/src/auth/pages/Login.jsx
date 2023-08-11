@@ -1,49 +1,91 @@
-import React, { useState } from 'react'
-import { login } from '../api/ApiLogin';
-import Swal from 'sweetalert2';
-import "../../assets/styles/index.css"
+
+import React, { useState } from "react";
+import { checkParameters, fetchLogin } from "../api/apiLogin";
+import "../../assets/styles/login.css";
+import { Link } from "react-router-dom";
+import LogoHd from '../../assets/image/LogoHd.png'
+import Swal from "sweetalert2";
 
 export const Login = () => {
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
+    //Cambio de nombre de la pagina
+    document.title = 'Login'
 
-    const iniciarSesion = async (e) =>{
-        e.preventDefault();
-        const result = await login(email, password);
-        if(result){
-            Swal.fire({
-                icon: "success",
-                title: "Genial!",
-                text: "Ha iniciado sesión correctamente!",
-                confirmButtonText: "Ok",
-            }).then(r =>{
-                if(r.isConfirmed){
-                    window.location.href = "/";
-                } else {
-                    window.location.href = "/";
-                }
-            });
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const login = async (e) => {
+    try {
+      e.preventDefault();
+      const areParametersValid = checkParameters(email, password);
+  
+      if (areParametersValid) {
+        const response = await fetchLogin(email, password);
+  
+        if (response.data && response.data.ok) {
+          // Si la propiedad 'ok' en la respuesta es true, entonces el inicio de sesión fue exitoso
+          Swal.fire({
+            icon: 'success',
+            title: 'Genial',
+            text: response.data.message,
+            confirmButtonText: 'Ok',
+          }).then((r) => {
+            if (r.isConfirmed) {
+              window.location.href = "/";
+            }
+          });
+        } else {
+          // Si la propiedad 'ok' en la respuesta es false, entonces el inicio de sesión fue incorrecto
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: response.data.message || 'Los datos ingresados son incorrectos.',
+            showConfirmButton: true,
+            confirmButtonText: 'OK',
+          });
         }
-    };
-
-return (
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  
+  return (
     <>
-        <form>      
-            <img src="https://o.remove.bg/downloads/7a3c6b9d-6e83-46ca-9731-f7e6524a5c88/Logo_05-removebg-preview-removebg-preview.png" alt="" /> <p></p><p></p>
-            <img className='letrasL' src="https://o.remove.bg/downloads/2ae0c825-e4f8-4104-ad1a-fb20a75131e4/Logo_txt_2-removebg-preview.png" alt="" />
-
-            <div className="mb-3">
-                <label className='form-label text-black'>Correo Electronico</label>
-                <input value={email} onChange={({target: {value}}) => setEmail(value)} type="email" className='form-control' id='email' required/>
-                <div>
-                    <div className='mb-3'>
-                        <label className='form-label text-black'>Contraseña</label>
-                        <input value={password} onChange={({target: {value}}) => setPassword(value)} type="password" className='form-control' id='password' required/>
-                    </div>
-                    <button type='submit' onClick={(e) => iniciarSesion(e)} className='btn btn-primary'>Iniciar Sesión</button>
-                </div>
+      <div className="container-login">
+        <form onSubmit={login}>
+          <div className="card-login">
+            <div className="card-login-title" >
+                <center><h2>¡Kinals Corner te la bienvenida!</h2></center>
+            <center><img src={LogoHd} alt="logo" /></center>
+            </div>
+            <p>Ingresa tus datos para iniciar sesión</p>
+            <div className="content-login">
+              <label>Email</label>
+              <input
+                className="form-control"
+                type="text"
+                onChange={(e) => setEmail(e.target.value)}
+              />
+            </div>
+            <div className="content-login">
+              <label>Password</label>
+              <input
+                className="form-control"
+                type="password"
+                onChange={(e) => setPassword(e.target.value)}
+              />
+            </div>
+            <button className="btn btn-success btn-submit-login" type="submit">
+              Inicias Sesión
+            </button>
+          </div>
+            <div className="link-new-account">
+              <center>
+                <p>¿No tienes una cuenta? Crea una dando clic <Link to="/register">aquí.</Link></p>
+              </center>
             </div>
         </form>
+      </div>
     </>
-  )
-}
+  );
+};

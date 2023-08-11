@@ -11,7 +11,9 @@ const routesForum = require('./src/routes/forum.routes');
 const routesHelpSocial = require('./src/routes/helpSocial.routes')
 const routesUser = require('./src/routes/user.routes')
 const routesTeacher = require('./src/routes/teacher.routes')
+const { userDefault } = require('./src/controller/user.controller');
 connection();
+userDefault()
 
 app.use(express.urlencoded({extended: false}));
 

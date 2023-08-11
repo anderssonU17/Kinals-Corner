@@ -9,7 +9,7 @@ const createUser = async (req, res) => {
     const { name, email, password } = req.body;
     try {
         let user = await User.findOne({ email });
-        if (user) return res.status(500).json({ message: "Un usuario ya esta registrado con este nombre", ok: false, user: user });
+        if (user) return res.status(500).json({ message: "Un usuario ya esta registrado con este email", ok: false, user: user });
         user = new User(req.body);
 
         const saltos = bcrypt.genSaltSync();
@@ -97,13 +97,16 @@ const deleteUser = async (req, res) => {
 /* Función para logearse en la página */
 const loginUser = async (req, res) => {
     const { email, password } = req.body;
+    console.log('empeznado login');
+    console.log(req.body);
     try {
         const user = await User.findOne({ email });
         if (!user) return res.status(500).json({ message: "Para ingresar, primero debe registrarse" });
-
+        
         bcrypt.compare(password, user.password, async (error, result) => {
             if (error) return res.status(500).send({ message: "Se ha producido un error" });
             if (result) {
+                console.log('exito');
                 const token = await generateJWT(user.id, user.email);
                 res.status(200).json({
                     ok: true,
@@ -122,7 +125,7 @@ const loginUser = async (req, res) => {
 
 /* Función para crear un usuario por default */
 const userDefault = async (req, res) => {
-    const user = await User.find();
+    let user = await User.find();
     try {
         if (user.length == 0) {
             user = new User();

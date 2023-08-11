@@ -1,0 +1,229 @@
+body {
+    justify-content: center; /* Centrar horizontalmente */
+  }
+  
+/* Estilos específicos para el HomePage */
+.home-page-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-image: url(../image/HomeBG.png);
+  }
+  
+.container-home {
+    background-color: rgba(113, 113, 113, 0.347);
+    border: 1px black groove;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+    padding: 20px; /* Ajustar el espaciado del contenedor */
+  }
+
+.container-home-img{
+    display: inline-block;
+}
+
+.container-home-item{
+    display: inline-block; 
+    padding: 2em;
+}
+
+.container-home-center{
+    margin-top: 0em;
+    text-align: center;
+}
+
+.img-home{
+    width: 15em;
+}
+
+.button-home{
+    background-color: #009045;
+    padding: 0.5em;
+    border-radius: 30px 30px 30px 30px;
+    background: transparent;
+    border: none;
+    position: relative;
+    transition: all 0.4s;
+    margin: 0.5em;
+    z-index: 1;
+}
+
+.button-home::after,
+.button-home::before{
+    content: '';
+    z-index: -99999;
+    transition: all 0.4s;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+}
+
+.button-home::before{
+    transform: translate(0%, 0%);
+    width: 100%;
+    height: 100%;
+    background-color: #009045;
+    border-radius: 10px;
+}
+
+.button-home::after{
+    transform: translate(10px, 10px);
+    width: 35px;
+    height: 35px;
+    background-color: #ffffff15;
+    backdrop-filter: blur(5px);
+    border-radius: 50px;
+}
+
+.button-home:hover::before{
+    transform: translate(5%, 20%);
+    width: 110%;
+    height: 110%;
+}
+
+.button-home:hover::after{
+    border-radius: 10px;
+    transform: translate(0, 0);
+    width: 100%;
+    height: 100%;
+}
+
+.button-home:active::after{
+    transition: 0s;
+    transform: translate(0, 5%);
+}
+
+/*.button-home:hover{
+    opacity: 0.9;
+    transform: translateY(-5px);
+    box-shadow: 0 7px 0 -2px #046139,
+    0 15px 0 -4px #05051d ,
+    0 16px 10px -3px #05051d ;
+}
+
+
+.button-home:active{
+    opacity: 1.5;
+    transition: all 0.2s;
+    transform: translateY(-3px);
+    box-shadow: 0 2px 0 -2px #046139,
+    0 12px 10px -3px #05051d;
+}*/
+
+.button-home-login{
+    background-color: #1419aadb;
+    padding: 0.5em;
+    border-radius: 30px 30px 30px 30px;
+    background: transparent;
+    border: none;
+    position: relative;
+    transition: all 0.4s;
+    margin: 0.5em;
+    z-index: 1;
+}
+
+.button-home-login::after,
+.button-home-login::before{
+    content: '';
+    z-index: -99999;
+    transition: all 0.4s;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+}
+
+.button-home-login::before{
+    transform: translate(0%, 0%);
+    width: 100%;
+    height: 100%;
+    background-color: #1419aadb;
+    border-radius: 10px;
+}
+
+.button-home-login::after{
+    transform: translate(10px, 10px);
+    width: 35px;
+    height: 35px;
+    background-color: #ffffff15;
+    backdrop-filter: blur(5px);
+    border-radius: 50px;
+}
+
+.button-home-login:hover::before{
+    transform: translate(5%, 20%);
+    width: 110%;
+    height: 110%;
+}
+
+.button-home-login:hover::after{
+    border-radius: 10px;
+    transform: translate(0, 0);
+    width: 100%;
+    height: 100%;
+}
+
+.button-home-login:active::after{
+    transition: 0s;
+    transform: translate(0, 5%);
+}
+
+
+/*.button-home-login{
+    background-color: #1419aadb;
+    padding: 0.5em;
+    border-radius: 30px 30px 30px 30px;
+    border: 3px solid black;
+    margin: 0.5em;
+    transition: all 0.4s;
+    box-shadow: 0 1px 2px black;
+}
+
+.button-home-login:hover{
+    opacity: 0.9;
+    transform: translateY(-5px);
+    box-shadow: 0 7px 0 -2px #1419aa,
+    0 15px 0 -4px #05051d,
+    0 16px 10px -3px #05051d;
+}
+
+.button-home-login:active{
+    opacity: 1.5;
+    transition: all 0.2s;
+    transform: translateY(-3px);
+    box-shadow: 0 2px 0 -2px #1419aa,
+    0 12px 10px -3px #05051d;
+}*/
+
+.label-home{
+    font-size: 1.5em;
+    padding-left: 2em;
+    padding-right: 2em;
+    padding-bottom: 1em;
+    border: 1px solid black;
+    border-top: none;
+    border-bottom: none;
+    border-left: 2px solid black;
+    border-right: 2px solid black;
+    font-weight: bold;
+}
+
+.h1-home{
+    background-color: #00000034;
+    padding: 0.7em;
+    position: absolute;
+    top: 0px;
+    width: 15em;
+}
+
+.container-home-bot{
+    margin-bottom: 0%;
+    padding: 1.5em;
+    background-color: #0f127b;
+    color: white;
+    width: 100%;
+    height: 5em;
+    position: absolute;
+    bottom: 0px;
+    text-align: center;
+    vertical-align: middle;
+}
