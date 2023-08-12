@@ -97,7 +97,7 @@ function SocialHelpsByUser() {
                     <button onClick={handleSaveClaim}>Save Claim</button>
                   </div>
                 ) : (
-                  <button onClick={() => handleClaimHelp(socialHelp._id)}>Claim Help</button>
+                  <button className='buttonH ' onClick={() => handleClaimHelp(socialHelp._id)}>Claim Help</button>
                 )}
               </>
             ) : null}
