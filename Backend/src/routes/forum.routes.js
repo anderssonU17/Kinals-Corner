@@ -11,15 +11,8 @@ const api = Router();
 
 api.post('/create-forum',createForum);
 api.get('/read-forum', getForum);
-<<<<<<< HEAD
-api.put('/add-comments/:id', addCommentToPost);
-api.put('/update-Forum',[
-    validateJWT
-], addLikeToForumPost);
-=======
 api.get('/add-comments', addCommentToPost);
 api.put('/update-Forum/:id', addLikeToForumPost);
->>>>>>> origin/main
 
 
 module.exports = api;

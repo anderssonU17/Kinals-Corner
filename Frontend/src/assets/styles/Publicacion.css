@@ -27,3 +27,25 @@
     padding: 0.5em;
     border-radius: 15px 15px 15px 15px;
 }
+
+.foro{
+    margin: auto;
+    border-bottom: 1px solid #e6ecf0;
+    margin-bottom: 2px;
+    width: 70%;
+}
+
+.publicacion_title {
+    font-size: 20px;
+    font-weight: 700;
+    color: #14171a;
+    margin-right: 10px;
+    padding-top: 20px;
+}
+
+.publicacion_content{
+    font-size: 17px;
+    padding-top: 20px;
+    padding-bottom: 5px;
+    margin-left: 8px;
+}

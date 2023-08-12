@@ -6,12 +6,6 @@ import { readForum, updateForumLikes } from "../api/ApiForo";
 
 export const Publicacion = ({ tasks }) => {
     const [publicacion, setPublicacion] = useState([]);
-<<<<<<< HEAD
-     //array dentro de donde estan almacenados los comentarios, dando lugar a que estos se puedan mostrar o no
-     const [mostrarComentario, setMostrarComentario] = useState([]);
-     //valor del comentario
-     const [comentario, setComentario] = useState('');
-=======
 
     const handleLikeClick = async (index) => {
         try {
@@ -37,7 +31,6 @@ export const Publicacion = ({ tasks }) => {
         console.error('Error al actualizar el like:', error.message);
     }
 };
->>>>>>> origin/main
 
     useEffect(() => {
         const fetchData = async () => {
@@ -49,99 +42,28 @@ export const Publicacion = ({ tasks }) => {
     fetchData();
     }, [tasks]);
 
-<<<<<<< HEAD
-    const handleLikeClick = (index) => {
-        setPublicacion((prevPublicacion) => {
-        const updatedPublicacion = [...prevPublicacion];
-        const post = updatedPublicacion[index];
-        if (post.isLiked) {
-            post.likesCount -= 1;
-        } else {
-            post.likesCount += 1;
-        }
-        post.isLiked = !post.isLiked;
-        return updatedPublicacion;
-    });
-    };
-
-    // funcion que alterna entre los comentarios que se realizan, mostrar y no hacerlo
-    const toggleComments = (id) => {
-        setMostrarComentario((prevMostrarComentario) => ({
-            ...prevMostrarComentario,
-            [id]: !prevMostrarComentario[id]
-        }));
-    };
-
-    //función para agregar los comentarios
-    const agregarComentario = async(index) =>{
-        try {
-            const post = publicacion[index];
-            const nuevoComentario = comentario;
-            const newComment = await addComment(post._id, nuevoComentario);
-            setComentario('');
-          } catch (error) {
-           console.error('Error al agregar el comentario:', error.message)
-          }
-    }
 
     return (
         <>
-            <div>
+        <div >
             {publicacion?.map((publicacionActual, index) => (
-                <div key={publicacionActual._id}>
-                    <h5>{publicacionActual.title}</h5>
-                    <p>{publicacionActual.content}</p>
+                <div className="foro" key={publicacionActual._id} >
+                    <h5 className="publicacion_title">
+                        {publicacionActual.title}
+                    </h5>
+                    <p className="publicacion_content">
+                        {publicacionActual.content}
+                    </p>
                     <button
-                        className={`like-button ${
-                        publicacionActual.isLiked ? "liked" : ""
-                        }`}
+                        className={`like-button ${publicacionActual.isLiked ? "liked" : ""}`}
                         onClick={() => handleLikeClick(index)}
                     >
-                        <FontAwesomeIcon icon={faFire} />
+                    <FontAwesomeIcon icon={faFire} />
                     </button>
-                    <span className="likes-count">{publicacionActual.likesCount}</span>
-                    <button onClick={()=> toggleComments(publicacionActual._id)}>
-                        {mostrarComentario[publicacionActual._id] ? 'Comentarios' : 'Comentarios'}
-                    </button>
-                    {mostrarComentario[publicacionActual._id] && (
-                         <div>
-                         {publicacionActual.comments.map(comentarios => (
-                             <p key={comentarios.id}>{comentarios.comment}</p>
-                         ))};
-                         <input 
-                             type="text"
-                             placeholder="Escribe un comentario"
-                             value={comentario}
-                             onChange={(e) => setComentario(e.target.value)}
-                         />
-                         <button onClick={() => agregarComentario(publicacionActual.id)}>Agregar Comentario</button>
-                    </div>
-                    )}
-
+                    <span className="likes-count">{publicacionActual.likes}</span>
                 </div>
             ))}
             </div>
         </>
     );
-=======
-return (
-    <>
-        <div>
-            {publicacion?.map((publicacionActual, index) => (
-            <div key={publicacionActual._id}>
-            <h5>{publicacionActual.title}</h5>
-            <p>{publicacionActual.content}</p>
-            <button
-                className={`like-button ${publicacionActual.isLiked ? "liked" : ""}`}
-                onClick={() => handleLikeClick(index)}
-            >
-                <FontAwesomeIcon icon={faFire} />
-            </button>
-            <span className="likes-count">{publicacionActual.likes}</span>
-        </div>
-        ))}
-    </div>
-    </>
-);
->>>>>>> origin/main
 };
