@@ -32,7 +32,7 @@ export const AppRouter = () => {
 
             <Route path="/register" 
             element={
-                isUserAuthenticated() ? (
+                !isUserAuthenticated() ? (
                     <Register/>
                     ) : (
                     <Navigate to="/"></Navigate>
