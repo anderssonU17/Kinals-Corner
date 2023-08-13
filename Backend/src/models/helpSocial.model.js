@@ -6,11 +6,11 @@ const Schema = mongoose.Schema;
 const helpSocialSchema = new Schema({
     title: { 
         type: String, 
-        required: true 
+        required: true
     },
     description: { 
         type: String, 
-        required: true 
+        required: true
     },
     image: { 
         type: String 

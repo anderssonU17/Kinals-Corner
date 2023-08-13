@@ -100,6 +100,14 @@ export const Navbar = () => {
                   <button className="nav-link btn btn-outline-primary rounded-pill create-forum-btn">
                     Crear foro
                   </button>
+                <Link to="/helpSocials" className="nav-link" href="/foro">
+                    Crear ayuda social
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/listUserHelp" className="nav-link" href="/foro">
+                    Mis ayudas sociales
+                  </Link>
                 </li>
                 <li className="nav-item dropdown">
                   <a

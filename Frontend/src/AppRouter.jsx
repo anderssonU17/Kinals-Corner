@@ -1,12 +1,14 @@
 import { Navigate, Route, Routes } from "react-router-dom";
 import { isUserAuthenticated } from "./auth/helpers/LoginHelper";
-import { Login } from "./auth/pages/Login";
+// import { Login } from "./auth/pages/Login";
 import { Teachers } from "./teachers/pages/Teachers";
 import { HomePage } from "./home/pages/HomePage";
 import { Register } from "./register/pages/Register";
 import { Navbar } from "./components/Navbar";
-import { Perfil } from "./user/pages/Perfil";
 import { Foro } from "./foro/pages/Foro";
+import SocialHelpsByUser from "./user/pages/viewUserHelp";
+import SocialHelpList from "./helpSocial/pages/HelpSocials";
+import Login from "./auth/pages/Login";
 
 export const AppRouter = () => {
     return(
@@ -17,8 +19,7 @@ export const AppRouter = () => {
             element={isUserAuthenticated() ? <Teachers/> : <HomePage/>}
         />
 
-
-            <Route path="/login" 
+        <Route path="/login" 
             element={
                 !isUserAuthenticated() ? (
                     <Login/>
@@ -26,7 +27,8 @@ export const AppRouter = () => {
                     <Navigate to="/"></Navigate>
                 )
             }
-            />
+        />
+
             <Route path="/register" 
             element={
                 !isUserAuthenticated() ? (
@@ -63,7 +65,25 @@ export const AppRouter = () => {
                 )
             }
             />
+            <Route path="/helpSocials"
+            element={
+                isUserAuthenticated() ? (
+                    <SocialHelpList />
+                ) : (
+                    <Navigate to="/"></Navigate>
+                )
+            }
+            />
 
+            <Route path="/listUserHelp"
+            element={
+                isUserAuthenticated() ? (
+                    <SocialHelpsByUser />
+                ) : (
+                    <Navigate to="/"></Navigate>
+                )
+            }
+            />
 
         </Routes>
         </>
