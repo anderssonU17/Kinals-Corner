@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import axios from 'axios';
 import '../styles/UserStyle.css'
 
-const URL = 'http://localhost:3002/api/';
+const URL = 'https://kinals-corner-humbertolopez2020327.vercel.app/api/';
 
 export const UserView = () => {
   const [login, setLogin] = useState([]);

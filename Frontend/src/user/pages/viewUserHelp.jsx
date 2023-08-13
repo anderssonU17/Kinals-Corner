@@ -12,7 +12,7 @@ function SocialHelpsByUser() {
   const getSocialHelpsByUser = async () => {
     try {
       const token = localStorage.getItem('token');
-      const response = await axios.get('http://localhost:3002/api/listUserHelp', {
+      const response = await axios.get('https://kinals-corner-humbertolopez2020327.vercel.app/api/listUserHelp', {
         headers: { 'token': token }
       });
 
@@ -33,7 +33,7 @@ function SocialHelpsByUser() {
     try {
       const token = localStorage.getItem('token');
       await axios.patch(
-        'http://localhost:3002/api/update-helpSocial',
+        'https://kinals-corner-humbertolopez2020327.vercel.app/api/update-helpSocial',
         {
           id: claimingHelpId,
           claimantName

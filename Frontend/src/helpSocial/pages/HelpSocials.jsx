@@ -14,7 +14,7 @@ function SocialHelpsByUser() {
 
   const fetchHelpSocials = async () => {
     try {
-      const response = await axios.get('http://localhost:3002/api/read-helpSocial');
+      const response = await axios.get('https://kinals-corner-humbertolopez2020327.vercel.app/api/read-helpSocial');
       const helpSocialsData = response.data;
 
       setHelpSocials(helpSocialsData);
@@ -36,7 +36,7 @@ function SocialHelpsByUser() {
     e.preventDefault();
 
     try {
-      const response = await axios.post('http://localhost:3002/api/create-helpSocial', {
+      const response = await axios.post('https://kinals-corner-humbertolopez2020327.vercel.app/api/create-helpSocial', {
         token: localStorage.getItem('token'),
         title,
         description,
