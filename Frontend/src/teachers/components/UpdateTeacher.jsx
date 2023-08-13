@@ -171,7 +171,7 @@ export const UpdateTeacher = (props) => {
       </Modal.Body>
       <Modal.Footer>
         <Button
-          className="btn btn-success"
+          className="btn btn-dark"
           onClick={() => {
             fetchUpdateTeacher();
           }}
@@ -180,7 +180,7 @@ export const UpdateTeacher = (props) => {
         </Button>
 
         <Button
-          className="btn btn-danger"
+          className="btn btn-dark"
           onClick={() => {
             cancelAddTeacher();
           }}

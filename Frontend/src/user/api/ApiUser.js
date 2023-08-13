@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { useState } from 'react';
 import Swal from 'sweetalert2';
 
 /* const URL = 'http://localhost:3002/api/'; */
@@ -6,9 +7,9 @@ const URL = "https://kinals-corner-humbertolopez2020327.vercel.app/api/"
 
 
 /* Buscar usuarios */
-export const ListUser = async () =>{
+export const SearchUser = async () =>{
     try{
-        const response = await axios.get(`${URL}list-user`);
+        const response = await axios.get(`${URL}search-user`);
         return response.data.User;
     }catch(error){
         console.log(error)
@@ -75,3 +76,15 @@ export const confirmDeleteUser = (userId, users, userEdit) =>{
         }
     });
 };
+
+export const useToken =() =>{
+    const getToken = () => {
+        const tokenString = sessionStorage.getItem('token');
+        const userToken = JSON.parse(tokenString);
+        return userToken?.token;
+    };
+
+    const [token, setToken] = useState(getToken());
+
+    return [token, setToken]
+}

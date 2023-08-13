@@ -121,9 +121,9 @@ export const confirmDeleteTeacher = (teacherId, setTeachers, teachers) => {
     text: "¿Estas seguro de eliminar este profesor?",
     showCancelButton: true,
     cancelButtonText: "Cancelar",
-    cancelButtonColor: "tomato",
+    cancelButtonColor: "#6c757d",
     confirmButtonText: "Eliminar",
-    confirmButtonColor: "#32FF00",
+    confirmButtonColor: "#212529",
   }).then((r) => {
     if (r.isConfirmed) {
       deleteTeacher(teacherId).then(() => {

@@ -42,4 +42,3 @@ export const checkParameters = (email, password) => {
     return true;
   }
 };
-
