@@ -42,23 +42,32 @@ export const Publicacion = ({ tasks }) => {
     fetchData();
     }, [tasks]);
 
-return (
-    <>
-        <div>
+    
+
+
+    return (
+        <>
+        <div >
             {publicacion?.map((publicacionActual, index) => (
-            <div key={publicacionActual._id}>
-            <h5>{publicacionActual.title}</h5>
-            <p>{publicacionActual.content}</p>
-            <button
-                className={`like-button ${publicacionActual.isLiked ? "liked" : ""}`}
-                onClick={() => handleLikeClick(index)}
-            >
-                <FontAwesomeIcon icon={faFire} />
-            </button>
-            <span className="likes-count">{publicacionActual.likes}</span>
-        </div>
-        ))}
-    </div>
-    </>
-);
+                <div className="foro" key={publicacionActual._id} >
+                    <h5 className="publicacion_title">
+                        {publicacionActual.title}
+                    </h5>
+                    <p className="publicacion_content">
+                        {publicacionActual.content}
+                    </p>
+                    <div className="fondito">
+                        <button
+                            className={`like-button ${publicacionActual.isLiked ? "liked" : ""}`}
+                            onClick={() => handleLikeClick(index) }
+                        >
+                        <FontAwesomeIcon icon={faFire} />
+                        </button>
+                        <span className="likes-count">{publicacionActual.likes}</span>
+                    </div>
+                </div>
+            ))}
+            </div>
+        </>
+    );
 };

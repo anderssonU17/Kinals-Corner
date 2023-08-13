@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBell, faUser, faSignInAlt, faUserPlus } from '@fortawesome/free-solid-svg-icons';
 import { isUserAuthenticated } from '../auth/helpers/LoginHelper';
+import { Perfil } from '../user/pages/Perfil';
 import '../assets/styles/navbar.css';
 import logo from '../assets/image/LogoHd.png';
 import { Link } from 'react-router-dom';
@@ -95,10 +96,16 @@ export const Navbar = () => {
                     Foro
                   </Link>
                 </li>
+
                 <li className="nav-item">
-                  <button className="nav-link btn btn-outline-primary rounded-pill create-forum-btn">
-                    Crear foro
-                  </button>
+                <Link to="/helpSocials" className="nav-link" href="/foro">
+                    Crear ayuda social
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/listUserHelp" className="nav-link" href="/foro">
+                    Mis ayudas sociales
+                  </Link>
                 </li>
                 <li className="nav-item dropdown">
                   <a
@@ -140,7 +147,7 @@ export const Navbar = () => {
                     aria-labelledby="profileDropdown"
                   >
                     <li>
-                      <a className="dropdown-item" href="/perfil">
+                      <a to="/perfil" className="dropdown-item" href="/perfil">
                         Ver perfil
                       </a>
                     </li>
