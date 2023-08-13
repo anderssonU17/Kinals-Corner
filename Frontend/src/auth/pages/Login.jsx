@@ -1,70 +1,91 @@
-// Login.js
 
-import React from 'react';
-import logo from '../../assets/image/LogoHd.png'; // Reemplaza con la ruta de tu logo
-import microsoftLogo from '../../assets/image/microsoft.png'; // Reemplaza con la ruta del logo de Microsoft
-import '../../assets/styles/login.css'; // Asegúrate de importar los estilos de tu archivo CSS
+import React, { useState } from "react";
+import { checkParameters, fetchLogin } from "../api/apiLogin";
+import "../../assets/styles/login.css";
+import { Link } from "react-router-dom";
+import LogoHd from '../../assets/image/LogoHd.png'
+import Swal from "sweetalert2";
 
 export const Login = () => {
-  return (
-    <div className="login-container">
-      <div className="left-section">
-        {/* Agrega la imagen de fondo */}
-        <img className="background-image" />
-      </div>
+    //Cambio de nombre de la pagina
+    document.title = 'Login'
 
-      <div className="right-section">
-        <div className="logo">
-          <img src={logo} alt="Logo" />
-        </div>
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
-        <h1 className="main-title">
-          El rincón de <br /> Confianza de Kinal
-        </h1>
-        <p className="sub-title">Únete a Kinals'Corner</p>
-
-        <button className="microsoft-btn" onClick={() => {
-          const popup = window.open(
-            "http://localhost:3000/auth/microsoft", 
-            "targetWindow", 
-            `toolbar=no, 
-              location=no,
-              status=no, 
-              menubar=no,
-              scrollbars=yes,
-              resizable=yes,
-              width=620,
-              height=700`
-          );
-
-          window.addEventListener("message", (event) => {
-            if (event.origin === "http://localhost:3000") {
-              if (event.data) {
-                sessionStorage.setItem("user", JSON.stringify(event.data));
-                popup.close();
-              }
+  const login = async (e) => {
+    try {
+      e.preventDefault();
+      const areParametersValid = checkParameters(email, password);
+  
+      if (areParametersValid) {
+        const response = await fetchLogin(email, password);
+  
+        if (response.data && response.data.ok) {
+          // Si la propiedad 'ok' en la respuesta es true, entonces el inicio de sesión fue exitoso
+          Swal.fire({
+            icon: 'success',
+            title: 'Genial',
+            text: response.data.message,
+            confirmButtonText: 'Ok',
+          }).then((r) => {
+            if (r.isConfirmed) {
+              window.location.href = "/";
             }
           });
-
-        }}
-        >
-          <img src={microsoftLogo} alt="Microsoft Logo" />
-          Continue with Microsoft
-        </button>
-
-        <div className="divider">
-          <span>o</span>
-        </div>
-
-        <button className="create-account-btn">Crear Cuenta</button>
-
-        <p className="terms-policy">
-          Al registrarte, estás de acuerdo con <br/>nuestras políticas y términos.
-        </p>
-
-        <p className="already-have-account">¿Ya tienes una cuenta?</p>
-        <button className="login-btn">Iniciar Sesión</button>
+        } else {
+          // Si la propiedad 'ok' en la respuesta es false, entonces el inicio de sesión fue incorrecto
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: response.data.message || 'Los datos ingresados son incorrectos.',
+            showConfirmButton: true,
+            confirmButtonText: 'OK',
+          });
+        }
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  
+  return (
+    <>
+      <div className="container-login">
+        <form onSubmit={login}>
+          <div className="card-login">
+            <div className="card-login-title" >
+                <center><h2>¡Kinals Corner te la bienvenida!</h2></center>
+            <center><img src={LogoHd} alt="logo" /></center>
+            </div>
+            <p>Ingresa tus datos para iniciar sesión</p>
+            <div className="content-login">
+              <label>Email</label>
+              <input
+                className="form-control"
+                type="text"
+                onChange={(e) => setEmail(e.target.value)}
+              />
+            </div>
+            <div className="content-login">
+              <label>Password</label>
+              <input
+                className="form-control"
+                type="password"
+                onChange={(e) => setPassword(e.target.value)}
+              />
+            </div>
+            <button className="btn btn-success btn-submit-login" type="submit">
+              Inicias Sesión
+            </button>
+          </div>
+            <div className="link-new-account">
+              <center>
+                <p>¿No tienes una cuenta? Crea una dando clic <Link to="/register">aquí.</Link></p>
+              </center>
+            </div>
+        </form>
       </div>
-    </div>
+    </>
   );
 };

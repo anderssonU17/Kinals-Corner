@@ -115,3 +115,19 @@
   animation: fadeIn 0.5s ease;
 }
 
+.login-btn,
+.register-btn {
+  color: #ffffff;
+  background-color: #0ebd87;
+  border-color: #0ebd87;
+  transition: color 0.3s ease, background-color 0.3s ease;
+  border-radius: 30px;
+  padding: 5px 15px;
+  margin-right: 10px;
+}
+
+.login-btn:hover,
+.register-btn:hover {
+  background-color: #0ebd87;
+  color: #ffffff;
+}

@@ -13,7 +13,7 @@ export const AppRouter = () => {
         {isUserAuthenticated() && <Navbar/>}
         <Routes>
         <Route path="/" 
-            element={isUserAuthenticated() ? <Teachers/> : <Navbar/>}
+            element={isUserAuthenticated() ? <Teachers/> : <HomePage/>}
         />
 
 
