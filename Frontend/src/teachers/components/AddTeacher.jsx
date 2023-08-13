@@ -128,13 +128,13 @@ export const AddTeacher = (props) => {
         </div>
       </Modal.Body>
       <Modal.Footer>
-        <Button className='btn btn-success' onClick={
+        <Button className='btn btn-dark' onClick={
             () => {
               fetchCreateTeacher()
             }
           }>Agregar</Button>
 
-        <Button className='btn btn-danger' onClick={
+        <Button className='btn btn-dark' onClick={
           () => {
             cancelAddTeacher()
           }
