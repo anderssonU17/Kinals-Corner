@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import "../../assets/styles/login.css"; // Importamos el archivo CSS
+import { Navigate } from 'react-router-dom'; // Importa Navigate
+import "../../assets/styles/login.css";
 import LogoHd from '../../assets/image/LogoHd.png'
 import { Link } from "react-router-dom";
+const URL = "https://kinals-corner-humbertolopez2020327.vercel.app/api/";
 
 export const Login = () => {
   const navigate = useNavigate();
@@ -15,7 +17,7 @@ export const Login = () => {
     e.preventDefault();
 
     try {
-      const response = await axios.post('http://localhost:3002/api/login', { email, password });
+      const response = await axios.post(`${URL}login`, { email, password });
       const { token } = response.data;
 
       localStorage.setItem('token', token);
@@ -23,7 +25,8 @@ export const Login = () => {
       setError('');
       console.log('Usuario autenticado correctamente');
 
-      navigate('/');
+      // Redirige al usuario al foro
+      navigate('/foro');
     } catch (error) {
       console.error(error);
       setError('Credenciales inválidas');
