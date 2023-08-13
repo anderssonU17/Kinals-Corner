@@ -42,6 +42,8 @@ export const Publicacion = ({ tasks }) => {
     fetchData();
     }, [tasks]);
 
+    
+
 
     return (
         <>
@@ -54,13 +56,15 @@ export const Publicacion = ({ tasks }) => {
                     <p className="publicacion_content">
                         {publicacionActual.content}
                     </p>
-                    <button
-                        className={`like-button ${publicacionActual.isLiked ? "liked" : ""}`}
-                        onClick={() => handleLikeClick(index)}
-                    >
-                    <FontAwesomeIcon icon={faFire} />
-                    </button>
-                    <span className="likes-count">{publicacionActual.likes}</span>
+                    <div className="fondito">
+                        <button
+                            className={`like-button ${publicacionActual.isLiked ? "liked" : ""}`}
+                            onClick={() => handleLikeClick(index) }
+                        >
+                        <FontAwesomeIcon icon={faFire} />
+                        </button>
+                        <span className="likes-count">{publicacionActual.likes}</span>
+                    </div>
                 </div>
             ))}
             </div>
