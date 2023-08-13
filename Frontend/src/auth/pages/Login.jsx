@@ -23,7 +23,31 @@ export const Login = () => {
         </h1>
         <p className="sub-title">Únete a Kinals'Corner</p>
 
-        <button className="microsoft-btn">
+        <button className="microsoft-btn" onClick={() => {
+          const popup = window.open(
+            "http://localhost:3000/auth/microsoft", 
+            "targetWindow", 
+            `toolbar=no, 
+              location=no,
+              status=no, 
+              menubar=no,
+              scrollbars=yes,
+              resizable=yes,
+              width=620,
+              height=700`
+          );
+
+          window.addEventListener("message", (event) => {
+            if (event.origin === "http://localhost:3000") {
+              if (event.data) {
+                sessionStorage.setItem("user", JSON.stringify(event.data));
+                popup.close();
+              }
+            }
+          });
+
+        }}
+        >
           <img src={microsoftLogo} alt="Microsoft Logo" />
           Continue with Microsoft
         </button>
