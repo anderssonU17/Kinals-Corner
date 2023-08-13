@@ -5,6 +5,7 @@ import { Teachers } from "./teachers/pages/Teachers";
 import { HomePage } from "./home/pages/HomePage";
 import { Register } from "./register/pages/Register";
 import { Navbar } from "./components/Navbar";
+import { Perfil } from "./user/pages/Perfil";
 import { Foro } from "./foro/pages/Foro";
 
 export const AppRouter = () => {
@@ -53,6 +54,16 @@ export const AppRouter = () => {
                 )
             }
             />
+            <Route path="/perfil" 
+            element={
+                isUserAuthenticated() ? (
+                    <Perfil/>
+                    ) : (
+                    <Navigate to="/"></Navigate>
+                )
+            }
+            />
+
 
         </Routes>
         </>

@@ -97,28 +97,31 @@ const deleteUser = async (req, res) => {
 /* Función para logearse en la página */
 const loginUser = async (req, res) => {
     const { email, password } = req.body;
-    console.log('empeznado login');
+    console.log('empezando login');
     console.log(req.body);
     try {
         const user = await User.findOne({ email });
         if (!user) return res.status(500).json({ message: "Para ingresar, primero debe registrarse" });
-        
         bcrypt.compare(password, user.password, async (error, result) => {
             if (error) return res.status(500).send({ message: "Se ha producido un error" });
             if (result) {
                 console.log('exito');
-                const token = await generateJWT(user.id, user.email);
+                const userEmail = user.email;
+                const userName = user.name;
+                const token = await generateJWT(user.id, userName, userEmail);
                 res.status(200).json({
                     ok: true,
                     message: "Se ha iniciado sesión correctamente",
                     token: user.token,
+                    name: user.name, // Agrega el campo 'name' al objeto de respuesta
                     email: user.email,
+                    rol: user.rol, // Agrega el campo 'rol' al objeto de respuesta
                     token
                 });
             }
-        })
+        });
     } catch (error) {
-        console.log(error)
+        console.log(error);
         return res.status(500).json({ message: "No se ha podido iniciar sesión correctamente" });
     }
 }
