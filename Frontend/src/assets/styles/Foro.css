@@ -1,18 +1,10 @@
 .form {
-    display: block;
-    flex-direction: column;
-    background: #606c88;
-    background: linear-gradient(to right, #f6b802, #f6b802);
-    margin-left: 17%;
+    margin: auto;
+    background:  #34dcac ;
     padding: 20px;
     border-radius: 10px;
-    width: 37.5rem;
+    width: 80%;
   }
-
-.mensageSaliente{
-    margin-left: 70%;
-    list-style: none;
-}
 
 .titulo{
     font-size: 14px;
@@ -27,7 +19,8 @@
 }
   
  body {
-    background: #fbfbff;
+    background: #f6f6e5;
+    align-items: center;
  }
 
  li {

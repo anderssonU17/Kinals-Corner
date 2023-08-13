@@ -32,7 +32,8 @@ const getForum = async(req, res) => {
 
 const addCommentToPost = async (req, res) => {
     try{
-        const {postId, comment} = req.body;
+        const {comment} = req.body;
+        const postId = req.params.id;
 
         //Obtener el usuario del token
         const user = req.user;

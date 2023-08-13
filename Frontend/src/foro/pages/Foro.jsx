@@ -33,12 +33,8 @@ export const Foro = () => {
 
   return (
     <>
-      <div className="mx-auto">
-        <hr />
 
-        <div className="mensageSaliente"></div>
-        <hr />
-
+      <hr />
         <div className="form">
           <div className="input-group col-auto">
             <input
@@ -60,11 +56,12 @@ export const Foro = () => {
             <button onClick={publicar}>Publicar</button>
           </div>
         </div>
+        <hr />
+        <hr />
 
         <div className="mb-3">
           <Publicacion tasks={tasks} /> {/* Pasar el estado tasks a Publicacion */}
         </div>
-      </div>
     </>
   );
 };
