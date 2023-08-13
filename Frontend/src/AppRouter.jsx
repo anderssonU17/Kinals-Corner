@@ -8,7 +8,8 @@ import { Navbar } from "./components/Navbar";
 import { Foro } from "./foro/pages/Foro";
 import SocialHelpsByUser from "./user/pages/viewUserHelp";
 import SocialHelpList from "./helpSocial/pages/HelpSocials";
-import Login from "./auth/pages/Login";
+import { Login } from "./auth/pages/Login";
+import { Perfil } from "./user/pages/Perfil";
 
 export const AppRouter = () => {
     return(
