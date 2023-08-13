@@ -96,10 +96,8 @@ export const Navbar = () => {
                     Foro
                   </Link>
                 </li>
+
                 <li className="nav-item">
-                  <button className="nav-link btn btn-outline-primary rounded-pill create-forum-btn">
-                    Crear foro
-                  </button>
                 <Link to="/helpSocials" className="nav-link" href="/foro">
                     Crear ayuda social
                   </Link>
